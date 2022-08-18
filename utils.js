@@ -63,6 +63,10 @@ function seed() {
   var _s = cyrb128(_seed);
   _r = sfc32(_s[0], _s[1], _s[2], _s[3]);
 }
+function reseed() {
+  _seed = Math.random().toString().slice(2,);
+  seed();
+}
 function fixed_rolls_only() {
   window.d = function() { alert() }
   window.random_item_from = function() { alert() }

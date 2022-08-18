@@ -30,7 +30,6 @@
   </div>
   <div id=character style="display: none;">
     <button id="save">Save</button>
-    <button id="new">Try again</button>
     <div><b>NAME:</b> <span id="name"></span></div>
     <div><b>TRAITS:</b> <span id="traits"></span></div>
     <div><b>BODY:</b> <span id="bodies"></span></div>
@@ -53,6 +52,9 @@
   </div>
   <script src="utils.js"></script>
   <script>
+    var klass = '0';
+    var selected;
+
     function removeSmallest(arr) {
         var min = Math.min(...arr);
         return arr.filter(e => e != min);
@@ -69,12 +71,13 @@
       document.querySelectorAll('input[type=checkbox]')[tag[2][0]].checked = true;
       document.querySelectorAll('input[type=checkbox]')[tag[2][1]].checked = true;
 
-      document.getElementById("prompt").style.display = "none";
       document.getElementById("character").style.display = "block";
 
       _seed = tag[0].slice(1,);
       fixed_rolls_only();
-      generate(tag[1], tag[2].split(''));
+      klass = tag[1];
+      selected = tag[2].split('');
+      generate();
     }
     load_char();
 
@@ -99,30 +102,24 @@
     document.getElementById("prompt").addEventListener('submit', function(e) {
       e.preventDefault();
 
-      document.getElementById("prompt").style.display = "none";
       document.getElementById("character").style.display = "block";
-      var selected = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(e => e.value);
-      generate('0', selected);
-    })
-
-    document.getElementById("new").addEventListener('click', function() {
-      document.getElementById("prompt").style.display = "block";
-      document.getElementById("character").style.display = "none";
       document.getElementById("equipment").innerHTML = "";
-      checkboxes.forEach(e => e.checked = false);
-      total_checks = 0;
       history.pushState("", document.title, window.location.pathname + window.location.search);
+
+      selected = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(e => e.value);
+      reseed();
+      generate(selected);
     })
 
-    function generate(klass, selected) {
-      document.getElementById("save").addEventListener('click', function() {
-        alert("Share able link: " +
-                window.location.pathname +
-                  window.location.search +
-                    "#" +
-                      [_seed, klass.padStart(2, '0'), selected.join('')].join('&'));
-      })
+    document.getElementById("save").addEventListener('click', function() {
+      alert("Share able link: " +
+              window.location.pathname +
+                window.location.search +
+                  "#" +
+                    [_seed, klass.padStart(2, '0'), selected.join('')].join('&'));
+    })
 
+    function generate() {
       var names = ["Aerg-Tval","Agn","Arvant","Belsum","Belum","Brinta","B\xf6rda","Daeru","Eldar","Felban","Gotven","Graft","Grin","Grittr","Haer\xfc","Hargha","Harmug","Jotna","Karg","Karva","Katla","Keftar","Klort","Kratar","Kutz","Kvetin","Lygan","Margar","Merkari","Nagl","Niduk","Nifehl","Pr\xfcgl","Qillnach","Risten","Svind","Theras","Therg","Torvul","T\xf6rn","Urm","Urvarg","Vagal","Vatan","Von","Vrakh","Vresi","Wemut"];
 
       document.getElementById("name").innerHTML = names[(fd(6) - 1)*8 + fd(8) - 1];
@@ -161,7 +158,7 @@
 
       var stats = []
       for(var i = 0; i < 4; i++) {
-        stats.push(selected.includes(i) ? removeSmallest([fd(6), fd(6), fd(6), fd(6)]).reduce((partialSum, a) => partialSum + a, 0) : fd(6) + fd(6) + fd(6))
+        stats.push(selected.includes(i.toString()) ? removeSmallest([fd(6), fd(6), fd(6), fd(6)]).reduce((partialSum, a) => partialSum + a, 0) : fd(6) + fd(6) + fd(6))
       }
 
       document.getElementById("agility").innerHTML = abilities[stats[0]];
