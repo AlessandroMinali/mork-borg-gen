@@ -17,14 +17,14 @@
   <div id=prompt>
     Which stats would you like to be stronger (select 2):
     <form id="selection">
-      <input type="checkbox" name="agility" value=0>
-      <label for="agility"><b>AGILITY</b> <span class="smaller">Defend, balance, swim, flee</span></label><br>
-      <input type="checkbox" name="presence" value=1>
-      <label for="presence"><b>PRESENCE</b> <span class="smaller">Perceive, aim, charm, wield Powers</span></label><br>
-      <input type="checkbox" name="strength" value=2>
-      <label for="strength"><b>STRENGTH</b> <span class="smaller">Crush, lift, strike, grapple</span></label><br>
-      <input type="checkbox" name="toughness" value=3>
-      <label for="toughness"><b>TOUGHNESS</b> <span class="smaller">Resist poison/cold/heat, survive falling</span></label><br>
+      <input type="checkbox" id="agi" name="agility" value=0>
+      <label for="agi"><b>AGILITY</b> <span class="smaller">Defend, balance, swim, flee</span></label><br>
+      <input type="checkbox" id="pre" name="presence" value=1>
+      <label for="pre"><b>PRESENCE</b> <span class="smaller">Perceive, aim, charm, wield Powers</span></label><br>
+      <input type="checkbox" id="str" name="strength" value=2>
+      <label for="str"><b>STRENGTH</b> <span class="smaller">Crush, lift, strike, grapple</span></label><br>
+      <input type="checkbox" id="tou" name="toughness" value=3>
+      <label for="tou"><b>TOUGHNESS</b> <span class="smaller">Resist poison/cold/heat, survive falling</span></label><br>
       <input type="submit" value="Spawn">
     </form>
   </div>
@@ -151,7 +151,7 @@
         ["Daemon of Capillaries (unclean scroll)", "One creature suffocates for d6 rounds, losing d4 HP per round"],
         ["Metzhuotl Blind Your Eye (unclean scroll)", "A creature becomes invisible for d6 rounds or until it is damaged, attacking/defending with DR6"],
         ["Foul Psychompomp (unclean scroll)", "Summon (d6): 1-3 d4 skeletons, 4-6 d4 zombies"],
-        ["Eyelid Blinds the Mind (unclean scroll)", " d4 creatures fall asleep for one hour unless they succeed a DR14 test"],
+        ["Eyelid Blinds the Mind (unclean scroll)", "d4 creatures fall asleep for one hour unless they succeed a DR14 test"],
         ["Death (unclean scroll)", "All Creatures within 30 fett lose a total of 4d10 HP"]
       ]
 
