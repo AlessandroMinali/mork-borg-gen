@@ -1,0 +1,106 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Waste of Skin - Classes MÖRK BORG Character Generator</title>
+  <meta name="description" content="Waste of Skin - Classes MÖRK BORG Character Generator">
+  <style type="text/css">
+    body { font-family: sans-serif; }
+    .smaller { font-size: 85%; }
+  </style>
+</head>
+
+<body>
+  <script src="utils.js"></script>
+  <script type="text/javascript">
+    var equipment = [
+      ["Backpack", "Holds 7 normal-sized items", "6s"],
+      ["Bear trap", "PRESENSCE DR14 to spot, d8 damage", "20s"],
+      ["Blanket", "", "4s"],
+      ["Caltrops", "d4 damage + infection on 1 in 6", "7s"],
+      ["Chalk", "", "1s"],
+      ["Chewing tobacco", "", "1s"],
+      ["Crowbar", "", "8s"],
+      ["Silver crucifix", "", "60s"],
+      ["Wood crucifix", "", "8s"],
+      ["Dried food", "1 day", "1s"],
+      ["Exquisite perfume", "", "25s"],
+      ["Firesteel", "", "4s"],
+      ["Grappling hook", "", "12s"],
+      ["Hammer", "", "8s"],
+      ["Heavy chain", "15 feet", "10s"],
+      ["Iron nails", "10 nails", "10s"],
+      ["Ladder", "", "7s"],
+      ["Lantern oil", "PRESENCE+6 hours", "5s"],
+      ["Lard", "May function as 5 meals", "5s"],
+      ["Large iron hook", "", "9s"],
+      ["Lockpicks", "", "5s"],
+      ["Magnesium strip", "", "4s"],
+      ["Manacles", "", "10s"],
+      ["Mattress", "", "3s"],
+      ["Meat cleaver", "", "15s"],
+      ["Medicine box", "Stops bleeding/infection and +d6 hp. PRESENCE+4 uses", "15s"],
+      ["Metal file", "", "10s"],
+      ["Mirror", "", "15s"],
+      ["Muzzle", "", "6s"],
+      ["Noose", "", "5s"],
+      ["Oil lamp", "", "10s"],
+      ["Poison (black)", "TOUGHNESS DR14 or d6 damage + blind for one hour. 3 doses", "20s"],
+      ["Poison (red)", "TOUGHNESS DR12 or d10 damage. 3 doses", "20s"],
+      ["Preserved corpse", "", "66+d6s"]
+      ["Rope", "30 feet", "4s"],
+      ["Small wagon", "", "25s"],
+      ["Tent", "", "12s"],
+      ["Toolbox", "10 nails, hammer, small saw, tongs", "20s"],
+      ["Torch", "", "2s"],
+      ["Sack", "Holds 10 normal sized items", "3s"],
+      ["Salt", "", "4s"],
+      ["Scissors", "", "9s"],
+      ["Scroll", "", "worth roughly 50s to the right buyer"],
+      ["Sharp needle", "", "3s"],
+      ["Waterskin", "4 days of water", "4s"]
+    ]
+
+    var weapons = [
+      ["Battle", "d8 damage", "axe 35s"],
+      ["Bow", "d6 damage", "25s"],
+      ["Club", "d6 damage", "10s"],
+      ["Crossbow", "d8 damage", "40s"],
+      ["Flail", "d8 damage", "35s"],
+      ["Femur", "d4 damage", "worthless"],
+      ["Handaxe", "d6 damage", "15s"],
+      ["Knife", "d4 damage", "10s"],
+      ["Mace", "d6 damage", "25s"],
+      ["Shortbow", "d4 damage", "13s"],
+      ["Shortsword", "d4 damage", "20s"],
+      ["Sling", "d4 damage", "8s"],
+      ["Staff", "d4 damage", "5s"],
+      ["Sword", "d6 damage", "30s"],
+      ["Warhammer", "d6 damage", "30s"],
+      ["Whip", "d2 damage", "5s"],
+      ["Zweihänder", "d10 damage", "60s"],
+      ["20 arrows", "", "10s"],
+      ["10 bolts", "", "10s"]
+    ]
+
+    var services = [
+      ["Night in hospice", "3s"],
+      ["Drink", "1s"],
+      ["Steady meal", "2s"],
+      ["Repair armor, Tier 1 to 2", "25s"],
+      ["Repair armor, Tier 2 to 3", "40s"]
+    ]
+
+    var beasts = [
+      ["Dog (trained)", "(d6+2 HP, bite d4, only obeys you)", "25s"],
+      ["Dog (wild)", "(d6+2 HP, bite d4, PRESENCE DR14 or randomly attacks someone, PRESENCE DR18 try to tame once a day)", "10s"],
+      ["Horse", "(d10+2 HP, bite d4)", "80s"],
+      ["Mule", "(d8+2 HP, bite d4)", "10s"],
+      ["Rat (tame)", "(2 HP, bite d4, only obeys you)", "8s"],
+    ]
+  </script>
+</body>
+</html>

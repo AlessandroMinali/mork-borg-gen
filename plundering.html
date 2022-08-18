@@ -1,0 +1,61 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Waste of Skin - Classes MÖRK BORG Character Generator</title>
+  <meta name="description" content="Waste of Skin - Classes MÖRK BORG Character Generator">
+  <style type="text/css">
+    body { font-family: sans-serif; }
+    .smaller { font-size: 85%; }
+  </style>
+</head>
+
+<body>
+  <script src="utils.js"></script>
+  <script type="text/javascript">
+    var corpse = [
+      "The remains of something worthless crumbles in your hands.",
+      "Pot filled with extremely potent itching ointment.",
+      "Necklace of human teeth.",
+      "Bag of angry, venomous moths. Test TOUGHNESS DR6 or die.",
+      "Pocket full of broken glass, take d2 damage.",
+      "Mad manifesto. If read, test PRESENCE DR12 or lose 1 PRESENCE permanently from confusion.",
+      "Key to nearby locked door. Stolen.",
+      "Map to a weak but wealthy family’s house.",
+      "A hopeless amount of spiders.",
+      "Metal cylinder with gun powder and fuse. Roll a d6. 1–2 you lose a hand. 3–6 3d10 damage wherever it lands.",
+      "Known and liked/despised witch-hunter’s face. Flayed.",
+      "Note with pc’s names. One is crossed out.",
+      "Tortured pixie with torn-off wings and gouged out eyes.",
+      "Map to a place that cannot possibly exist.",
+      "Unmarked bottle with a liquid that shifts between red and green.",
+      "Bond. A local potentate owes the holder a sizable amount.",
+      "Death mask of one of the pcs.",
+      "The ‘Water of Life.’ Heals d8. Test TOUGHNESS DR10 or go blind. Highly alcoholic.",
+      "There was something very wrong with this one. Hands covered with something lukewarm, brown and acidic. Take d2+1 damage and smell terrible for d4 days.",
+      "Black Kergüs dagger. 2d4 damage.",
+      "Labelled poison bottle. Test TOUGHNESS DR12 or lower random ability by d4. The ability can be increased when your character is improved.",
+      "Scalp with long black hair.",
+      "Golden ball with an invisible seam, twists open.",
+      "Bloodstained knuckle-duster.",
+      "Two weighted dice.",
+      "The result in silver."
+    ]
+
+    function loot() {
+      var section = d(6);
+      var item = d(6);
+      if (section == 1) {
+        return corpse[0];
+      } else if (section == 6) {
+        return section.toString() + item + " silver"
+      } else {
+        return corpse[(section-2)*6 + item];
+      }
+    }
+  </script>
+</body>
+</html>
