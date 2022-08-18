@@ -105,7 +105,7 @@
       document.getElementById("bodies").innerHTML += random_item_from(bodies);
 
       var bad_habits = ["Obsessively collect small sharp stones", "Won’t use a blade without testing it on your own flesh. Arms knitted with scars", "Can’t stop drinking once you start", "Gambling addict. Must bet every day. If you lose, raise and bet again", "Cannot tolerate criticism of any kind. Results in rage and weeping", "Unable to get to the point. Have never actually finished a story", "Best friend is a skull. Carry it with you, tell it everything, you trust no one more", "You pick your nose so deep it bleeds", "Laugh hysterically at your own jokes which you then explain in detail", "A nihilist. You insist on telling everyone you are a nihilist and explaining why", "Inveterate bug eater", "Stress response is aesthetic display. The worse things get the fancier you need to be", "Permanent phlegm deposit in throat. Continuously cough, snort, spit and swallow", "Pyromaniac", "Consistently lose important items and forget vital facts", "Insecure shit-stirrer. Will talk about whoever just left the room", "You stutter when lying", "You giggle insanely at the worst possible times", "You whistle while trying to hide. You will deny this. Whistle when 5, 7, 9, 11 or 13 is rolled on a d20", "You make jewelry from the teeth of the dead"]
-      var habit = 20;
+      var habit = d(20);
       var special_item;
       if (habit == 1) {
         special_item =["Sackcloth bag", "and " + (d(20) + d(20) + d(20) + d(20) + d(20)) + " small sharp stones"]
@@ -254,7 +254,12 @@
       e2 = equip2[e2 - 1];
       e3 = equip3[e3 - 1];
 
-      var starting_weapon = scroll ? random_item_from(weapons.slice(0, 6)) : random_item_from(weapons);
+      var starting_weapon;
+      if (story == 16) {
+        starting_weapon = ["Sling", "d4 damage with an unlimited amount of stones"]
+      } else {
+        starting_weapon = scroll ? random_item_from(weapons.slice(0, 6)) : random_item_from(weapons);
+      }
       document.getElementById("equipment").innerHTML += "<li>" + starting_weapon[0] + "<em class='smaller'>&nbsp;" + starting_weapon[1] + "</em></li>";
 
       var starting_armor = scroll ? random_item_from(armor.slice(0, 2)) : random_item_from(armor);
@@ -262,7 +267,9 @@
         document.getElementById("equipment").innerHTML += "<li>" + starting_armor[0] + "<em class='smaller'>&nbsp;" + starting_armor[1] + "</em></li>";
       }
 
-      document.getElementById("equipment").innerHTML += "<li>" + special_item[0] + "<em class='smaller'>&nbsp;" + special_item[1] + "</em></li>";
+      if (special_item) {
+        document.getElementById("equipment").innerHTML += "<li>" + special_item[0] + "<em class='smaller'>&nbsp;" + special_item[1] + "</em></li>";
+      }
 
       if (e1[0] != "") {
         document.getElementById("equipment").innerHTML += "<li>" + e1[0] + "<em class='smaller'>&nbsp;" + e1[1] + "</em></li>";
