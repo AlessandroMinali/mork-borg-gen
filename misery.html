@@ -112,7 +112,6 @@
       do {
         var psalm = d(6);
         var verse = d(6);
-        console.log('stuck');
       } while (rolls.includes(psalm.toString() + verse.toString()));
       rolls.push(psalm.toString() + verse.toString());
       var output = m[(psalm - 1)*6 + verse - 1].split(' ');
