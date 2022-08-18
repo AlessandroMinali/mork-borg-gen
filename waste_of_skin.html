@@ -29,21 +29,21 @@
     </form>
   </div>
   <div id=character style="display: none;">
-    <button>Share</button>
-    <button>Try again</button>
-    <div id="name"><b>NAME:</b> </div>
-    <div id="traits"><b>TRAITS:</b> </div>
-    <div id="bodies"><b>BODY:</b> </div>
-    <div id="habit"><b>HABIT:</b> </div>
-    <div id="history"><b>HISTORY:</b> </div>
+    <button id="save">Save</button>
+    <button id="new">Try again</button>
+    <div><b>NAME:</b> <span id="name"></span></div>
+    <div><b>TRAITS:</b> <span id="traits"></span></div>
+    <div><b>BODY:</b> <span id="bodies"></span></div>
+    <div><b>HABIT:</b> <span id="habit"></span></div>
+    <div><b>HISTORY:</b> <span id="history"></span></div>
     <br>
-    <div style="display: inline-block;" id="hp"><b>HP:</b> </div>
-    <div style="display: inline-block;" id="omens"><b>OMENS:</b> </div>
+    <div style="display: inline-block;"><b>HP:</b> <span id="hp"></span></div>
+    <div style="display: inline-block;"><b>OMENS:</b> <span id="omens"></span></div>
     <div id="ablities"><b>ABILITIES</b></div>
-    <div id="agility"><em>AGILITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em></div>
-    <div id="presence"><em>PRESENCE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em></div>
-    <div id="strength"><em>STRENGTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em></div>
-    <div id="toughness"><em>TOUGHNESS&nbsp;&nbsp;&nbsp;&nbsp;</em></div>
+    <div><em>AGILITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em><span id="agility"></span></div>
+    <div><em>PRESENCE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em><span id="presence"></span></div>
+    <div><em>STRENGTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em><span id="strength"></span></div>
+    <div><em>TOUGHNESS&nbsp;&nbsp;&nbsp;&nbsp;</em><span id="toughness"></span></div>
     <br>
     
     <div><b>EQUIPMENT</b>:
@@ -59,7 +59,7 @@
     }
 
     function load_char() {
-      if (!window.location.hash) { return; }
+      if (!window.location.hash) { fixed_rolls_only(); return; }
 
       var tag = window.location.hash.split('&');
       if (tag.length != 3) { return; }
@@ -71,7 +71,9 @@
 
       document.getElementById("prompt").style.display = "none";
       document.getElementById("character").style.display = "block";
+
       _seed = tag[0].slice(1,);
+      fixed_rolls_only();
       generate(tag[1], tag[2].split(''));
     }
     load_char();
@@ -103,13 +105,27 @@
       generate('0', selected);
     })
 
+    document.getElementById("new").addEventListener('click', function() {
+      document.getElementById("prompt").style.display = "block";
+      document.getElementById("character").style.display = "none";
+      document.getElementById("equipment").innerHTML = "";
+      checkboxes.forEach(e => e.checked = false);
+      total_checks = 0;
+      history.pushState("", document.title, window.location.pathname + window.location.search);
+    })
+
     function generate(klass, selected) {
-      // window.location.hash = [_seed, klass.padStart(2, '0'), selected.join('')].join('&')
-      fixed_rolls_only();
+      document.getElementById("save").addEventListener('click', function() {
+        alert("Share able link: " +
+                window.location.pathname +
+                  window.location.search +
+                    "#" +
+                      [_seed, klass.padStart(2, '0'), selected.join('')].join('&'));
+      })
 
       var names = ["Aerg-Tval","Agn","Arvant","Belsum","Belum","Brinta","B\xf6rda","Daeru","Eldar","Felban","Gotven","Graft","Grin","Grittr","Haer\xfc","Hargha","Harmug","Jotna","Karg","Karva","Katla","Keftar","Klort","Kratar","Kutz","Kvetin","Lygan","Margar","Merkari","Nagl","Niduk","Nifehl","Pr\xfcgl","Qillnach","Risten","Svind","Theras","Therg","Torvul","T\xf6rn","Urm","Urvarg","Vagal","Vatan","Von","Vrakh","Vresi","Wemut"];
-      
-      document.getElementById("name").innerHTML += names[(fd(6) - 1)*8 + fd(8) - 1];
+
+      document.getElementById("name").innerHTML = names[(fd(6) - 1)*8 + fd(8) - 1];
 
       var traits = ["Endlessly aggravated", "Inferiority complex", "Problems with authority", "Loud mouth", "Cruel", "Egocentric", "Nihilistic", "Prone to substance abuse", "Conflicted", "Shrewd", "Vindictive", "Cowardly", "Lazy", "Suspicious", "Ruthless", "Worried", "Bitter", "Deceitful", "Wasteful", "Arrogant"];
 
@@ -119,11 +135,11 @@
         var t2 = frandom_item_from(traits);
       }
 
-      document.getElementById("traits").innerHTML += t1 + " and " + t2;
+      document.getElementById("traits").innerHTML = t1 + " and " + t2;
 
       var bodies = ["Staring manic gaze", "Covered in (for some) blasphemous tattoos", "Rotting face. Wears a mask", "Lost three toes, limps", "Starved: faunt and pale", "One hand replaced with rusting hook (d6 damage)", "Decaying teeth", "Hauntingly beautiful, unnervingly clean", "Hands caked with sores", "Cataracts slowly but surly spreading in both eyes", "Long tangled hair, at least one cockroach in residence", "Broken, crushed ears", "Juddering and stuttering from nerve damage or stress", "Corpulent, ravenous, drooling", "One hand lacks thumb and index finger, grips like a lobster", "Red, swollen alcoholic’s nose", "Resting maniac face, making friends is hard", "Chronic athlete’s foot. Stinks", "Recently slashed and stinking eye covered with a patch", "Nails cracked and black, maybe about to drop off"]
 
-      document.getElementById("bodies").innerHTML += frandom_item_from(bodies);
+      document.getElementById("bodies").innerHTML = frandom_item_from(bodies);
 
       var bad_habits = ["Obsessively collect small sharp stones", "Won’t use a blade without testing it on your own flesh. Arms knitted with scars", "Can’t stop drinking once you start", "Gambling addict. Must bet every day. If you lose, raise and bet again", "Cannot tolerate criticism of any kind. Results in rage and weeping", "Unable to get to the point. Have never actually finished a story", "Best friend is a skull. Carry it with you, tell it everything, you trust no one more", "You pick your nose so deep it bleeds", "Laugh hysterically at your own jokes which you then explain in detail", "A nihilist. You insist on telling everyone you are a nihilist and explaining why", "Inveterate bug eater", "Stress response is aesthetic display. The worse things get the fancier you need to be", "Permanent phlegm deposit in throat. Continuously cough, snort, spit and swallow", "Pyromaniac", "Consistently lose important items and forget vital facts", "Insecure shit-stirrer. Will talk about whoever just left the room", "You stutter when lying", "You giggle insanely at the worst possible times", "You whistle while trying to hide. You will deny this. Whistle when 5, 7, 9, 11 or 13 is rolled on a d20", "You make jewelry from the teeth of the dead"]
       var habit = fd(20);
@@ -135,11 +151,11 @@
       } else if (habit == 20) {
         special_item = ["String Necklace", "with " + (fd(10) + fd(10) + fd(10) + fd(10) + fd(10)) + " mismatched teeth"]
       }
-      document.getElementById("habit").innerHTML += bad_habits[habit-1] + ".";
+      document.getElementById("habit").innerHTML = bad_habits[habit-1] + ".";
 
       var tales = ["Pursued for manslaughter. There is a bounty.", "In massive debt. The debt is being traded to successively more ruthless groups.", "Have a rare, sought after item.", "Have a cursed never healing wound.", "Had an illegal, immoral and secret affair with a member of the royal family. Has proof.", "Escaped cult member. Terrified and paranoid. Other cultists are everywhere.", "An identity thief who recently killed and replaced this person.", "Banished and disowned for unspecified deeds. Can never go home.", "Deserted military after witnessing a massacre, bounty on head. Hunted by former friends.", "Very recently murdered a close relative. Very recently.", "A puzzle cube has been calibrated incorrectly (or has it?), awkening a slimbering abomination.", "Evil creatures love the scent of your spoor and are drawn to it, bringing disaster in your wake.", "A battle wound left a shard of metal slowly inching closer to your heart. Every day there is a 2% chance it reaches it.", "Violence forced you into the wilderness. You think waving trees are whispering. You talk to, scream at, attack trees.", "Cursed to share the nightmares of others, you sleep far, far away.", "At permanent war with all corvids. No contact without some violence. You carry a sling.", "After dreaming of an underground temple to a forgotten god you understand the songs of insects and worms.", "Being tracked and observed by a golem after an agreement which you know has been wiped form your mind.", "\'Burn or be burned\' is the fate you accept.", "Your flesh heals twice as fast, but your companions twice as slow. You see a many-eye \'guardian angel\'."]
       var story = fd(20);
-      document.getElementById("history").innerHTML += tales[story - 1];
+      document.getElementById("history").innerHTML = tales[story - 1];
 
       var abilities = [" -3", " -3", " -3", " -3", " -2", " -2", " -1", " -1", "±0", "±0", "±0", "±0", "+1", "+1", "+2", "+2", "+3", "+3", "+3", "+3"]
 
@@ -148,12 +164,12 @@
         stats.push(selected.includes(i) ? removeSmallest([fd(6), fd(6), fd(6), fd(6)]).reduce((partialSum, a) => partialSum + a, 0) : fd(6) + fd(6) + fd(6))
       }
 
-      document.getElementById("agility").innerHTML += abilities[stats[0]];
-      document.getElementById("presence").innerHTML += abilities[stats[1]];
-      document.getElementById("strength").innerHTML += abilities[stats[2]];
-      document.getElementById("toughness").innerHTML += abilities[stats[3]];
+      document.getElementById("agility").innerHTML = abilities[stats[0]];
+      document.getElementById("presence").innerHTML = abilities[stats[1]];
+      document.getElementById("strength").innerHTML = abilities[stats[2]];
+      document.getElementById("toughness").innerHTML = abilities[stats[3]];
       var hp = Math.max(1, (parseInt(abilities[stats[3]]) || 0) + fd(8));
-      document.getElementById("hp").innerHTML += hp + "/" + hp;
+      document.getElementById("hp").innerHTML = hp + "/" + hp;
 
       var food = ["Waterskin", " and " + fd(4) + " days' worth of food"]
       var silver = (fd(6) + fd(6))*10 + " silver"
@@ -301,7 +317,7 @@
       }
 
       document.getElementById("equipment").innerHTML += "<li>" + silver + "</li>";
-      document.getElementById("omens").innerHTML += fd(2) + " (d2)";
+      document.getElementById("omens").innerHTML = fd(2) + " (d2)";
     }
   </script>
 </body>
