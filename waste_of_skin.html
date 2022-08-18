@@ -8,8 +8,10 @@
   <title>Waste of Skin - Classes MÖRK BORG Character Generator</title>
   <meta name="description" content="Waste of Skin - Classes MÖRK BORG Character Generator">
   <style type="text/css">
-    body { font-family: sans-serif; }
+    body { font-family: sans-serif; font-size: 14px }
     .smaller { font-size: 85%; }
+    ul { padding-left: 15px }
+    div > b:first-child { font-size: 120% }
   </style>
 </head>
 
@@ -40,22 +42,26 @@
   </div>
   <div id=character>
     <button id="save">Copy</button>
-    <div><b>NAME:</b> <span id="name"></span></div>
-    <div><b>CLASS:</b> <span id="class_name"></span></div>
-    <div id="description"></div>
-    <div style="display: inline-block;"><b>HP:</b> <span id="hp"></span></div>
-    <div style="display: inline-block;"><b>OMENS:</b> <span id="omens"></span></div>
-    <div id="ablities"><b>ABILITIES</b></div>
+    <br>
+    <br>
+    <div style="display: inline-block; padding-right: 20px;"><b style="background: black; color: white;">NAME</b> <span id="name"></span></div>
+    <div style="display: inline-block; padding-right: 20px;"><b style="background: black; color: white;">CLASS</b> <span id="class_name"></span></div>
+    <div style="display: inline-block; padding-right: 20px;"><b style="background: black; color: white;">HP</b> <span id="hp"></span></div>
+    <div style="display: inline-block; padding-right: 20px;"><b style="background: black; color: white;">OMENS</b> <span id="omens"></span></div>
+    <br><br>
+    <div id="ablities"><b style="background: black; color: white;">ABILITIES</b></div>
     <div><em>AGILITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em><span id="agility"></span></div>
     <div><em>PRESENCE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em><span id="presence"></span></div>
     <div><em>STRENGTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em><span id="strength"></span></div>
     <div><em>TOUGHNESS&nbsp;&nbsp;&nbsp;&nbsp;</em><span id="toughness"></span></div>
     <br>
-    
-    <div><b>EQUIPMENT</b>:
+    <div style="display: inline-block; width: 500px;"><b style="background: black; color: white;">CLASS SKILLS</b><div id="skills" style="padding: 0px 20px 0px  0px;"></div></div>
+    <div style="display: inline-block; width: 500px; vertical-align: top;"><b style="background: black; color: white;">EQUIPMENT</b>
       <ul id="equipment">
       </ul>
     </div>
+    <hr>
+    <div id="description" style="width: 500px"></div>
   </div>
   <script src="utils.js"></script>
   <script>
@@ -84,7 +90,7 @@
     ]
     var wretched_royalty_memory = ["your Wästland palace was reduced to rubble.", "your caravan kingdom of Tveland fell into penury.", "King Fathmu IX’s brother Zigmund, your father, was murdered.", "the southern empire of Südglans sank into the sea.", "Anthelia demanded a gift of noble blood.", "two young princes were kidnapped west of Bergen Chrypt and disappeared into the black crevasse of the eastern slopes."]
     var wretched_royalty_abilities = [
-      ["Painfully Average"]
+      ["Painfully Average", ""]
     ]
     var wretched_royalty_features = [
       ["The Blade of your Ancestors", "This magnificent and clearly magical talking sword is foppish, unreliable and quietly despises you. It taunts your failures and, if continually disappointed, develops a 1-in-6 chance to 'accidentally' attack you or your companions. Deals d6+1 damage. Attack/Defence DR10."],
@@ -242,10 +248,12 @@
     function generate() {
       document.getElementById("equipment").innerHTML = "";
       document.getElementById("description").innerHTML = "";
+      document.getElementById("skills").innerHTML = "";
       if (klass == 0) { document.getElementById("prompt").style.display = "block"; }
 
       document.getElementById("class_name").innerHTML = classes[klass];
       document.getElementById("name").innerHTML = names[(fd(6) - 1)*8 + fd(8) - 1];
+      selected = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(e => e.value);
 
       var memory;
       if (klass == 0) {
@@ -271,7 +279,6 @@
       }
       var habit = fd(bad_habits.length);
       var story;
-
       document.getElementById("description").innerHTML = "<p>" + descriptions[klass] + "</p>";
       document.getElementById("description").innerHTML += "<p>" + memory + "</p>";
       document.getElementById("description").innerHTML += [
@@ -282,9 +289,45 @@
         "</p>"
       ].join(' ');
 
-      var abilities = [" -3", " -3", " -3", " -3", " -2", " -2", " -1", " -1", "±0", "±0", "±0", "±0", "+1", "+1", "+2", "+2", "+3", "+3", "+3", "+3"]
+      var skills = [];
+      var base_skills = [["Nimble", ""], ["Witty", ""], ["Well-fed", ""], ["Indomitable", ""]]
+      if (klass == 0) {
+        if (selected[0]) { skills.push(base_skills[selected[0]]); }
+        if (selected[1]) { skills.push(base_skills[selected[1]]); }
+      } else if (klass == 1) {
+        skills = fanged_deserter_abilites;
+        skills.push(frandom_item_from(fanged_deserter_features));
+      } else if (klass == 2) {
+        skills = gutterborn_abilities;
+        skills.push(frandom_item_from(gutterborn_features));
+      } else if (klass == 3) {
+        skills = esoteric_hermit_abilities;
+        skills.push(frandom_item_from(esoteric_hermit_features));
+      } else if (klass == 4) {
+        skills = wretched_royalty_abilities;
+        var wr_skill1 = frandom_item_from(wretched_royalty_features);
+        var wr_skill2;
+        do {
+          wr_skill2 = frandom_item_from(wretched_royalty_features);
+        } while(wr_skill1 == wr_skill2);
+        skills.push(wr_skill1);
+        skills.push(wr_skill2);
+      } else if (klass == 5) {
+        skills = heretical_priest_abilities;
+        skills.push(frandom_item_from(heretical_priest_features));
+      } else if (klass == 6) {
+        skills = occult_herbmaster_abilities;
+      }
+      for(var i = 0; i < skills.length; i++) {
+        document.getElementById("skills").innerHTML += "<br><b>" + skills[i][0] + "</b>";
+        if (skills[i][1] != '') {
+          document.getElementById("skills").innerHTML += "<br>" + skills[i][1] + "<br>";
+        }  else {
+          document.getElementById("skills").innerHTML += "<br>"
+        }
+      }
 
-      selected = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(e => e.value);
+      var abilities = [" -3", " -3", " -3", " -3", " -2", " -2", " -1", " -1", "±0", "±0", "±0", "±0", "+1", "+1", "+2", "+2", "+3", "+3", "+3", "+3"]
       var stats = []
       for(var i = 0; i < 4; i++) {
         if (klass == 0) {
@@ -307,10 +350,10 @@
         stats[3] += 2;
       }
 
-      document.getElementById("agility").innerHTML = abilities[stats[0]];
-      document.getElementById("presence").innerHTML = abilities[stats[1]];
-      document.getElementById("strength").innerHTML = abilities[stats[2]];
-      document.getElementById("toughness").innerHTML = abilities[stats[3]];
+      document.getElementById("agility").innerHTML = abilities[stats[0] - 1];
+      document.getElementById("presence").innerHTML = abilities[stats[1] - 1];
+      document.getElementById("strength").innerHTML = abilities[stats[2] - 1];
+      document.getElementById("toughness").innerHTML = abilities[stats[3] - 1];
 
       var hp_mod;
       if (klass == 0 || klass == 5) {
