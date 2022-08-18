@@ -1,0 +1,25 @@
+DM
+
+The Calendar of Nechrubel
+ - Choose d100, d20, d10, d6, or d2 determined by group and DM
+ - Roll die every dawn, if nat 1 then unique d66 Misery occurs
+ - Seventh Misery is always 7:7, game ends
+ROUND
+ - attack/Power + traverse normal room, 10 rounds/min
+REST
+ - 2days of no food PC loses d4 HP per day.
+
+
+PLAYER
+
+- Scrolls will never work when yielding zweihänder(d10?) or medium/heavy armor
+- improvised weapons, d4 damage
+- unarmed, d2 damage
+- armor can't be repaired to a tier higher than its original
+- carry capacity, if above STRENGTH+8 then STR and AGI DR+2, can't exceed 2*STRENGTH+8
+OMENS (regain after 6 hours rest)
+ - deal maximum damage with one attack
+ - reroll a dice roll (yours or someone else's)
+ - lower damage dealth to you by d6
+ - neutralize a Crit or Fumble
+ - lower one test's DR by -4
