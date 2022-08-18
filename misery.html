@@ -59,7 +59,7 @@
     var day = 0;
 
     window.location.hash = getCookie("misery");
-    var hash = window.location.hash.split("z");
+    var hash = window.location.hash.split("&");
     if (agonies.includes(hash[0].slice(1,))) {
       document.getElementById("decision").style.display = "none";
       document.getElementById("game").style.display = "block";
@@ -90,10 +90,10 @@
       day++;
       document.getElementById("day").innerHTML = day;
 
-      var temp = window.location.hash.split("z");
+      var temp = window.location.hash.split("&");
       temp[1] = num.toString().padStart(2, '0');
       temp[2] = day.toString().padStart(3, '0');
-      window.location.hash = temp.join("z");
+      window.location.hash = temp.join("&");
       setCookie("misery", window.location.hash);
     }
 
@@ -105,7 +105,7 @@
         window.scrollTo(0, document.body.scrollHeight);
         document.getElementById("end").innerHTML = end;
 
-        window.location.hash += "z77";
+        window.location.hash += "&77";
         return;
       }
 
@@ -118,7 +118,7 @@
       document.getElementById("events").innerHTML += "<b>"+output[0]+"</b> <span class='smaller'>"+output.slice(1,).join(' ')+"</span><br>"
       events++;
 
-      window.location.hash += "z" + psalm + verse;
+      window.location.hash += "&" + psalm + verse;
       setCookie("misery", window.location.hash);
     }
 
@@ -142,7 +142,7 @@
       document.getElementById("game").style.display = "block";
       var radio = document.querySelector("input[type=radio]:checked").id;
       document.getElementById("misery").innerHTML = document.querySelector("label[for="+radio+"]").innerHTML;
-      window.location.hash += radio + "z";
+      window.location.hash += radio + "&";
       setCookie("misery", window.location.hash);
       weather()
       misery();
