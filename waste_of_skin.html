@@ -15,7 +15,7 @@
 
 <body>
   <div id=prompt>
-    Which stats would you like to be stronger (select 2):
+    Which abilities would you like to try and excel with (select 2):
     <form id="selection">
       <input type="checkbox" id="agi" name="agility" value=0>
       <label for="agi"><b>AGILITY</b> <span class="smaller">Defend, balance, swim, flee</span></label><br>
@@ -29,6 +29,8 @@
     </form>
   </div>
   <div id=character style="display: none;">
+    <button>Share</button>
+    <button>Try again</button>
     <div id="name"><b>NAME:</b> </div>
     <div id="traits"><b>TRAITS:</b> </div>
     <div id="bodies"><b>BODY:</b> </div>
@@ -55,10 +57,27 @@
         var min = Math.min(...arr);
         return arr.filter(e => e != min);
     }
-    fixed_rolls_only();
+
+    function load_char() {
+      if (!window.location.hash) { return; }
+
+      var tag = window.location.hash.split('&');
+      if (tag.length != 3) { return; }
+      if (tag[1].length != 2) { return; }
+      if (tag[2].length != 2) { return; }
+
+      document.querySelectorAll('input[type=checkbox]')[tag[2][0]].checked = true;
+      document.querySelectorAll('input[type=checkbox]')[tag[2][1]].checked = true;
+
+      document.getElementById("prompt").style.display = "none";
+      document.getElementById("character").style.display = "block";
+      _seed = tag[0].slice(1,);
+      generate(tag[1], tag[2].split(''));
+    }
+    load_char();
 
     var total_checks = 0;
-    checkboxes = document.querySelectorAll('input[type=checkbox]');
+    var checkboxes = document.querySelectorAll('input[type=checkbox]');
     for(var i = 0, len = checkboxes.length; i < len; i++) {
       checkboxes[i].addEventListener('change', function() {
         if (this.checked) {
@@ -69,7 +88,7 @@
 
         if (total_checks > 2) {
           alert("Stop fooling around vagrant, only select two!");
-          document.querySelectorAll('input[type=checkbox]').forEach(e => e.checked = false);
+          checkboxes.forEach(e => e.checked = false);
           total_checks = 0;
         }
       })
@@ -80,10 +99,14 @@
 
       document.getElementById("prompt").style.display = "none";
       document.getElementById("character").style.display = "block";
-      generate();
+      var selected = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(e => e.value);
+      generate('0', selected);
     })
 
-    function generate() {
+    function generate(klass, selected) {
+      // window.location.hash = [_seed, klass.padStart(2, '0'), selected.join('')].join('&')
+      fixed_rolls_only();
+
       var names = ["Aerg-Tval","Agn","Arvant","Belsum","Belum","Brinta","B\xf6rda","Daeru","Eldar","Felban","Gotven","Graft","Grin","Grittr","Haer\xfc","Hargha","Harmug","Jotna","Karg","Karva","Katla","Keftar","Klort","Kratar","Kutz","Kvetin","Lygan","Margar","Merkari","Nagl","Niduk","Nifehl","Pr\xfcgl","Qillnach","Risten","Svind","Theras","Therg","Torvul","T\xf6rn","Urm","Urvarg","Vagal","Vatan","Von","Vrakh","Vresi","Wemut"];
       
       document.getElementById("name").innerHTML += names[(fd(6) - 1)*8 + fd(8) - 1];
@@ -119,8 +142,6 @@
       document.getElementById("history").innerHTML += tales[story - 1];
 
       var abilities = [" -3", " -3", " -3", " -3", " -2", " -2", " -1", " -1", "±0", "±0", "±0", "±0", "+1", "+1", "+2", "+2", "+3", "+3", "+3", "+3"]
-
-      var selected = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(e => e.value);
 
       var stats = []
       for(var i = 0; i < 4; i++) {
@@ -210,7 +231,7 @@
       ]
 
       var equip3 = [
-        ["Life elixir", fd(4) + " doses (heals d6 HP and removes infection"],
+        ["Life elixir", fd(4) + " doses (heals d6 HP and removes infection)"],
         frandom_item_from(sacred_scrolls),
         ["Small but vicious dog", "(" + fd(6) + 2 + " HP, bite d4, only obeys you)"],
         [fd(4) + " monkey(s) that ignore but love you", "(" + fd(4) + 2 + " HP, punch/bite d4)"],
@@ -218,7 +239,7 @@
         ["Toolbox", "10 nails, tongs, hammer, small saw, drill"],
         ["Heavy chain", "15 feet"],
         ["Grappling hook", ""],
-        ["Shield", "(-1 HP damage or have the shield break to ignore on attack"],
+        ["Shield", "(-1 HP damage or have the shield break to ignore on attack)"],
         ["Crowbar", "(d4 damage)"],
         ["Lard", "(may function as 5 meals in a pinch)"],
         ["Tent", ""]

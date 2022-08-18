@@ -57,16 +57,20 @@ function sfc32(a, b, c, d) {
     return (t >>> 0) / 4294967296;
   }
 }
-var _seed = cyrb128(Math.random().toString())
-var _r = sfc32(_seed[0], _seed[1], _seed[2], _seed[3]);
+var _seed = Math.random().toString().slice(2,);
+var _r;
+function seed() {
+  var _s = cyrb128(_seed);
+  _r = sfc32(_s[0], _s[1], _s[2], _s[3]);
+}
+function fixed_rolls_only() {
+  window.d = function() { alert() }
+  window.random_item_from = function() { alert() }
+  seed();
+}
 function fd(max) {
   return Math.floor(_r() * max) + 1;
 }
 function frandom_item_from(array) {
   return array[Math.floor(_r() * array.length)];
-}
-
-function fixed_rolls_only() {
-  window.d = function() { alert() }
-  window.random_item_from = function() { alert() }
 }
