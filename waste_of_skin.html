@@ -51,13 +51,11 @@
   </div>
   <script src="utils.js"></script>
   <script>
-    function random_item_from(array) {
-      return array[Math.floor(Math.random() * array.length)];
-    }
     function removeSmallest(arr) {
         var min = Math.min(...arr);
         return arr.filter(e => e != min);
     }
+    fixed_rolls_only();
 
     var total_checks = 0;
     checkboxes = document.querySelectorAll('input[type=checkbox]');
@@ -84,61 +82,62 @@
       document.getElementById("character").style.display = "block";
       generate();
     })
+    document.getElementById("character").style.display = "block";
+      generate();
 
     function generate() {
       var names = ["Aerg-Tval","Agn","Arvant","Belsum","Belum","Brinta","B\xf6rda","Daeru","Eldar","Felban","Gotven","Graft","Grin","Grittr","Haer\xfc","Hargha","Harmug","Jotna","Karg","Karva","Katla","Keftar","Klort","Kratar","Kutz","Kvetin","Lygan","Margar","Merkari","Nagl","Niduk","Nifehl","Pr\xfcgl","Qillnach","Risten","Svind","Theras","Therg","Torvul","T\xf6rn","Urm","Urvarg","Vagal","Vatan","Von","Vrakh","Vresi","Wemut"];
       
-      document.getElementById("name").innerHTML += names[(d(6) - 1)*8 + d(8) - 1];
+      document.getElementById("name").innerHTML += names[(fd(6) - 1)*8 + fd(8) - 1];
 
       var traits = ["Endlessly aggravated", "Inferiority complex", "Problems with authority", "Loud mouth", "Cruel", "Egocentric", "Nihilistic", "Prone to substance abuse", "Conflicted", "Shrewd", "Vindictive", "Cowardly", "Lazy", "Suspicious", "Ruthless", "Worried", "Bitter", "Deceitful", "Wasteful", "Arrogant"];
 
-      var t1 = random_item_from(traits);
+      var t1 = frandom_item_from(traits);
       var t2 = t1;
       while (t2 == t1) {
-        var t2 = random_item_from(traits);
+        var t2 = frandom_item_from(traits);
       }
 
       document.getElementById("traits").innerHTML += t1 + " and " + t2;
 
       var bodies = ["Staring manic gaze", "Covered in (for some) blasphemous tattoos", "Rotting face. Wears a mask", "Lost three toes, limps", "Starved: faunt and pale", "One hand replaced with rusting hook (d6 damage)", "Decaying teeth", "Hauntingly beautiful, unnervingly clean", "Hands caked with sores", "Cataracts slowly but surly spreading in both eyes", "Long tangled hair, at least one cockroach in residence", "Broken, crushed ears", "Juddering and stuttering from nerve damage or stress", "Corpulent, ravenous, drooling", "One hand lacks thumb and index finger, grips like a lobster", "Red, swollen alcoholic’s nose", "Resting maniac face, making friends is hard", "Chronic athlete’s foot. Stinks", "Recently slashed and stinking eye covered with a patch", "Nails cracked and black, maybe about to drop off"]
 
-      document.getElementById("bodies").innerHTML += random_item_from(bodies);
+      document.getElementById("bodies").innerHTML += frandom_item_from(bodies);
 
       var bad_habits = ["Obsessively collect small sharp stones", "Won’t use a blade without testing it on your own flesh. Arms knitted with scars", "Can’t stop drinking once you start", "Gambling addict. Must bet every day. If you lose, raise and bet again", "Cannot tolerate criticism of any kind. Results in rage and weeping", "Unable to get to the point. Have never actually finished a story", "Best friend is a skull. Carry it with you, tell it everything, you trust no one more", "You pick your nose so deep it bleeds", "Laugh hysterically at your own jokes which you then explain in detail", "A nihilist. You insist on telling everyone you are a nihilist and explaining why", "Inveterate bug eater", "Stress response is aesthetic display. The worse things get the fancier you need to be", "Permanent phlegm deposit in throat. Continuously cough, snort, spit and swallow", "Pyromaniac", "Consistently lose important items and forget vital facts", "Insecure shit-stirrer. Will talk about whoever just left the room", "You stutter when lying", "You giggle insanely at the worst possible times", "You whistle while trying to hide. You will deny this. Whistle when 5, 7, 9, 11 or 13 is rolled on a d20", "You make jewelry from the teeth of the dead"]
-      var habit = d(20);
+      var habit = fd(20);
       var special_item;
       if (habit == 1) {
-        special_item =["Sackcloth bag", "and " + (d(20) + d(20) + d(20) + d(20) + d(20)) + " small sharp stones"]
+        special_item =["Sackcloth bag", "and " + (fd(20) + fd(20) + fd(20) + fd(20) + fd(20)) + " small sharp stones"]
       } else if (habit == 7) {
         special_item =["Skull", "a trusted friend"]
       } else if (habit == 20) {
-        special_item = ["String Necklace", "with " + (d(10) + d(10) + d(10) + d(10) + d(10)) + " mismatched teeth"]
+        special_item = ["String Necklace", "with " + (fd(10) + fd(10) + fd(10) + fd(10) + fd(10)) + " mismatched teeth"]
       }
       document.getElementById("habit").innerHTML += bad_habits[habit-1] + ".";
 
       var tales = ["Pursued for manslaughter. There is a bounty.", "In massive debt. The debt is being traded to successively more ruthless groups.", "Have a rare, sought after item.", "Have a cursed never healing wound.", "Had an illegal, immoral and secret affair with a member of the royal family. Has proof.", "Escaped cult member. Terrified and paranoid. Other cultists are everywhere.", "An identity thief who recently killed and replaced this person.", "Banished and disowned for unspecified deeds. Can never go home.", "Deserted military after witnessing a massacre, bounty on head. Hunted by former friends.", "Very recently murdered a close relative. Very recently.", "A puzzle cube has been calibrated incorrectly (or has it?), awkening a slimbering abomination.", "Evil creatures love the scent of your spoor and are drawn to it, bringing disaster in your wake.", "A battle wound left a shard of metal slowly inching closer to your heart. Every day there is a 2% chance it reaches it.", "Violence forced you into the wilderness. You think waving trees are whispering. You talk to, scream at, attack trees.", "Cursed to share the nightmares of others, you sleep far, far away.", "At permanent war with all corvids. No contact without some violence. You carry a sling.", "After dreaming of an underground temple to a forgotten god you understand the songs of insects and worms.", "Being tracked and observed by a golem after an agreement which you know has been wiped form your mind.", "\'Burn or be burned\' is the fate you accept.", "Your flesh heals twice as fast, but your companions twice as slow. You see a many-eye \'guardian angel\'."]
-      var story = d(20);
+      var story = fd(20);
       document.getElementById("history").innerHTML += tales[story - 1];
 
       var abilities = [" -3", " -3", " -3", " -3", " -2", " -2", " -1", " -1", "±0", "±0", "±0", "±0", "+1", "+1", "+2", "+2", "+3", "+3", "+3", "+3"]
 
-      // var stats = [];
       var selected = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(e => e.value);
 
       var stats = []
       for(var i = 0; i < 4; i++) {
-        stats.push(selected.includes(i) ? removeSmallest([d(6), d(6), d(6), d(6)]).reduce((partialSum, a) => partialSum + a, 0) : d(6) + d(6) + d(6))
+        stats.push(selected.includes(i) ? removeSmallest([fd(6), fd(6), fd(6), fd(6)]).reduce((partialSum, a) => partialSum + a, 0) : fd(6) + fd(6) + fd(6))
       }
 
       document.getElementById("agility").innerHTML += abilities[stats[0]];
       document.getElementById("presence").innerHTML += abilities[stats[1]];
       document.getElementById("strength").innerHTML += abilities[stats[2]];
       document.getElementById("toughness").innerHTML += abilities[stats[3]];
-      var hp = Math.max(1, (parseInt(abilities[stats[3]]) || 0) + d(8));
+      var hp = Math.max(1, (parseInt(abilities[stats[3]]) || 0) + fd(8));
       document.getElementById("hp").innerHTML += hp + "/" + hp;
 
-      var food = ["Waterskin", " and " + d(4) + " days' worth of food"]
-      var silver = (d(6) + d(6))*10 + " silver"
+      var food = ["Waterskin", " and " + fd(4) + " days' worth of food"]
+      var silver = (fd(6) + fd(6))*10 + " silver"
 
       var unclean_scrolls = [
         ["Palms Open the Southern Gate (unclean scroll)", "A ball of fire hits d2 creatures dealing d8 damage per creature"],
@@ -183,9 +182,9 @@
       var heavy = ["Splint", "Plate"];
       var armor = [
         ["", ""],
-        [random_item_from(light) + " armor", "-d2 damage, tier 1"],
-        [random_item_from(medium) + " armor", "-d4 damage, tier 2, DR+2 on AGILITY tests including defence"],
-        [random_item_from(heavy) + " armor", "-d6 damage, tier 3, DR+4 on AGILITY tests, defence is DR+2"],
+        [frandom_item_from(light) + " armor", "-d2 damage, tier 1"],
+        [frandom_item_from(medium) + " armor", "-d4 damage, tier 2, DR+2 on AGILITY tests including defence"],
+        [frandom_item_from(heavy) + " armor", "-d6 damage, tier 3, DR+4 on AGILITY tests, defence is DR+2"],
       ]
 
       var equip1 = [
@@ -199,24 +198,24 @@
 
       var equip2 = [
         ["Rope", "30 feet"],
-        [stats[1]+4+" torches", ""],
+        [stats[1] + 4 + " torches", ""],
         ["Lantern", "with oil for " + stats[1] + 6 + " hours"],
         ["Magnesium strip", ""],
-        random_item_from(unclean_scrolls),
+        frandom_item_from(unclean_scrolls),
         ["Sharp needle", ""],
         ["Medicine chest", stats[1] + 4 + " uses (stops bleeding/infection and heals d6 HP)"],
         ["Metal file and lockpicks", ""],
         ["Bear trap", "PRESENCE DR14 to spot, d8 damage"],
         ["Bomb", "(sealed bottle, d10 damage)"],
-        ["A bottle of red poison", d(4) + " doses (TOUGHNESS DR12 or d10 damage)"],
+        ["A bottle of red poison", fd(4) + " doses (TOUGHNESS DR12 or d10 damage)"],
         ["Silver crucifix", ""]
       ]
 
       var equip3 = [
-        ["Life elixir", d(4) + " doses (heals d6 HP and removes infection"],
-        random_item_from(sacred_scrolls),
-        ["Small but vicious dog", "(" + d(6)+2 + " HP, bite d4, only obeys you)"],
-        [d(4) + " monkey(s) that ignore but love you", "(" + d(4)+2 + " HP, punch/bite d4)"],
+        ["Life elixir", fd(4) + " doses (heals d6 HP and removes infection"],
+        frandom_item_from(sacred_scrolls),
+        ["Small but vicious dog", "(" + fd(6) + 2 + " HP, bite d4, only obeys you)"],
+        [fd(4) + " monkey(s) that ignore but love you", "(" + fd(4) + 2 + " HP, punch/bite d4)"],
         ["Exquisite perfume", "worth 25s"],
         ["Toolbox", "10 nails, tongs, hammer, small saw, drill"],
         ["Heavy chain", "15 feet"],
@@ -230,26 +229,26 @@
       var equip4 = [
         ["Blanket", ""],
         ["Firesteel", ""],
-        ["Chewing tabacco", d(4) + " doses"],
+        ["Chewing tabacco", fd(4) + " doses"],
         ["A bottle of salt", ""],
         ["Wooden crucifix", ""],
         ["Manacles", ""],
-        ["A bottle of black poison", d(4) + " doses (TOUGHNESS DR14 or d6 damage + blind for one hour)"],
-        [d(4) + " moderately tame rat(s)", "(2 HP, bite d2, only obeys you)"],
+        ["A bottle of black poison", fd(4) + " doses (TOUGHNESS DR14 or d6 damage + blind for one hour)"],
+        [fd(4) + " moderately tame rat(s)", "(2 HP, bite d2, only obeys you)"],
         ["Mirror", "worth 15s"],
         ["Scissors", ""],
         ["Meat cleaver", "d4 damage"],
         ["Caltrops", "d4 damage + infection on 1-in-6"],
         ["Hammer", "d4 damage"],
         ["Noose", ""],
-        [d(4) + " pieces of chalk", ""]
+        [fd(4) + " pieces of chalk", ""]
       ]
 
       document.getElementById("equipment").innerHTML += "<li>" + food[0] + "<em class='smaller'>" + food[1] + "</em></li>";
 
-      var e1 = random_item_from(equip1);
-      var e2 = d(12);
-      var e3 = d(12);
+      var e1 = frandom_item_from(equip1);
+      var e2 = fd(12);
+      var e3 = fd(12);
       var scroll = e2 == 5 || e3 == 2;
       e2 = equip2[e2 - 1];
       e3 = equip3[e3 - 1];
@@ -258,11 +257,11 @@
       if (story == 16) {
         starting_weapon = ["Sling", "d4 damage with an unlimited amount of stones"]
       } else {
-        starting_weapon = scroll ? random_item_from(weapons.slice(0, 6)) : random_item_from(weapons);
+        starting_weapon = scroll ? frandom_item_from(weapons.slice(0, 6)) : frandom_item_from(weapons);
       }
       document.getElementById("equipment").innerHTML += "<li>" + starting_weapon[0] + "<em class='smaller'>&nbsp;" + starting_weapon[1] + "</em></li>";
 
-      var starting_armor = scroll ? random_item_from(armor.slice(0, 2)) : random_item_from(armor);
+      var starting_armor = scroll ? frandom_item_from(armor.slice(0, 2)) : frandom_item_from(armor);
       if (starting_armor[0] != "") {
         document.getElementById("equipment").innerHTML += "<li>" + starting_armor[0] + "<em class='smaller'>&nbsp;" + starting_armor[1] + "</em></li>";
       }
@@ -277,13 +276,13 @@
       document.getElementById("equipment").innerHTML += "<li>" + e2[0] + "<em class='smaller'>&nbsp;" + e2[1] + "</em></li>";
       document.getElementById("equipment").innerHTML += "<li>" + e3[0] + "<em class='smaller'>&nbsp;" + e3[1] + "</em></li>";
 
-      if (story == 20 || d(100) <= 20) {
-        let e4 = random_item_from(equip4);
+      if (story == 20 || fd(100) <= 8) {
+        let e4 = frandom_item_from(equip4);
         document.getElementById("equipment").innerHTML += "<li>" + e4[0] + "<em class='smaller'>&nbsp;" + e4[1] + "</em></li>";
       }
 
       document.getElementById("equipment").innerHTML += "<li>" + silver + "</li>";
-      document.getElementById("omens").innerHTML += d(2) + " (d2)";
+      document.getElementById("omens").innerHTML += fd(2) + " (d2)";
     }
   </script>
 </body>

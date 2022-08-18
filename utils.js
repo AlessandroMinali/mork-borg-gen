@@ -1,6 +1,9 @@
 function d(max) {
   return Math.floor(Math.random() * max) + 1;
 }
+function random_item_from(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
 
 function setCookie(cname, cvalue) {
   const d = new Date();
@@ -58,4 +61,12 @@ var _seed = cyrb128(Math.random().toString())
 var _r = sfc32(_seed[0], _seed[1], _seed[2], _seed[3]);
 function fd(max) {
   return Math.floor(_r() * max) + 1;
+}
+function frandom_item_from(array) {
+  return array[Math.floor(_r() * array.length)];
+}
+
+function fixed_rolls_only() {
+  window.d = function() { alert() }
+  window.random_item_from = function() { alert() }
 }
