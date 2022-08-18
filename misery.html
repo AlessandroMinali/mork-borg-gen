@@ -47,6 +47,7 @@
   </div>
   <h1 id="end" style="text-transform: uppercase;"></h1>
 
+  <script src="utils.js"></script>
   <script type="text/javascript">
     var w = ["Lifeless grey", "Hammering rain", "Piercing wind", "Deafening storm", "Black as night", "Dead quiet", "Cloudburst", "Soup-thick mist", "Crackling frost", "Irritating drizzle", "Roaring thunder", "Gravelike cold"]
 
@@ -57,6 +58,7 @@
     var rolls = [];
     var day = 0;
 
+    window.location.hash = getCookie("misery");
     var hash = window.location.hash.split("z");
     if (agonies.includes(hash[0].slice(1,))) {
       document.getElementById("decision").style.display = "none";
@@ -82,13 +84,6 @@
       }
     }
 
-    function d(max) {
-      return Math.floor(Math.random() * max) + 1;
-    }
-    function random_item_from(array) {
-      return array[Math.floor(Math.random() * array.length)];
-    }
-
     function weather() {
       var num = d(w.length) - 1;
       document.getElementById("weather").innerHTML = w[num];
@@ -99,6 +94,7 @@
       temp[1] = num.toString().padStart(2, '0');
       temp[2] = day.toString().padStart(3, '0');
       window.location.hash = temp.join("z");
+      setCookie("misery", window.location.hash);
     }
 
     function misery() {
@@ -124,9 +120,11 @@
       events++;
 
       window.location.hash += "z" + psalm + verse;
+      setCookie("misery", window.location.hash);
     }
 
     function reset() {
+      setCookie("misery", "");
       window.location = window.location.href.split('#')[0]
     }
 
@@ -146,6 +144,7 @@
       var radio = document.querySelector("input[type=radio]:checked").id;
       document.getElementById("misery").innerHTML = document.querySelector("label[for="+radio+"]").innerHTML;
       window.location.hash += radio + "z";
+      setCookie("misery", window.location.hash);
       weather()
       misery();
     })
