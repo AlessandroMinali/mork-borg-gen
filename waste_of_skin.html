@@ -12,6 +12,11 @@
     .smaller { font-size: 85%; }
     ul { padding-left: 15px }
     div > b:first-child { font-size: 120% }
+    html, body { height: 99%;}
+    body > footer {
+      position: sticky;
+      top: 100vh;
+    }
   </style>
 </head>
 
@@ -40,12 +45,13 @@
     </form>
   </div>
   <div id=character>
-    <button id="save">Copy</button>
+    <button id="save">Share</button>
     <br>
     <br>
     <div style="display: inline-block; padding-right: 20px;"><b style="background: black; color: white;">NAME</b> <span id="name"></span></div>
     <div style="display: inline-block; padding-right: 20px;"><b style="background: black; color: white;">CLASS</b> <span id="class_name"></span></div>
     <div style="display: inline-block; padding-right: 20px;"><b style="background: black; color: white;">HP</b> <span id="hp"></span></div>
+    <div style="display: inline-block; padding-right: 20px;"><b style="background: black; color: white;">POWERS</b> <span id="powers"></span></div>
     <div style="display: inline-block; padding-right: 20px;"><b style="background: black; color: white;">OMENS</b> <span id="omens"></span></div>
     <br><br>
     <div id="ablities"><b style="background: black; color: white;">ABILITIES</b></div>
@@ -56,12 +62,19 @@
     <br>
     <div style="display: inline-block; width: 500px;"><b style="background: black; color: white;">CLASS SKILLS</b><div id="skills" style="padding: 0px 20px 0px  0px;"></div></div>
     <div style="display: inline-block; width: 500px; vertical-align: top;"><b style="background: black; color: white;">EQUIPMENT</b>
+      <span class="smaller" style="float: right; background: #aaa; color: white; margin-top: 3px">CAPACITY <span id="capacity"></span></span>
       <ul id="equipment">
       </ul>
     </div>
     <hr>
     <div id="description" style="width: 500px"></div>
   </div>
+  <footer style="text-align: center; font-size: 65%; opacity: 75%;">
+    <pre>
+      Waste of Skin is an independent production by Alessandro Minali and is not affiliated with Ockult Örtmästare Games or Stockholm Kartell. It is published under the MÖRK BORG Third Party License.
+      MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
+  </pre>
+  </footer>
   <script src="utils.js"></script>
   <script>
     var klass;
@@ -171,6 +184,7 @@
       ["Roskoe's Consuming Glare (sacred scroll)", "d4 creatures lose d8 each"],
       ["Enochian Syntax (sacred scroll)", "One creature blindly obeys a single command"]
     ]
+    var abilities = [" -3", " -3", " -3", " -3", " -2", " -2", " -1", " -1", "±0", "±0", "±0", "±0", "+1", "+1", "+2", "+2", "+3", "+3", "+3", "+3"]
 
     function removeSmallest(arr) {
         var min = Math.min(...arr);
@@ -319,7 +333,6 @@
       }
       document.getElementById("skills").innerHTML += "<br>"
 
-      var abilities = [" -3", " -3", " -3", " -3", " -2", " -2", " -1", " -1", "±0", "±0", "±0", "±0", "+1", "+1", "+2", "+2", "+3", "+3", "+3", "+3"]
       var stats = []
       for(var i = 0; i < 4; i++) {
         if (klass == 0) {
@@ -342,10 +355,17 @@
         stats[3] += 2;
       }
 
-      document.getElementById("agility").innerHTML = abilities[stats[0] - 1];
-      document.getElementById("presence").innerHTML = abilities[stats[1] - 1];
-      document.getElementById("strength").innerHTML = abilities[stats[2] - 1];
-      document.getElementById("toughness").innerHTML = abilities[stats[3] - 1];
+      for(var i = 0; i < 4; i++) {
+        stats[i] = abilities[stats[i] - 1];
+      }
+      document.getElementById("agility").innerHTML = stats[0];
+      document.getElementById("presence").innerHTML = stats[1];
+      document.getElementById("strength").innerHTML = stats[2];
+      document.getElementById("toughness").innerHTML = stats[3];
+      function agility() { return parseInt(stats[0]) || 0 }
+      function presence() { return parseInt(stats[1]) || 0 }
+      function strength() { return parseInt(stats[2]) || 0 }
+      function toughness() { return parseInt(stats[3]) || 0 }
 
       var hp_mod;
       if (klass == 0 || klass == 5) {
@@ -357,8 +377,11 @@
       } else if (klass == 3) {
         hp_mod = fd(4);
       }
-      var hp = Math.max(1, (parseInt(abilities[stats[3]]) || 0) + hp_mod);
+      var hp = Math.max(1, toughness() + hp_mod);
       document.getElementById("hp").innerHTML = hp + "/" + hp;
+
+      var power = presence() + fd(4);
+      document.getElementById("powers").innerHTML = power + "/" + power;
 
       var omens;
       if (klass == 3 || klass == 5) {
@@ -379,7 +402,6 @@
       } else if (klass == 5) {
         silver = (fd(6) + fd(6) + fd(6))*10;
       }
-
       var weapons = [
         ["Femur", "d4 damage"],
         ["Staff", "d4 damage"],
@@ -387,9 +409,9 @@
         ["Knife", "d4 damage"],
         ["Warhammer", "d6 damage"],
         ["Sword", "d6 damage"],
-        ["Bow", "d6 damage, with " + stats[1]+10 + " arrows"],
+        ["Bow", "d6 damage, with " + (presence() + 10) + " arrows"],
         ["Flail", "d8 damage"],
-        ["Crossbow", "d8 damage, with" + stats[1]+10 + " bolts"],
+        ["Crossbow", "d8 damage, with" + (presence() + 10) + " bolts"],
         ["Zweihänder", "d10 damage"]
       ]
       var light = ["Fur", "Padded cloth", "Leather"];
@@ -411,12 +433,12 @@
       ]
       var equip2 = [
         ["Rope", "30 feet"],
-        [stats[1] + 4 + " torches", ""],
-        ["Lantern", "with oil for " + stats[1] + 6 + " hours"],
+        [(presence() + 4) + " torches", ""],
+        ["Lantern", "with oil for " + (presence() + 6) + " hours"],
         ["Magnesium strip", ""],
         frandom_item_from(unclean_scrolls),
         ["Sharp needle", ""],
-        ["Medicine chest", stats[1] + 4 + " uses (stops bleeding/infection and heals d6 HP)"],
+        ["Medicine chest", (presence() + 4) + " uses (stops bleeding/infection and heals d6 HP)"],
         ["Metal file and lockpicks", ""],
         ["Bear trap", "PRESENCE DR14 to spot, d8 damage"],
         ["Bomb", "(sealed bottle, d10 damage)"],
@@ -426,8 +448,8 @@
       var equip3 = [
         ["Life elixir", fd(4) + " doses (heals d6 HP and removes infection)"],
         frandom_item_from(sacred_scrolls),
-        ["Small but vicious dog", "(" + fd(6) + 2 + " HP, bite d4, only obeys you)"],
-        [fd(4) + " monkey(s) that ignore but love you", "(" + fd(4) + 2 + " HP, punch/bite d4)"],
+        ["Small but vicious dog", "(" + (fd(6) + 2) + " HP, bite d4, only obeys you)"],
+        [fd(4) + " monkey(s) that ignore but love you", "(" + (fd(4) + 2) + " HP, punch/bite d4)"],
         ["Exquisite perfume", "worth 25s"],
         ["Toolbox", "10 nails, tongs, hammer, small saw, drill"],
         ["Heavy chain", "15 feet"],
@@ -454,6 +476,8 @@
         ["Noose", ""],
         [fd(4) + " pieces of chalk", ""]
       ]
+
+      document.getElementById("capacity").innerHTML = (strength() + 8) + "+ items then STRENGTH and AGILITY DR+2. Max " + (strength() + 8)*2;
 
       document.getElementById("equipment").innerHTML += "<li>" + food[0] + "<em class='smaller'>" + food[1] + "</em></li>";
       var e1 = frandom_item_from(equip1);

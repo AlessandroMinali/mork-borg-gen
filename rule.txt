@@ -27,3 +27,5 @@ OMENS (regain after 6 hours rest)
  - lower damage dealth to you by d6
  - neutralize a Crit or Fumble
  - lower one test's DR by -4
+ POWERS
+ - fail in worst possible way if one has failed within the hour
