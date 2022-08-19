@@ -22,7 +22,7 @@ For [DM](https://github.com/AlessandroMinali/mork-borg-gen/blob/master/MÖRK%20B
  - [ ] Auto daily-refresh button for character sheets (ie. restore heal, power, and omens)
  - [ ] Simple generator for every table
  - [ ] Shop generator
- - [ ] ~10-room dungeon generator w/ encounters
+ - [ ] Full dungeon generator w/ encounters + loot
  - [ ] Outcast generator???
 
 # Legal
