@@ -270,8 +270,8 @@
       }
       var habit = fd(bad_habits.length);
       var story;
-      document.getElementById("description").innerHTML = "<p>" + descriptions[parseInt(klass)] + "</p>";
       document.getElementById("description").innerHTML += "<p>" + memory + "</p>";
+      document.getElementById("description").innerHTML += "<p>" + descriptions[parseInt(klass)] + "</p>";
       document.getElementById("description").innerHTML += [
         "<p>",
         trait1 + " and " + trait2 + '.',
@@ -459,17 +459,41 @@
       var e1 = frandom_item_from(equip1);
       var e2 = fd(12);
       var e3 = fd(12);
-      var scroll = e2 == 5 || e3 == 2;
+      if (klass == 1) {
+        do {
+          e2 = fd(12);
+        } while(e2 == 5)
+
+        do {
+          e3 = fd(12);
+        } while(e3 == 2)
+      }
+      var scroll = (e2 == 5 || e3 == 2);
       e2 = equip2[e2 - 1];
       e3 = equip3[e3 - 1];
       var starting_weapon;
       if (story == 16) {
         starting_weapon = ["Sling", "d4 damage with an unlimited amount of stones"]
       } else {
-        starting_weapon = scroll ? frandom_item_from(weapons.slice(0, 6)) : frandom_item_from(weapons);
+        if (scroll || klass == 2 || klass == 6) {
+          starting_weapon = frandom_item_from(weapons.slice(0, 6));
+        } else if (klass == 3) {
+          starting_weapon = frandom_item_from(weapons.slice(0, 4));
+        } else if (klass == 4 || klass == 5) {
+          starting_weapon = frandom_item_from(weapons.slice(0, 8));
+        } else {
+          starting_weapon = frandom_item_from(weapons);
+        }
       }
       document.getElementById("equipment").innerHTML += "<li>" + starting_weapon[0] + "<em class='smaller'>&nbsp;" + starting_weapon[1] + "</em></li>";
-      var starting_armor = scroll ? frandom_item_from(armor.slice(0, 2)) : frandom_item_from(armor);
+      var starting_armor;
+      if (scroll || klass == 2 || klass == 3 || klass == 6) {
+        starting_armor = frandom_item_from(armor.slice(0, 2));
+      } else if (klass == 4) {
+        starting_armor = frandom_item_from(armor.slice(0, 3));
+      } else {
+        starting_armor = frandom_item_from(armor);
+      }
       if (starting_armor[0] != "") {
         document.getElementById("equipment").innerHTML += "<li>" + starting_armor[0] + "<em class='smaller'>&nbsp;" + starting_armor[1] + "</em></li>";
       }
