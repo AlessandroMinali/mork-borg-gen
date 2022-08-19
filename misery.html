@@ -8,8 +8,11 @@
   <title>The Calendar of Nechrubel - MÖRK BORG Misery Generator</title>
   <meta name="description" content="The Calendar of Nechrubel - MÖRK BORG Misery Generator">
   <style type="text/css">
-    body { font-family: sans-serif; }
+    body { font-family: sans-serif; width: 500px; }
     .smaller { font-size: 85%; }
+    b, h2 { font-family: Trattatello, fantasy; }
+    #events { text-align: center; }
+    #events > b { display: block; }
   </style>
 </head>
 
@@ -33,19 +36,15 @@
   </div>
 
   <div id="game" style="display: none;">
-    <b>
-      <div id=misery style="text-transform: uppercase;"></div>
-      <button id="new">New Day</button>
-      <button id="reset">End It</button>
-    </b>
+    <h1 id=misery style="text-transform: uppercase;"></h1>
+    <button id="new">New Day</button>
+    <button id="reset">End It</button>
     <br>
-    <br>
-    <div><b>DAY <span id="day"></span></b></div>
-    <div><b>WEATHER</b> <span id="weather" class="smaller"></span></div>
-    <br>
+    <h2 style="display: inline">DAY <span id="day"></span></h2>
+    <span> - <b>WEATHER</b> <span id="weather" class="smaller"></span></span>
     <div id="events"></div>
   </div>
-  <h1 id="end" style="text-transform: uppercase;"></h1>
+  <h1 id="end" style="text-transform: uppercase; width: 800px; text-align: center;"></h1>
 
   <script src="utils.js"></script>
   <script type="text/javascript">
@@ -73,14 +72,14 @@
         events++;
         if (miseries[i][0] == 7) {
           document.getElementById("game").style.textDecoration = 'line-through';
-          document
           window.scrollTo(0, document.body.scrollHeight);
-          document.getElementById("end").innerHTML = end;
+          document.getElementById("end").innerHTML = "<b>P S A L M " + end + "</b>";
+          document.getElementById("events").innerHTML = ''
           break;
         }
         rolls.push(miseries[i]);
         var output = m[(parseInt(miseries[i][0]) - 1)*6 + parseInt(miseries[i][1]) - 1].split(' ');
-        document.getElementById("events").innerHTML += "<b>"+output[0]+"</b> <span class='smaller'>"+output.slice(1,).join(' ')+"</span><br>"
+        document.getElementById("events").innerHTML += "<b>P S A L M "+output[0]+"</b><span class='smaller'>"+output.slice(1,).join(' ')+"</span><br>"
       }
     }
 
@@ -103,9 +102,11 @@
         events++;
         document.getElementById("game").style.textDecoration = 'line-through';
         window.scrollTo(0, document.body.scrollHeight);
-        document.getElementById("end").innerHTML = end;
+        document.getElementById("end").innerHTML = "<b>P S A L M " + end + "</b>";
+        document.getElementById("events").innerHTML = ''
 
         window.location.hash += "&77";
+        setCookie("misery", window.location.hash);
         return;
       }
 
@@ -115,7 +116,7 @@
       } while (rolls.includes(psalm.toString() + verse.toString()));
       rolls.push(psalm.toString() + verse.toString());
       var output = m[(psalm - 1)*6 + verse - 1].split(' ');
-      document.getElementById("events").innerHTML += "<b>"+output[0]+"</b> <span class='smaller'>"+output.slice(1,).join(' ')+"</span><br>"
+      document.getElementById("events").innerHTML += "<b>P S A L M "+output[0]+"</b><span class='smaller'>"+output.slice(1,).join(' ')+"</span><br>"
       events++;
 
       window.location.hash += "&" + psalm + verse;
