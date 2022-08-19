@@ -133,7 +133,10 @@
       <div id="skills" style="padding: 0px 20px 0px  0px;" class="edit"></div>
     </div>
   </div>
+  <hr>
+  <div class='fantasy'>SAVED SOULS<span id="souls"></span></div>
   <footer style="text-align: center; font-size: 65%; opacity: 75%;">
+    <hr>
     <pre style="margin: 0px 15px;">
 Waste of Skin is an independent production by Alessandro Minali and is not affiliated with Ockult Örtmästare Games or Stockholm Kartell. It is published under the MÖRK BORG Third Party License.
 MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
@@ -282,6 +285,11 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       load_edits(hash());
       document.getElementById("load").style.display = "inline";
       document.getElementById("delete").style.display = "inline";
+    }
+    if (localStorage.length == 0) { document.getElementById("souls").style.display = "none" }
+    for ( var i = 0, len = localStorage.length; i < len; ++i ) {
+      var item = localStorage.getItem(localStorage.key(i)).split('&666&', 2);
+      document.getElementById("souls").innerHTML += "<br><a href='" + window.location + '#' + localStorage.key(i) + "'>" + item[0];
     }
 
     var checkboxes = document.querySelectorAll('input[type=checkbox]');
