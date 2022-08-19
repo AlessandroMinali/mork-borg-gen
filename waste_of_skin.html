@@ -306,7 +306,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
               window.location +
                 "#" +
                   [_seed, klass.padStart(2, '0'), selected.join('')].join('&') +
-                    "\n\nNOTE: This only shares the base sheet not any edits made!");
+                    "\n\nNOTE: Other people will only see the base sheet! This link will be the one that you use to see all edits you made locally.");
     })
     document.getElementById("edit").addEventListener('click', function() {
       window.location.hash = [_seed, klass.padStart(2, '0'), selected.join('')].join('&');
