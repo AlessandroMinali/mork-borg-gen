@@ -302,11 +302,10 @@
 
     document.getElementById("save").addEventListener('click', function() {
       alert("Share able link:\n\n" +
-              window.location.pathname +
-                window.location.search +
-                  "#" +
-                    [_seed, klass.padStart(2, '0'), selected.join('')].join('&') +
-                      "\n\nNOTE: This only shares the base sheet not any edits made!");
+              window.location +
+                "#" +
+                  [_seed, klass.padStart(2, '0'), selected.join('')].join('&') +
+                    "\n\nNOTE: This only shares the base sheet not any edits made!");
     })
     document.getElementById("edit").addEventListener('click', function() {
       window.location.hash = [_seed, klass.padStart(2, '0'), selected.join('')].join('&');
@@ -352,7 +351,7 @@
         if (e.target.value != 0) { document.getElementById("prompt").style.display = "none"; }
         if (e.target.value == 0) { document.getElementById("prompt").style.display = "block"; }
         klass = e.target.value;
-        history.pushState("", document.title, window.location.pathname + window.location.search);
+        history.pushState("", document.title, window.location.pathname);
         reseed();
         generate();
       });
