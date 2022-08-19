@@ -57,7 +57,7 @@ function sfc32(a, b, c, d) {
     return (t >>> 0) / 4294967296;
   }
 }
-var _seed = Math.random().toString().slice(2,);
+var _seed;
 var _r;
 function seed() {
   var _s = cyrb128(_seed);
@@ -70,7 +70,6 @@ function reseed() {
 function fixed_rolls_only() {
   window.d = function() { alert() }
   window.random_item_from = function() { alert() }
-  seed();
 }
 function fd(max) {
   return Math.floor(_r() * max) + 1;

@@ -22,7 +22,7 @@
 
 <body>
   <div id="klass">
-    PICK YOUR CLASS:
+    1. PICK YOUR CLASS:
     <button id="ws" value="0">Wretch (no class)</button>
     <button id="fd" value="1">Fanged Deserter</button>
     <button id="gs" value="2">Guttborn Scum</button>
@@ -32,6 +32,7 @@
     <button id="oh" value="6">Occult Herbmaster</button>
   </div>
   <div id=prompt style="display: none;">
+    <br>
     Which abilities would you like to try and excel with (select 2):
     <form>
       <input type="checkbox" id="agi" name="agility" value=0>
@@ -43,7 +44,9 @@
       <input type="checkbox" id="tou" name="toughness" value=3>
       <label for="tou"><b>TOUGHNESS</b> <span class="smaller">Resist poison/cold/heat, survive falling</span></label><br>
     </form>
+    <b>CLICK <em>WRETCH</em> AGAIN TO REROLL</b>
   </div>
+  <br>
   <div id=character>
     <button id="save">Share</button>
     <br>
@@ -86,6 +89,7 @@
   </footer>
   <script src="utils.js"></script>
   <script>
+    var total_checks = 0;
     var klass;
     var selected;
     var descriptions = ["Of unkown origins.", "You have thirty or so friends who never let you down: YOUR TEETH. Disloyal, deranged or simply uncontrollable, any group that didn’t boot you out you left anyway. But your parliament of teeth—enormous, protruding, thick and sharp—have always been your allies.", "An ill star smiled upon your birth. Poverty, crime and bad parenting didn’t help either. In your community an honest day’s work was never an option. Not that you ever tried, what are you, some kind of mug? A razor blade and a moonless night are worth a week of chump-work.", "The stone of your cave is one with the stars. Silence and perfection. Now the chaos of a fallen world disturbs your rituals and the caul of night grows blacker than your cavern’s gloom. Irritating!", "Bowed down only by the memories of your own lost glory, you could never submit to anyone else. Not you, of noble blood! (Not that you expect these peons to understand the depths of your sorrow.)", "Hunted by the two-headed basilisks of the One True Faith, this heretic can be found raving in ruins, traipsing endlessly down dusty roads and desecrating cathedrals by night.", "Born of the mushroom, raised in the glade, watched by the eye of the moon in a silverblack pool."]
@@ -202,27 +206,27 @@
     }
 
     function load_char() {
-      if (!window.location.hash) { fixed_rolls_only(); klass = fd(6) - 1; generate(); return; }
+      if (!window.location.hash) { reseed(); klass = (d(6) - 1).toString(); return; }
 
       var tag = window.location.hash.split('&');
-      if (tag.length != 3) { return; }
+      if (tag.length < 2) { return; }
       if (tag[1].length != 2) { return; }
-      if (tag[2].length != 2) { return; }
-
-      document.querySelectorAll('input[type=checkbox]')[tag[2][0]].checked = true;
-      document.querySelectorAll('input[type=checkbox]')[tag[2][1]].checked = true;
-
-      document.getElementById("character").style.display = "block";
+      if (tag[2]) {
+        if (tag[2].length != 2) {return; }
+        total_checks = 2;
+        document.querySelectorAll('input[type=checkbox]')[tag[2][0]].checked = true;
+        document.querySelectorAll('input[type=checkbox]')[tag[2][1]].checked = true;
+        selected = tag[2].split('');
+      }
 
       _seed = tag[0].slice(1,);
-      fixed_rolls_only();
+      seed();
       klass = tag[1];
-      selected = tag[2].split('');
-      generate();
     }
     load_char();
+    fixed_rolls_only();
+    generate();
 
-    var total_checks = 0;
     var checkboxes = document.querySelectorAll('input[type=checkbox]');
     for(var i = 0, len = checkboxes.length; i < len; i++) {
       checkboxes[i].addEventListener('change', function() {
