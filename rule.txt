@@ -4,36 +4,12 @@ The Calendar of Nechrubel
  - Choose d100, d20, d10, d6, or d2 determined by group and DM
  - Roll die every dawn, if nat 1 then unique d66 Misery occurs
  - Seventh Misery is always 7:7, game ends
-ROUND
- - attack/Power + traverse normal room, 10 rounds/min
 GAME
  - Draw or find A map. Around 10 rooms is enough for one night’s session.
+POWERS
+ - two similiar rolls on arcane catastrophe, caster explodes in screaming black fire in which the faces of the dead are seen. d6 damage each round. Water only feeds this fire.
 DAWN
 1. Misery roll
 2. PRESENCE + d4 Powers
 3. Regain dX Omens (if PCs slept)
-
-PLAYER
-
-WEAPONS
-- Scrolls will never work when yielding zweihänder(d10?) or medium/heavy armor
-- improvised weapons, d4 damage
-- unarmed, d2 damage
-ARMOR
-- armor can't be repaired to a tier higher than its original
-- armor reduced below 1st tier is ruined and cannot be repaired
-ABILITIES
-- Cannot exceed +6 or -3
-CARRY
-- carry capacity, if above STRENGTH+8 then STRENGTH and AGILITY DR+2, can't exceed 2*STRENGTH+8
-REST
-- rest does nothing if no food or drink, 2 days of no food PC loses d4 HP per day.
-POWERS
- - fail in worst possible way if one has failed within the hour
- - two similiar rolls on arcane catastrophe, caster explodes in screaming black fire in which the faces of the dead are seen. d6 damage each round. Water only feeds this fire.
-OMENS (regain after 6 hours rest)
- - deal maximum damage with one attack
- - reroll a dice roll (yours or someone else's)
- - lower damage dealth to you by d6
- - neutralize a Crit or Fumble
- - lower one test's DR by -4
+4. 2 days of no food PC loses d4 HP per day.
