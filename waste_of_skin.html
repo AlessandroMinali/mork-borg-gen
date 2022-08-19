@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Waste of Skin - Classes MÖRK BORG Character Generator</title>
+  <title>Waste of Skin - A MÖRK BORG Character Generator</title>
   <meta name="description" content="Waste of Skin - Classes MÖRK BORG Character Generator">
   <style type="text/css">
     body { font-family: sans-serif; font-size: 14px }
@@ -17,12 +17,16 @@
       position: sticky;
       top: 100vh;
     }
+    .fantasy { font-family: Trattatello, fantasy; }
+    label { display: inline-block; }
+    .character > button { margin: 10px; }
   </style>
 </head>
 
 <body>
+  <h1 style="margin: 0px;" class="fantasy">WASTE OF SKIN - A MÖRK BORG MEAT-SACK SPAWNER</h1>
   <div id="klass">
-    1. PICK YOUR CLASS:
+    <span class="fantasy">PICK YOUR CLASS</span>
     <button id="ws" value="0">Wretch (no class)</button>
     <button id="fd" value="1">Fanged Deserter</button>
     <button id="gs" value="2">Guttborn Scum</button>
@@ -31,22 +35,39 @@
     <button id="he" value="5">Heretical Priest</button>
     <button id="oh" value="6">Occult Herbmaster</button>
   </div>
+  <hr style="margin: 0px;">
   <div id=prompt style="display: none;">
-    <br>
     Which abilities would you like to try and excel with (select 2):
     <form>
-      <input type="checkbox" id="agi" name="agility" value=0>
-      <label for="agi"><b>AGILITY</b> <span class="smaller">Defend, balance, swim, flee</span></label><br>
-      <input type="checkbox" id="pre" name="presence" value=1>
-      <label for="pre"><b>PRESENCE</b> <span class="smaller">Perceive, aim, charm, wield Powers</span></label><br>
-      <input type="checkbox" id="str" name="strength" value=2>
-      <label for="str"><b>STRENGTH</b> <span class="smaller">Crush, lift, strike, grapple</span></label><br>
-      <input type="checkbox" id="tou" name="toughness" value=3>
-      <label for="tou"><b>TOUGHNESS</b> <span class="smaller">Resist poison/cold/heat, survive falling</span></label><br>
+      <div style="display: inline-block;">
+        <input type="checkbox" id="agi" name="agility" value=0>
+        <label for="agi">
+          <b>AGILITY</b>
+          <span class="smaller">Defend, balance, swim, flee</span>
+        </label>
+        <br>
+        <input type="checkbox" id="pre" name="presence" value=1>
+        <label for="pre">
+          <b>PRESENCE</b>
+          <span class="smaller">Perceive, aim, charm, wield Powers</span>
+        </label>
+      </div>
+      <div style="display: inline-block;">
+        <input type="checkbox" id="str" name="strength" value=2>
+        <label for="str">
+          <b>STRENGTH</b>
+          <span class="smaller">Crush, lift, strike, grapple</span>
+        </label>
+        <br>
+        <input type="checkbox" id="tou" name="toughness" value=3>
+        <label for="tou">
+          <b>TOUGHNESS</b>
+          <span class="smaller">Resist poison/cold/heat, survive falling</span>
+        </label>
+      </div>
     </form>
     <b>AFTER SELECTING, CLICK <em>WRETCH</em> AGAIN TO REROLL WITH CHANGES</b>
   </div>
-  <br>
   <div id=character>
     <button id="save">Share</button>
     <button id="edit">Edit Locally</button>
@@ -55,27 +76,30 @@
     <button id="delete" style="display: none;">Delete Local Edits</button>
     <button id="stop" style="display: none;">Stop Editing</button>
     <br>
-    <br>
-    <div style="display: inline-block; padding-right: 20px;">
-      <b style="background: black; color: white;">NAME</b>
-      <span id="name" class="edit"></span>
+    <div style="width: 500px; display: inline-block;">
+      <div style="display: inline-block; padding-right: 20px;">
+        <b style="background: black; color: white;">NAME</b>
+        <span id="name" class="edit"></span>
+      </div>
+      <div style="display: inline-block; padding-right: 20px;">
+        <b style="background: black; color: white;">CLASS</b>
+        <span id="class_name"></span>
+      </div>
     </div>
-    <div style="display: inline-block; padding-right: 20px;">
-      <b style="background: black; color: white;">CLASS</b>
-      <span id="class_name"></span>
-    </div>
-    <div style="display: inline-block; padding-right: 20px;">
-      <b style="background: black; color: white;">HP</b>
-      <span id="hp" class="edit"></span>
-    </div>
-    <div style="display: inline-block; padding-right: 20px;">
-      <b style="background: black; color: white;">POWERS</b>
-      <span id="powers" class="edit"></span>
-    </div>
-    <div style="display: inline-block; padding-right: 20px;">
-      <b style="background: black; color: white;">OMENS</b>
-      <span id="omens" class="edit"></span>
-      <span id="omens_dice"></span>
+    <div style="width: 500px; display: inline-block;">
+      <div style="display: inline-block; padding-right: 20px;">
+        <b style="background: black; color: white;">HP</b>
+        <span id="hp" class="edit"></span>
+      </div>
+      <div style="display: inline-block; padding-right: 20px;">
+        <b style="background: black; color: white;">POWERS</b>
+        <span id="powers" class="edit"></span>
+      </div>
+      <div style="display: inline-block; padding-right: 20px;">
+        <b style="background: black; color: white;">OMENS</b>
+        <span id="omens" class="edit"></span>
+        <span id="omens_dice"></span>
+      </div>
     </div>
     <br>
     <br>
@@ -109,7 +133,7 @@
     </div>
   </div>
   <footer style="text-align: center; font-size: 65%; opacity: 75%;">
-    <pre>
+    <pre style="margin: 0px;">
       Waste of Skin is an independent production by Alessandro Minali and is not affiliated with Ockult Örtmästare Games or Stockholm Kartell. It is published under the MÖRK BORG Third Party License.
       MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
   </pre>
