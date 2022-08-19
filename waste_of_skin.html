@@ -44,41 +44,68 @@
       <input type="checkbox" id="tou" name="toughness" value=3>
       <label for="tou"><b>TOUGHNESS</b> <span class="smaller">Resist poison/cold/heat, survive falling</span></label><br>
     </form>
-    <b>CLICK <em>WRETCH</em> AGAIN TO REROLL</b>
+    <b>AFTER SELECTING, CLICK <em>WRETCH</em> AGAIN TO REROLL WITH CHANGES</b>
   </div>
   <br>
   <div id=character>
     <button id="save">Share</button>
+    <button id="edit">Edit Locally</button>
+    <button id="save_edits" style="display: none;">Save Local Edits</button>
+    <button id="load" style="display: none;">Load Local Edits</button>
+    <button id="delete" style="display: none;">Delete Local Edits</button>
+    <button id="stop" style="display: none;">Stop Editing</button>
     <br>
     <br>
-    <div style="display: inline-block; padding-right: 20px;"><b style="background: black; color: white;">NAME</b> <span id="name"></span></div>
-    <div style="display: inline-block; padding-right: 20px;"><b style="background: black; color: white;">CLASS</b> <span id="class_name"></span></div>
-    <div style="display: inline-block; padding-right: 20px;"><b style="background: black; color: white;">HP</b> <span id="hp"></span></div>
-    <div style="display: inline-block; padding-right: 20px;"><b style="background: black; color: white;">POWERS</b> <span id="powers"></span></div>
-    <div style="display: inline-block; padding-right: 20px;"><b style="background: black; color: white;">OMENS</b> <span id="omens"></span></div>
-    <br><br>
+    <div style="display: inline-block; padding-right: 20px;">
+      <b style="background: black; color: white;">NAME</b>
+      <span id="name" class="edit"></span>
+    </div>
+    <div style="display: inline-block; padding-right: 20px;">
+      <b style="background: black; color: white;">CLASS</b>
+      <span id="class_name"></span>
+    </div>
+    <div style="display: inline-block; padding-right: 20px;">
+      <b style="background: black; color: white;">HP</b>
+      <span id="hp" class="edit"></span>
+    </div>
+    <div style="display: inline-block; padding-right: 20px;">
+      <b style="background: black; color: white;">POWERS</b>
+      <span id="powers" class="edit"></span>
+    </div>
+    <div style="display: inline-block; padding-right: 20px;">
+      <b style="background: black; color: white;">OMENS</b>
+      <span id="omens" class="edit"></span>
+      <span id="omens_dice"></span>
+    </div>
+    <br>
+    <br>
     <div style="display: inline-block; width: 500px; vertical-align: top;">
       <div id="ablities"><b style="background: black; color: white;">ABILITIES</b></div>
-      <div><em>AGILITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em><span id="agility"></span></div>
-      <div><em>PRESENCE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em><span id="presence"></span></div>
-      <div><em>STRENGTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em><span id="strength"></span></div>
-      <div><em>TOUGHNESS&nbsp;&nbsp;&nbsp;&nbsp;</em><span id="toughness"></span></div>
-      <br>
+      <pre>
+  <em>AGILITY</em>      <span id="agility" class="edit"></span>
+  <em>PRESENCE</em>     <span id="presence" class="edit"></span>
+  <em>STRENGTH</em>     <span id="strength" class="edit"></span>
+  <em>TOUGHNESS</em>    <span id="toughness" class="edit"></span>
+    </pre>
       <div>
         <b style="background: black; color: white;">EQUIPMENT</b>
-        <span class="smaller" style="float: right; background: #aaa; color: white; margin-top: 3px; margin-right: 10px;">CAPACITY <span id="capacity"></span></span>
-        <ul id="equipment">
+        <span class="smaller" style="float: right; background: #aaa; color: white; margin-top: 3px; margin-right: 10px;">
+          CAPACITY
+          <span id="capacity" class="edit"></span>+ items then STRENGTH and AGILITY DR+2. Max
+          <span id="capacity_max" class="edit"></span>
+        </span>
+        <ul id="equipment" class="edit">
         </ul>
       </div>
       <hr>
       <div style="width: 500px">
         <b style="background: black; color: white;">BACKGROUND</b>
-        <span id="description" class="smaller"></span>
+        <span id="description" class="smaller edit"></span>
       </div>
     </div>
     <div style="display: inline-block; width: 500px;">
       <b style="background: black; color: white;">CLASS SKILLS</b>
-      <div id="skills" style="padding: 0px 20px 0px  0px;"></div>
+      <div id="skills" style="padding: 0px 20px 0px  0px;" class="edit"></div>
     </div>
   </div>
   <footer style="text-align: center; font-size: 65%; opacity: 75%;">
@@ -198,7 +225,7 @@
       ["Roskoe's Consuming Glare (sacred scroll)", "d4 creatures lose d8 each"],
       ["Enochian Syntax (sacred scroll)", "One creature blindly obeys a single command"]
     ]
-    var abilities = [" -3", " -3", " -3", " -3", " -2", " -2", " -1", " -1", "±0", "±0", "±0", "±0", "+1", "+1", "+2", "+2", "+3", "+3", "+3", "+3"]
+    var abilities = ["-3", "-3", "-3", "-3", "-2", "-2", "-1", "-1", "±0", "±0", "±0", "±0", "+1", "+1", "+2", "+2", "+3", "+3", "+3", "+3"]
 
     function removeSmallest(arr) {
         var min = Math.min(...arr);
@@ -226,6 +253,11 @@
     load_char();
     fixed_rolls_only();
     generate();
+    if (check_edits(hash())) {
+      load_edits(hash());
+      document.getElementById("load").style.display = "inline";
+      document.getElementById("delete").style.display = "inline";
+    }
 
     var checkboxes = document.querySelectorAll('input[type=checkbox]');
     for(var i = 0, len = checkboxes.length; i < len; i++) {
@@ -245,11 +277,49 @@
     }
 
     document.getElementById("save").addEventListener('click', function() {
-      alert("Share able link: " +
+      alert("Share able link:\n\n" +
               window.location.pathname +
                 window.location.search +
                   "#" +
-                    [_seed, klass.padStart(2, '0'), selected.join('')].join('&'));
+                    [_seed, klass.padStart(2, '0'), selected.join('')].join('&') +
+                      "\n\nNOTE: This only shares the base sheet not any edits made!");
+    })
+    document.getElementById("edit").addEventListener('click', function() {
+      window.location.hash = [_seed, klass.padStart(2, '0'), selected.join('')].join('&');
+      enable_edits();
+      document.getElementById("klass").style.display = "none";
+      document.getElementById("prompt").style.display = "none";
+      document.getElementById("save").style.display = "none";
+      document.getElementById("edit").style.display = "none";
+      document.getElementById("save_edits").style.display = "inline";
+      document.getElementById("load").style.display = "inline";
+      document.getElementById("delete").style.display = "inline";
+      document.getElementById("stop").style.display = "inline";
+    })
+    document.getElementById("save_edits").addEventListener('click', function() {
+      save_edits(hash());
+    })
+    document.getElementById("load").addEventListener('click', function() {
+      load_edits(hash());
+    })
+    document.getElementById("delete").addEventListener('click', function() {
+      delete_edits(hash());
+    })
+    document.getElementById("stop").addEventListener('click', function() {
+      disable_edits();
+      document.getElementById("klass").style.display = "block";
+      document.getElementById("prompt").style.display = klass == 0 ? "block" : "none";
+      document.getElementById("save").style.display = "inline";
+      document.getElementById("edit").style.display = "inline";
+      document.getElementById("save_edits").style.display = "none";
+      if (check_edits(hash())) {
+        document.getElementById("load").style.display = "inline";
+        document.getElementById("delete").style.display = "inline";
+      } else {
+        document.getElementById("load").style.display = "none";
+        document.getElementById("delete").style.display = "none";
+      }
+      document.getElementById("stop").style.display = "none";
     })
 
     var buttons = document.querySelectorAll("#klass > button");
@@ -403,7 +473,8 @@
       } else {
         omens = [fd(2), 2];
       }
-      document.getElementById("omens").innerHTML = omens[0] + " (d" + omens[1] + ")";
+      document.getElementById("omens").innerHTML = omens[0] + '/' + omens[0];
+      document.getElementById("omens_dice").innerHTML =  "(d" + omens[1] + ")";
 
       var food = ["Waterskin", " and " + fd(4) + " days' worth of food"]
       var silver;
@@ -491,7 +562,8 @@
         [fd(4) + " pieces of chalk", ""]
       ]
 
-      document.getElementById("capacity").innerHTML = (strength() + 8) + "+ items then STRENGTH and AGILITY DR+2. Max " + (strength() + 8)*2;
+      document.getElementById("capacity").innerHTML = strength() + 8;
+      document.getElementById("capacity_max").innerHTML = (strength() + 8) * 2;
 
       document.getElementById("equipment").innerHTML += "<li>" + food[0] + "<em class='smaller'>" + food[1] + "</em></li>";
       var e1 = frandom_item_from(equip1);

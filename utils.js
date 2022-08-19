@@ -1,3 +1,46 @@
+function hash() {
+  return window.location.hash.slice(1,);
+}
+
+function save_edits(tag) {
+  var editElem = document.getElementsByClassName("edit");
+  var edits = [];
+  for(var i = 0; i < editElem.length; i++) {
+    edits.push(editElem[i].innerHTML);
+  }
+  localStorage.setItem(tag, edits.join('&666&'));
+  alert("Edits saved!");
+}
+function load_edits(tag) {
+  const edits = localStorage.getItem(tag).split('&666&');
+  var editElem = document.getElementsByClassName("edit");
+  console.log(edits, edits.length, editElem.length);
+  for(var i = 0; i < edits.length; i++) {
+    editElem[i].innerHTML = edits[i];
+  }
+  alert("Edits restored!");
+}
+function delete_edits(tag) {
+  localStorage.removeItem(tag);
+  alert("Edits deleted!");
+  window.location.reload();
+}
+function check_edits(tag) {
+  return localStorage.getItem(tag) != null;
+}
+function enable_edits() {
+  var editElem = document.getElementsByClassName("edit");
+  for(var i = 0; i < editElem.length; i++) {
+    editElem[i].contentEditable = "true";
+  }
+}
+function disable_edits() {
+  var editElem = document.getElementsByClassName("edit");
+  for(var i = 0; i < editElem.length; i++) {
+    editElem[i].contentEditable = "false";
+  }
+}
+
 function d(max) {
   return Math.floor(Math.random() * max) + 1;
 }
