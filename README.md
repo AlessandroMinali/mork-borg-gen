@@ -11,8 +11,8 @@ https://alessandrominali.github.io/mork-borg-gen/misery.html
 
 # Roadmap
 
- - [ ] Auto-level up for character sheets
- - [ ] Auto daily refresh for character sheets (heal, power, and omens)
+ - [ ] Auto level-up button for character sheets
+ - [ ] Auto daily-refresh button for character sheets (ie. restore heal, power, and omens)
  - [ ] Simple generator for every table
  - [ ] Shop generator
  - [ ] ~10-room dungeon generator w/ encounters
