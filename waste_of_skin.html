@@ -37,7 +37,6 @@
       <label for="str"><b>STRENGTH</b> <span class="smaller">Crush, lift, strike, grapple</span></label><br>
       <input type="checkbox" id="tou" name="toughness" value=3>
       <label for="tou"><b>TOUGHNESS</b> <span class="smaller">Resist poison/cold/heat, survive falling</span></label><br>
-      <input type="submit" value="Spawn">
     </form>
   </div>
   <div id=character>
@@ -68,6 +67,7 @@
     var klass;
     var selected;
     var descriptions = ["Of unkown origins.", "You have thirty or so friends who never let you down: YOUR TEETH. Disloyal, deranged or simply uncontrollable, any group that didn’t boot you out you left anyway. But your parliament of teeth—enormous, protruding, thick and sharp—have always been your allies.", "An ill star smiled upon your birth. Poverty, crime and bad parenting didn’t help either. In your community an honest day’s work was never an option. Not that you ever tried, what are you, some kind of mug? A razor blade and a moonless night are worth a week of chump-work.", "The stone of your cave is one with the stars. Silence and perfection. Now the chaos of a fallen world disturbs your rituals and the caul of night grows blacker than your cavern’s gloom. Irritating!", "Bowed down only by the memories of your own lost glory, you could never submit to anyone else. Not you, of noble blood! (Not that you expect these peons to understand the depths of your sorrow.)", "Hunted by the Two-Headed Basilisks of the One True Faith, this heretic can be found raving in ruins, traipsing endlessly down dusty roads and desecrating cathedrals by night.", "Born of the mushroom, raised in the glade, watched by the eye of the moon in a silverblack pool."]
+    var base_skills = [["Nimble", ""], ["Witty", ""], ["Well-fed", ""], ["Indomitable", ""]]
     var occult_herbmaster_memory = ["calm isolation in the Sarkash dark.", "calm isolation in the Sarkash dark.", "calm isolation in the Sarkash dark.", "the illegal midnight markets of Schleswig", "the heretic isle of Crëlut,two nautical miles east of Grift.", "the old frozen ruins not far from Alliáns.", "a little witches cottage in Galgenbeck.", "the ruins of the Shadow King's manse, thick with memories of mushrooms and smoke."]
     var occult_herbmaster_abilities = [
       ["Tough as Wood", ""],
@@ -216,16 +216,6 @@
       })
     }
 
-    document.getElementById("prompt").addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      document.getElementById("character").style.display = "block";
-      history.pushState("", document.title, window.location.pathname + window.location.search);
-
-      reseed();
-      generate();
-    })
-
     document.getElementById("save").addEventListener('click', function() {
       alert("Share able link: " +
               window.location.pathname +
@@ -240,6 +230,7 @@
         if (e.target.value != 0) { document.getElementById("prompt").style.display = "none"; }
         if (e.target.value == 0) { document.getElementById("prompt").style.display = "block"; }
         klass = e.target.value;
+        history.pushState("", document.title, window.location.pathname + window.location.search);
         reseed();
         generate();
       });
@@ -251,7 +242,7 @@
       document.getElementById("skills").innerHTML = "";
       if (klass == 0) { document.getElementById("prompt").style.display = "block"; }
 
-      document.getElementById("class_name").innerHTML = classes[klass];
+      document.getElementById("class_name").innerHTML = classes[parseInt(klass)];
       document.getElementById("name").innerHTML = names[(fd(6) - 1)*8 + fd(8) - 1];
       selected = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(e => e.value);
 
@@ -279,7 +270,7 @@
       }
       var habit = fd(bad_habits.length);
       var story;
-      document.getElementById("description").innerHTML = "<p>" + descriptions[klass] + "</p>";
+      document.getElementById("description").innerHTML = "<p>" + descriptions[parseInt(klass)] + "</p>";
       document.getElementById("description").innerHTML += "<p>" + memory + "</p>";
       document.getElementById("description").innerHTML += [
         "<p>",
@@ -289,22 +280,22 @@
         "</p>"
       ].join(' ');
 
+
       var skills = [];
-      var base_skills = [["Nimble", ""], ["Witty", ""], ["Well-fed", ""], ["Indomitable", ""]]
       if (klass == 0) {
         if (selected[0]) { skills.push(base_skills[selected[0]]); }
         if (selected[1]) { skills.push(base_skills[selected[1]]); }
       } else if (klass == 1) {
-        skills = fanged_deserter_abilites;
+        fanged_deserter_abilites.forEach(x => skills.push(x));
         skills.push(frandom_item_from(fanged_deserter_features));
       } else if (klass == 2) {
-        skills = gutterborn_abilities;
+        gutterborn_abilities.forEach(x => skills.push(x));
         skills.push(frandom_item_from(gutterborn_features));
       } else if (klass == 3) {
-        skills = esoteric_hermit_abilities;
+        esoteric_hermit_abilities.forEach(x => skills.push(x));
         skills.push(frandom_item_from(esoteric_hermit_features));
       } else if (klass == 4) {
-        skills = wretched_royalty_abilities;
+        wretched_royalty_abilities.forEach(x => skills.push(x));
         var wr_skill1 = frandom_item_from(wretched_royalty_features);
         var wr_skill2;
         do {
@@ -313,10 +304,10 @@
         skills.push(wr_skill1);
         skills.push(wr_skill2);
       } else if (klass == 5) {
-        skills = heretical_priest_abilities;
+        heretical_priest_abilities.forEach(x => skills.push(x));
         skills.push(frandom_item_from(heretical_priest_features));
       } else if (klass == 6) {
-        skills = occult_herbmaster_abilities;
+        occult_herbmaster_abilities.forEach(x => skills.push(x));
       }
       for(var i = 0; i < skills.length; i++) {
         document.getElementById("skills").innerHTML += "<br><b>" + skills[i][0] + "</b>";
@@ -326,6 +317,7 @@
           document.getElementById("skills").innerHTML += "<br>"
         }
       }
+      document.getElementById("skills").innerHTML += "<br>"
 
       var abilities = [" -3", " -3", " -3", " -3", " -2", " -2", " -1", " -1", "±0", "±0", "±0", "±0", "+1", "+1", "+2", "+2", "+3", "+3", "+3", "+3"]
       var stats = []
@@ -368,6 +360,14 @@
       var hp = Math.max(1, (parseInt(abilities[stats[3]]) || 0) + hp_mod);
       document.getElementById("hp").innerHTML = hp + "/" + hp;
 
+      var omens;
+      if (klass == 3 || klass == 5) {
+        omens = [fd(4), 4];
+      } else {
+        omens = [fd(2), 2];
+      }
+      document.getElementById("omens").innerHTML = omens[0] + " (d" + omens[1] + ")";
+
       var food = ["Waterskin", " and " + fd(4) + " days' worth of food"]
       var silver;
       if (klass == 0 || klass == 1 || klass == 6) {
@@ -392,7 +392,6 @@
         ["Crossbow", "d8 damage, with" + stats[1]+10 + " bolts"],
         ["Zweihänder", "d10 damage"]
       ]
-
       var light = ["Fur", "Padded cloth", "Leather"];
       var medium = ["Scale", "Mail"];
       var heavy = ["Splint", "Plate"];
@@ -402,7 +401,6 @@
         [frandom_item_from(medium) + " armor", "-d4 damage, tier 2, DR+2 on AGILITY tests including defence"],
         [frandom_item_from(heavy) + " armor", "-d6 damage, tier 3, DR+4 on AGILITY tests, defence is DR+2"],
       ]
-
       var equip1 = [
         ["", ""],
         ["", ""],
@@ -411,7 +409,6 @@
         ["Small wagon", ""],
         ["Donkey", ""]
       ]
-
       var equip2 = [
         ["Rope", "30 feet"],
         [stats[1] + 4 + " torches", ""],
@@ -426,7 +423,6 @@
         ["A bottle of red poison", fd(4) + " doses (TOUGHNESS DR12 or d10 damage)"],
         ["Silver crucifix", ""]
       ]
-
       var equip3 = [
         ["Life elixir", fd(4) + " doses (heals d6 HP and removes infection)"],
         frandom_item_from(sacred_scrolls),
@@ -441,7 +437,6 @@
         ["Lard", "(may function as 5 meals in a pinch)"],
         ["Tent", ""]
       ]
-
       var equip4 = [
         ["Blanket", ""],
         ["Firesteel", ""],
@@ -461,14 +456,12 @@
       ]
 
       document.getElementById("equipment").innerHTML += "<li>" + food[0] + "<em class='smaller'>" + food[1] + "</em></li>";
-
       var e1 = frandom_item_from(equip1);
       var e2 = fd(12);
       var e3 = fd(12);
       var scroll = e2 == 5 || e3 == 2;
       e2 = equip2[e2 - 1];
       e3 = equip3[e3 - 1];
-
       var starting_weapon;
       if (story == 16) {
         starting_weapon = ["Sling", "d4 damage with an unlimited amount of stones"]
@@ -476,12 +469,10 @@
         starting_weapon = scroll ? frandom_item_from(weapons.slice(0, 6)) : frandom_item_from(weapons);
       }
       document.getElementById("equipment").innerHTML += "<li>" + starting_weapon[0] + "<em class='smaller'>&nbsp;" + starting_weapon[1] + "</em></li>";
-
       var starting_armor = scroll ? frandom_item_from(armor.slice(0, 2)) : frandom_item_from(armor);
       if (starting_armor[0] != "") {
         document.getElementById("equipment").innerHTML += "<li>" + starting_armor[0] + "<em class='smaller'>&nbsp;" + starting_armor[1] + "</em></li>";
       }
-
       var special_item;
       if (habit == 1) {
         special_item = ["Sackcloth bag", "and " + (fd(20) + fd(20) + fd(20) + fd(20) + fd(20)) + " small sharp stones"]
@@ -493,27 +484,20 @@
       if (special_item) {
         document.getElementById("equipment").innerHTML += "<li>" + special_item[0] + "<em class='smaller'>&nbsp;" + special_item[1] + "</em></li>";
       }
-
       if (e1[0] != "") {
         document.getElementById("equipment").innerHTML += "<li>" + e1[0] + "<em class='smaller'>&nbsp;" + e1[1] + "</em></li>";
       }
       document.getElementById("equipment").innerHTML += "<li>" + e2[0] + "<em class='smaller'>&nbsp;" + e2[1] + "</em></li>";
       document.getElementById("equipment").innerHTML += "<li>" + e3[0] + "<em class='smaller'>&nbsp;" + e3[1] + "</em></li>";
-
       if (story == 20 || fd(100) <= 8) {
         let e4 = frandom_item_from(equip4);
         document.getElementById("equipment").innerHTML += "<li>" + e4[0] + "<em class='smaller'>&nbsp;" + e4[1] + "</em></li>";
       }
-
-      document.getElementById("equipment").innerHTML += "<li>" + silver + " silver</li>";
-
-      var omens;
-      if (klass == 3 || klass == 5) {
-        omens = [fd(4), 4];
-      } else {
-        omens = [fd(2), 2];
+      if (klass == 3) {
+        var eso_scroll = fd(2) == 1 ? frandom_item_from(sacred_scrolls) : frandom_item_from(unclean_scrolls);
+        document.getElementById("equipment").innerHTML += "<li>" + eso_scroll[0] + "<em class='smaller'>&nbsp;" + eso_scroll[1] + "</em></li>";
       }
-      document.getElementById("omens").innerHTML = omens[0] + " (d" + omens[1] + ")";
+      document.getElementById("equipment").innerHTML += "<li>" + silver + " silver</li>";
     }
   </script>
 </body>
