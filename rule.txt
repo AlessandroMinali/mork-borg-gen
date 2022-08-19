@@ -29,3 +29,4 @@ OMENS (regain after 6 hours rest)
  - lower one test's DR by -4
  POWERS
  - fail in worst possible way if one has failed within the hour
+- two similiar rolls on arcane catastrophe, caster explodes in screaming black fire in which the faces of the dead are seen. d6 damage each round. Water only feeds this fire.
