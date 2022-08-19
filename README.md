@@ -9,6 +9,12 @@ Track days and misery automagically for your MÖRK BORG campaign.
 
 https://alessandrominali.github.io/mork-borg-gen/misery.html
 
+# FULL REFERENCE
+Updated reference sheets with ALL the rules.
+
+For [PLAYERS](https://github.com/AlessandroMinali/mork-borg-gen/blob/master/MÖRK%20BORG%20REFERENCE%20PLAYER.pdf)
+For [DM](https://github.com/AlessandroMinali/mork-borg-gen/blob/master/MÖRK%20BORG%20REFERENCE%20DM.pdf)
+
 # Roadmap
 
  - [ ] Auto level-up button for character sheets
