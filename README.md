@@ -1,9 +1,11 @@
 # WASTE OF SKIN
 A fully automated MÖRK BORG character generator, class or class-less.
 Allows sharing of generated characters and local editing so that you can use the character in actual play.
+https://alessandrominali.github.io/mork-borg-gen/waste_of_skin.html
 
 # MISERY
 Track days and misery automagically for your MÖRK BORG campaign.
+https://alessandrominali.github.io/mork-borg-gen/misery.html
 
 # Roadmap
 
