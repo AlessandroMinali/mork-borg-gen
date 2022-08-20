@@ -9,7 +9,7 @@ function save_edits(tag) {
     edits.push(editElem[i].innerHTML);
   }
   localStorage.setItem(tag, edits.join('&666&'));
-  alert("Edits saved!");
+  show_status("SAVED");
 }
 function load_edits(tag) {
   const edits = localStorage.getItem(tag).split('&666&');
@@ -18,11 +18,10 @@ function load_edits(tag) {
   for(var i = 0; i < edits.length; i++) {
     editElem[i].innerHTML = edits[i];
   }
-  alert("Edits restored!");
+  show_status("RESTORED");
 }
 function delete_edits(tag) {
   localStorage.removeItem(tag);
-  alert("Edits deleted!");
   window.location.reload();
 }
 function check_edits(tag) {
@@ -39,6 +38,15 @@ function disable_edits() {
   for(var i = 0; i < editElem.length; i++) {
     editElem[i].contentEditable = "false";
   }
+}
+function show_status(msg) {
+  var el = document.getElementById("status");
+  el.innerHTML = msg;
+  el.style.display = 'inline';
+  hide_status();
+}
+function hide_status() {
+  setTimeout(function() { document.getElementById("status").style.display = 'none'; } , 1000);
 }
 
 function d(max) {

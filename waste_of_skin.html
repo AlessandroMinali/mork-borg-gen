@@ -81,6 +81,7 @@
     <button id="load" style="display: none;">Load Local Edits</button>
     <button id="delete" style="display: none;">Delete Local Edits</button>
     <button id="stop" style="display: none;">Stop Editing</button>
+    <span style='display: none; background: green; color: white; padding: 1px 5px;' id='status'></span>
     <br>
     <div class='top' style="display: inline-block;">
       <div style="display: inline-block; padding-right: 20px;">
@@ -323,7 +324,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
               window.location.hostname + window.location.pathname +
                 "#" +
                   [_seed, klass.padStart(2, '0'), selected.join('')].join('&') +
-                    "\n\nNOTE: Other people will only see the base sheet! This link will be the one that you use to see all edits you made locally.");
+                    "\n\nNOTE: Other people will only see the base sheet!");
     })
     document.getElementById("edit").addEventListener('click', function() {
       window.location.hash = [_seed, klass.padStart(2, '0'), selected.join('')].join('&');
