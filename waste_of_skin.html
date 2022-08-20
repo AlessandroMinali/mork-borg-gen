@@ -134,7 +134,7 @@
     </div>
   </div>
   <hr>
-  <div class='fantasy'>SAVED SOULS<span id="souls"></span></div>
+  <div class='fantasy' id="saved_souls">SAVED SOULS<span id="souls"></span></div>
   <footer style="text-align: center; font-size: 65%; opacity: 75%;">
     <hr>
     <pre style="margin: 0px 15px;">
@@ -255,6 +255,15 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     ]
     var abilities = ["-3", "-3", "-3", "-3", "-2", "-2", "-1", "-1", "±0", "±0", "±0", "±0", "+1", "+1", "+2", "+2", "+3", "+3", "+3", "+3"]
 
+    function update_souls() {
+      if (localStorage.length == 0) { document.getElementById("saved_souls").style.display = "none"; return }
+      for ( var i = 0, len = localStorage.length; i < len; i++ ) {
+        var item = localStorage.getItem(localStorage.key(i)).split('&666&', 2);
+        document.getElementById("souls").innerHTML +=
+          "<br><a href='" + window.location + '#' + localStorage.key(i) + "'>" + item[0];
+      }
+    }
+
     function removeSmallest(arr) {
         var min = Math.min(...arr);
         return arr.filter(e => e != min);
@@ -286,11 +295,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       document.getElementById("load").style.display = "inline";
       document.getElementById("delete").style.display = "inline";
     }
-    // if (localStorage.length == 0) { document.getElementById("souls").style.display = "none" }
-    for ( var i = 0, len = localStorage.length; i < len; ++i ) {
-      var item = localStorage.getItem(localStorage.key(i)).split('&666&', 2);
-      document.getElementById("souls").innerHTML += "<br><a href='" + window.location + '#' + localStorage.key(i) + "'>" + item[0];
-    }
+    update_souls();
 
     var checkboxes = document.querySelectorAll('input[type=checkbox]');
     for(var i = 0, len = checkboxes.length; i < len; i++) {
@@ -328,26 +333,18 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       document.getElementById("delete").style.display = "inline";
       document.getElementById("stop").style.display = "inline";
     })
+
     document.getElementById("save_edits").addEventListener('click', function() {
       save_edits(hash());
-      for ( var i = 0, len = localStorage.length; i < len; ++i ) {
-      var item = localStorage.getItem(localStorage.key(i)).split('&666&', 2);
-      document.getElementById("souls").innerHTML += "<br><a href='" + window.location + '#' + localStorage.key(i) + "'>" + item[0];
-    }
+      update_souls();
     })
     document.getElementById("load").addEventListener('click', function() {
       load_edits(hash());
-      for ( var i = 0, len = localStorage.length; i < len; ++i ) {
-      var item = localStorage.getItem(localStorage.key(i)).split('&666&', 2);
-      document.getElementById("souls").innerHTML += "<br><a href='" + window.location + '#' + localStorage.key(i) + "'>" + item[0];
-    }
+      update_souls();
     })
     document.getElementById("delete").addEventListener('click', function() {
       delete_edits(hash());
-      for ( var i = 0, len = localStorage.length; i < len; ++i ) {
-      var item = localStorage.getItem(localStorage.key(i)).split('&666&', 2);
-      document.getElementById("souls").innerHTML += "<br><a href='" + window.location + '#' + localStorage.key(i) + "'>" + item[0];
-    }
+      update_souls();
     })
     document.getElementById("stop").addEventListener('click', function() {
       disable_edits();
@@ -384,7 +381,9 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       document.getElementById("equipment").innerHTML = "";
       document.getElementById("description").innerHTML = "";
       document.getElementById("skills").innerHTML = "";
-      if (klass == 0) { document.getElementById("prompt").style.display = "block"; }
+      if (klass == 0) {
+        document.getElementById("prompt").style.display = "block";
+      }
 
       document.getElementById("class_name").innerHTML = classes[parseInt(klass)];
       document.getElementById("name").innerHTML = names[(fd(6) - 1)*8 + fd(8) - 1];
