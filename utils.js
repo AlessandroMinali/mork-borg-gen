@@ -39,14 +39,23 @@ function disable_edits() {
     editElem[i].contentEditable = "false";
   }
 }
+
 function show_status(msg) {
   var el = document.getElementById("status");
   el.innerHTML = msg;
   el.style.display = 'inline';
   hide_status();
 }
+var timers = [];
 function hide_status() {
-  setTimeout(function() { document.getElementById("status").style.display = 'none'; } , 1000);
+  for(var i = 0; i < timers.length; i++) {
+    clearTimeout(timers[i]);
+  }
+  var el = document.getElementById("status");
+  el.style.opacity = 1;
+  for(var i = 0; i < 50; i++) {
+    timers.push(setTimeout(function() { el.style.opacity -= 0.02; } , i * 60));
+  }
 }
 
 function d(max) {
