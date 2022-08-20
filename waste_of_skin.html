@@ -21,6 +21,10 @@
     .fantasy { font-family: Trattatello, fantasy; }
     label { display: inline-block; }
     .character > button { margin: 10px; }
+    .top { width: 500px }
+    @media only screen and (max-width: 400px) {
+      .top { width: auto; }
+    }
   </style>
 </head>
 
@@ -78,7 +82,7 @@
     <button id="delete" style="display: none;">Delete Local Edits</button>
     <button id="stop" style="display: none;">Stop Editing</button>
     <br>
-    <div style="width: 500px; display: inline-block;">
+    <div class='top' style="display: inline-block;">
       <div style="display: inline-block; padding-right: 20px;">
         <b style="background: black; color: white;">NAME</b>
         <span id="name" class="edit"></span>
@@ -88,7 +92,7 @@
         <span id="class_name"></span>
       </div>
     </div>
-    <div style="width: 500px; display: inline-block;">
+    <div class='top' style="display: inline-block;">
       <div style="display: inline-block; padding-right: 20px;">
         <b style="background: black; color: white;">HP</b>
         <span id="hp" class="edit"></span>
@@ -105,7 +109,7 @@
     </div>
     <br>
     <br>
-    <div style="display: inline-block; width: 500px; vertical-align: top;">
+    <div style="display: inline-block; max-width: 500px; vertical-align: top;">
       <div id="ablities"><b style="background: black; color: white;">ABILITIES</b></div>
       <pre style="margin-bottom: 0px;">
   <em>AGILITY</em>      <span id="agility" class="edit"></span>
@@ -123,12 +127,12 @@
         <ul id="equipment" class="edit">
         </ul>
       </div>
-      <div style="width: 500px">
+      <div style="max-width: 500px">
         <b style="background: black; color: white;">BACKGROUND</b>
         <span id="description" class="smaller edit"></span>
       </div>
     </div>
-    <div style="display: inline-block; width: 500px;">
+    <div style="display: inline-block; max-width: 500px;">
       <b style="background: black; color: white;">CLASS SKILLS</b>
       <div id="skills" style="padding: 0px 20px 0px  0px;" class="edit"></div>
     </div>
