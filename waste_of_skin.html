@@ -81,9 +81,9 @@
   <div id=character>
     <button id="save">Share</button>
     <button id="edit">Edit Locally</button>
-    <button id="save_edits" style="display: none;">Save Local Edits</button>
-    <button id="load" style="display: none;">Load Local Edits</button>
-    <button id="delete" style="display: none;">Delete Local Edits</button>
+    <button id="save_edits" style="display: none;">Save Local Edit</button>
+    <button id="load" style="display: none;">Load Local Edit</button>
+    <button id="delete" style="display: none;">Delete Local Edit</button>
     <button id="stop" style="display: none;">Stop Editing</button>
     <span style='display: none; background: green; color: white; padding: 1px 5px;' id='status'></span>
     <br>
@@ -265,6 +265,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     var abilities = ["-3", "-3", "-3", "-3", "-2", "-2", "-1", "-1", "±0", "±0", "±0", "±0", "+1", "+1", "+2", "+2", "+3", "+3", "+3", "+3"]
 
     function update_souls() {
+      document.getElementById("souls").innerHTML = '';
       if (localStorage.length == 0) { document.getElementById("saved_souls").style.display = "none"; return }
       for ( var i = 0, len = localStorage.length; i < len; i++ ) {
         var item = localStorage.getItem(localStorage.key(i)).split('&666&', 2);
