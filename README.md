@@ -27,4 +27,5 @@ For [DM](https://github.com/AlessandroMinali/mork-borg-gen/blob/master/MÖRK%20B
 
 # Legal
 All the code is an independent production by Alessandro Minali and is not affiliated with Ockult Örtmästare Games or Stockholm Kartell. It is published under the MÖRK BORG Third Party License.
+
 MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
