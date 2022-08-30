@@ -378,13 +378,12 @@ var scrolls = [
       if (self) {
         log("You are engulfed in unholy fire. Nothing can stop this until it burns out.")
         current_player.hellghast = hits;
-        return current_player.hellghast_tick();
+        return;
       }
       if (!current_target) { return log("You need a target for this spell."); }
       log("Your target is engulfed in unholy fire. Nothing can stop this until it burns out.")
       current_player.hellghast_target = current_target;
-      current_target.hellghast = hits;
-      current_player.hellghast_tick();
+      current_player.hellghast_target.hellghast = hits;
       if (!self) { this.destroy(); }
     }, seed
   )}

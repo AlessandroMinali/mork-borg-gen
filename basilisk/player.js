@@ -118,8 +118,8 @@ class Player {
     if (this.y == undefined) { return; }
     return rooms[this.y][this.x]
   }
-  pick_up(obj) {
-    if (this.current_room()?.check_monsters()) { return; }
+  pick_up(obj, evasion) {
+    if (this.current_room()?.check_monsters(evasion) ) { return; }
     if (obj instanceof Pet) {
       if (this.cruel) {
         log("You try to call the " + obj.name + " over but it doesn't listen and runs off");
