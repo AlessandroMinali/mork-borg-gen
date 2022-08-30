@@ -207,7 +207,7 @@ var treasure_table = [
   function(seed) {return new Treasure("Soporific Flute",
     function() {
       current_player.current_room().monsters.forEach(el => el.sleep = true);
-      log('You play a sweet lullaby and the monster falls asleep. The flute shatter silently in your hand once you stop. You can now evade once freely.');
+      log('You play a sweet lullaby and the monsters falls asleep. The flute shatter silently in your hand once you stop. You can now evade once freely.');
       this.destroy();
     }, function() {}, seed
   )},

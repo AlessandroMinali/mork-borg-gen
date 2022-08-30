@@ -169,9 +169,9 @@ var tough_monster = [
   function(seed) {return new Monster("Grotesque", 14, 7, 8, 'blunt', "Raising it's arms over it's head it bring it down on your frail figure",
     function() {
       if (current_player.toughness(10)) {
-        log("You feel you skin begin to harden upon contact with the monster. Thankfully the affliction does not spread far.");
+        log("You feel your skin begin to harden upon contact with the monster. Thankfully the affliction does not spread far.");
       } else {
-        log("You feel you skin begin to harden upon contact with the monster.");
+        log("You feel your skin begin to harden upon contact with the monster.");
         current_player.hit(999, 'petrification', 'petrification touch');
       }
     }, function() {}, seed)},
