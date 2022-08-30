@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style type="text/css">
+    b { background: black; color: white; }
+    ol, ul { padding-left: 20px; margin: 0 }
+    .upgrade { background: gold; color: white; border-radius: 5px; padding: 0px 5px; margin: 0px; vertical-align: top; display: none;}
+  </style>
+</head>
+<body>
+  <button id='new'>New Dungeon</button>
+  <button id='controls' onclick='(function() { controls() })()'>Controls</button>
+  <button id='tips' onclick='(function() { tips() })()'>Tips</button>
+  <button id='new_track' style='display: none;'>New Track</button>
+  <hr>
+  <div id='char_select'>
+  <h1 id='choose_text'>Select an adventurer:</h1>
+  <div id='player_1' style="display: inline-block; vertical-align: top; padding-right: 20px">
+    <button id='choose_1' onclick='(function() { current_player = players[0]; choose_start(); })()'>Choose (1)</button>
+    <br>
+    <b>NAME</b>: <span id="name_1"></span>
+    <br>
+    <b>MAX HP</b>: <span id="max_hp_1"></span>
+    <br>
+    <b>HP</b>: <span id="hp_1"></span></span>
+    <pre>
+STRENGTH:  <span id="strength_1"></span>
+AGILITY:   <span id="agility_1"></span>
+PRESENCE:  <span id="presence_1"></span>
+TOUGHNESS: <span id="toughness_1"></span></pre>
+    <b>BOONS</b>:
+    <br>
+    <span id="boons_1"></span>
+    <br>
+    <b>AFFLICTIONS</b>:
+    <br>
+    <span id="afflictions_1"></span>
+    <br>
+    <b>INVENTORY</b>:
+    <ul style='margin-top: 0;'><span id="inventory_1"></span></ul>
+    <b>KILLED BY</b>:
+    <br>
+    <span id="killed_by_1"></span>
+  </div>
+  <div id='player_2' style="display: inline-block; vertical-align: top; padding-right: 20px">
+    <button id='choose_2' onclick='(function() { current_player = players[1]; choose_start(); })()'>Choose (2)</button>
+    <br>
+    <b>NAME</b>: <span id="name_2"></span>
+    <br>
+    <b>MAX HP</b>: <span id="max_hp_2"></span>
+    <br>
+    <b>HP</b>: <span id="hp_2"></span></span>
+    <pre>
+STRENGTH:  <span id="strength_2"></span>
+AGILITY:   <span id="agility_2"></span>
+PRESENCE:  <span id="presence_2"></span>
+TOUGHNESS: <span id="toughness_2"></span></pre>
+    <b>BOONS</b>:
+    <br>
+    <span id="boons_2"></span>
+    <br>
+    <b>AFFLICTIONS</b>:
+    <br>
+    <span id="afflictions_2"></span>
+    <br>
+    <b>INVENTORY</b>:
+    <br>
+    <ul style='margin-top: 0;'><span id="inventory_2"></span></ul>
+    <b>KILLED BY</b>:
+    <br>
+    <span id="killed_by_2"></span>
+  </div>
+  <div id='player_3' style="display: inline-block; vertical-align: top; padding-right: 20px">
+    <button id='choose_3' onclick='(function() { current_player = players[2]; choose_start(); })()'>Choose (3)</button>
+    <br>
+    <b>NAME</b>: <span id="name_3"></span>
+    <br>
+    <b>MAX HP</b>: <span id="max_hp_3"></span>
+    <br>
+    <b>HP</b>: <span id="hp_3"></span></span>
+    <pre>
+STRENGTH:  <span id="strength_3"></span>
+AGILITY:   <span id="agility_3"></span>
+PRESENCE:  <span id="presence_3"></span>
+TOUGHNESS: <span id="toughness_3"></span></pre>
+    <b>BOONS</b>:
+    <br>
+    <span id="boons_3"></span>
+    <br>
+    <b>AFFLICTIONS</b>:
+    <br>
+    <span id="afflictions_3"></span>
+    <br>
+    <b>INVENTORY</b>:
+    <br>
+    <ul style='margin-top: 0;'><span id="inventory_3"></span></ul>
+    <b>KILLED BY</b>:
+    <br>
+    <span id="killed_by_3"></span>
+  </div>
+  <div id='player_4' style="display: inline-block; vertical-align: top; padding-right: 20px">
+    <button id='choose_4' onclick='(function() { current_player = players[3]; choose_start(); })()'>Choose (4)</button>
+    <br>
+    <b>NAME</b>: <span id="name_4"></span>
+    <br>
+    <b>MAX HP</b>: <span id="max_hp_4"></span>
+    <br>
+    <b>HP</b>: <span id="hp_4"></span></span>
+    <pre>
+STRENGTH:  <span id="strength_4"></span>
+AGILITY:   <span id="agility_4"></span>
+PRESENCE:  <span id="presence_4"></span>
+TOUGHNESS: <span id="toughness_4"></span></pre>
+    <b>BOONS</b>:
+    <br>
+    <span id="boons_4"></span>
+    <br>
+    <b>AFFLICTIONS</b>:
+    <br>
+    <span id="afflictions_4"></span>
+    <br>
+    <b>INVENTORY</b>:
+    <br>
+    <ul style='margin-top: 0;'><span id="inventory_4"></span></ul>
+    <b>KILLED BY</b>:
+    <br>
+    <span id="killed_by_4"></span>
+  </div>
+  <div id='player_5' style="display: inline-block; vertical-align: top; padding-right: 20px">
+    <button id='choose_5' onclick='(function() { current_player = players[4]; choose_start(); })()'>Choose (5)</button>
+    <br>
+    <b>NAME</b>: <span id="name_5"></span>
+    <br>
+    <b>MAX HP</b>: <span id="max_hp_5"></span>
+    <br>
+    <b>HP</b>: <span id="hp_5"></span></span>
+    <pre>
+STRENGTH:  <span id="strength_5"></span>
+AGILITY:   <span id="agility_5"></span>
+PRESENCE:  <span id="presence_5"></span>
+TOUGHNESS: <span id="toughness_5"></span></pre>
+    <b>BOONS</b>:
+    <br>
+    <span id="boons_5"></span>
+    <br>
+    <b>AFFLICTIONS</b>:
+    <br>
+    <span id="afflictions_5"></span>
+    <br>
+    <b>INVENTORY</b>:
+    <br>
+    <ul style='margin-top: 0;'><span id="inventory_5"></span></ul>
+    <b>KILLED BY</b>:
+    <br>
+    <span id="killed_by_5"></span>
+  </div>
+</div>
+  <div id='screen' style='display: none;'>
+    <div id='choose'>
+      <h1>Choose which entrance you want to use:</h1>
+      <button onclick='(function() { start(0); })()'>Choose 1 (1)</button>
+      <button onclick='(function() { start(1); })()'>Choose 2 (2)</button>
+      <button onclick='(function() { start(2); })()'>Choose 3 (3)</button>
+      </div>
+    <canvas id="myCanvas" width="707" height="497" style="border: 1px solid #c3c3c3; autofocus">
+    Your browser does not support the canvas element.
+    </canvas>
+    <div id='c_player' style="display: inline-block; vertical-align: top; padding-right: 20px">
+      <b>NAME</b>: <span id="name"></span>
+      <br>
+      <b>MAX HP</b>: <span id="max_hp"></span><button class='upgrade' id='increase_max_hp'>+</button>
+      <br>
+      <b>HP</b>: <span id="hp"></span></span><button class='upgrade' id='increase_hp'>+</button>
+      <br>
+      <b>POINTS</b>: <span id="points"></span>
+      <pre>
+  STRENGTH:  <span id="strength"></span><button class='upgrade' id='increase_str'>+</button>
+  AGILITY:   <span id="agility"></span><button class='upgrade' id='increase_agi'>+</button>
+  PRESENCE:  <span id="presence"></span><button class='upgrade' id='increase_pre'>+</button>
+  TOUGHNESS: <span id="toughness"></span><button class='upgrade' id='increase_tou'>+</button></pre>
+      <b>BOONS</b>: <button class='upgrade' id='increase_boon'>+</button>
+      <br>
+      <span id="boons"></span>
+      <br>
+      <b>AFFLICTIONS</b>:
+      <br>
+      <span id="afflictions"></span>
+      <br>
+    </div>
+    <div id='c_inv' style="display: inline-block; vertical-align: top; padding-right: 20px">
+      <b>INVENTORY</b>:
+      <br>
+      <span id="inventory"></span>
+      <ul style='margin: 0;'><li>Fists <button onclick='(funtcion() { current_player.fists(); })()'>Use (spacebar)</button></li></ul>
+    </div>
+    <div id='c_room' style="display: inline-block; vertical-align: top;">
+      <b>CURRENT ROOM</b>:
+      <button id='search' style="display: none;" onclick='(function() { _room().search(); })()'>Search (x)</button>
+      <button id='audience' style="display: none;" onclick='(function() { audience(); })()'>Approach Verhu (a)</button>
+      <br>
+      <span id='r_temple' style='display: none'>
+        Arcane Temple <button onclick='(function() { _room().approach(); })()'>Approach (a)</button>
+      </span>
+      <br>
+      <span id='r_traps_wrapper'>
+        <b>TRAPS</b>:
+        <ul><span id="room_traps"></span></ul>
+      </span>
+      <span id='r_items_wrapper'>
+        <b>ITEMS</b>: <button onclick='(function() { current_player.current_room().pick_up(" + index + ") })()'>Grab All (g)</button>
+        <ul><span id="room_items"></span></ul>
+      </span>
+      <span id='merchant' style="display: none;">
+        <b>MERCHANT</b>:
+        <ul><span id="merchant_items"></span></ul>
+      </span>
+      <span id='sorcerer' style="display: none;">
+        <b>SORCERER</b>:
+        <ul><span id="sorcerer_items"></span></ul>
+      </span>
+      <span id='r_monsters_wrapper'>
+        <b>MONSTERS</b>:
+        <ul><span id="room_monsters"></span></ul>
+      </span>
+    </div>
+    <div id='log' style="height: 120px; overflow: scroll;"></div>
+  </div>
+
+  <script src="utils.js"></script>
+  <script type="text/javascript">
+    if (check('seed')) {
+      seed(check('seed'));
+    } else {
+      seed();
+      save('seed', _seed);
+    }
+    document.getElementById('new').addEventListener('click', function() { del('seed'); del('player_moves'); });
+    document.getElementById('new_track').addEventListener('click', function() { del('player_moves'); });
+    console.log('SEED', _seed);
+  </script>
+  <script src="monster.js"></script>
+  <script src="name.js"></script>
+  <script src="item.js"></script>
+  <script src="trap.js"></script>
+  <script src="lair.js"></script>
+  <script src="input.js"></script>
+  <script src="room_tables.js"></script>
+  <script src="room.js"></script>
+  <script src="player.js"></script>
+  <script src="main.js"></script>
+  <script src="level.js"></script>
+</body>
+</html>
