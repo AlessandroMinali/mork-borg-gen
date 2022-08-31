@@ -26,7 +26,6 @@ class Monster {
     if (this.hp <= 0) {
       log("You have slain the " + this.name + ", gaining " + this.dr + "Points");
       current_player.points += this.dr;
-      current_target = undefined;
       return this.clear();
     }
   }
@@ -72,7 +71,6 @@ class Monster {
     if (this.hp <= 0) {
       log("You have slain the " + this.name + ", gaining " + this.dr + "Points!");
       current_player.points += this.dr;
-      current_target = _room().monsters[0] || undefined;
       return this.clear();
     }
     if (current_player.current_room() != this.current_room()) {
@@ -101,6 +99,7 @@ class Monster {
     this.current_room().monsters_slain.push(this);
     this.current_room().monsters.splice(this.current_room().monsters.indexOf(this), 1);
     if (this.name == 'Arch Cultist') { guardian = false; log("The guardian is dead, now you may seek an audience with Verhu in the lair."); }
+    current_target = _room().monsters[0] || undefined;
     this.current_room().draw();
   }
 }
