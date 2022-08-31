@@ -180,12 +180,16 @@ class Room {
       if (!lair_entered) { this.monsters.push(arch_cultist(seed)); lair_entered = true; }
     } else {
       // treasure pool
-      this.items_pile = [this.choice(treasure_table)(this.seed), this.choice(treasure_table)(this.seed)];
+      var i_pile = this.two_unique(treasure_table);
+      this.items_pile = [i_pile[0](this.seed), i_pile[1](this.seed)];
       // trap pool
-      this.traps_pile = [new Trap(...this.choice(traps_table), this.seed), new Trap(...this.choice(traps_table), this.seed)];
+      var t_pile = this.two_unique(traps_table);
+      this.traps_pile = [new Trap(...t_pile[0], this.seed), new Trap(...t_pile[1], this.seed)];
       // monster_pool
-      this.weak_monsters_pile = [this.choice(weak_monster)(this.seed), this.choice(weak_monster)(this.seed)];
-      this.tough_monsters_pile = [this.choice(tough_monster)(this.seed), this.choice(tough_monster)(this.seed)];
+      var w_pile = this.two_unique(weak_monster);
+      this.weak_monsters_pile = [w_pile[0](this.seed), w_pile[1](this.seed)];
+      var t_pile = this.two_unique(tough_monster);
+      this.tough_monsters_pile = [t_pile[0](this.seed), t_pile[1](this.seed)];
       // power_pool
       this.powers_pile = this.choice(scrolls)(this.seed);
       // search_pool
@@ -211,6 +215,15 @@ class Room {
     if (tele == undefined || this.secret_exit != undefined) { this.exits[entering_from] = 1; }
     this.fix_exits();
     if (!this.lair) { this.encounter(); }
+  }
+  two_unique(array) {
+    var x = this.choice(array);
+    var y;
+    do {
+      y = this.choice(array);
+    } while(x == y);
+
+    return [x, y]
   }
   move_monsters(x, y, push) {
     x = clamp(x, 0, 9);
