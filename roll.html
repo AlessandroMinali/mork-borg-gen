@@ -1,0 +1,29 @@
+<style type="text/css">
+  table {
+    width: 100px;
+    border: 1px black solid;
+    text-align: center;
+    display: inline-block;
+    table-layout: fixed;
+  }
+  td { border: 1px black solid; }
+  h2 { display: inline-block; padding-right: 20px; }
+</style>
+<body><pre></pre></body>
+<script src='utils.js'></script>
+<script type="text/javascript">
+  const b = document.body; // document.getElementsByTagName('pre')[0];
+  [2, 4, 6, 8, 10, 12, 20, 100].forEach(el => {
+    const title = document.createElement('h2');
+    title.innerHTML = 'd' + el;
+    b.appendChild(title);
+    const tbl = document.createElement('table');
+    const tr = tbl.insertRow();
+    for (i = 0; i < 4; i++) {
+      const td = tr.insertCell();
+      td.innerHTML = d(el);
+    }
+    b.appendChild(tbl);
+    b.appendChild(document.createElement('br'));
+  })
+</script>
