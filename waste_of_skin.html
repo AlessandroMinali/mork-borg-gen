@@ -267,6 +267,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     function update_souls() {
       document.getElementById("souls").innerHTML = '';
       for (var i = 0, len = localStorage.length; i < len; i++ ) {
+        if (localStorage.key(i).slice(0, 2) == 'CY') { continue; }
         var item = localStorage.getItem(localStorage.key(i)).split('&666&', 2);
         document.getElementById("souls").innerHTML +=
           "<a style='padding-right: 10px;' href='" + window.location.pathname + '?reload=' + (new Date()) + '#' + localStorage.key(i) + "'>" + item[0];
