@@ -554,7 +554,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       } else if (klass == 5) {
         silver = (fd(6) + fd(6) + fd(6))*10;
       }
-      var w_light = ['Staff', 'Wooden Stake', 'Shortsword', 'Knife', 'Sickle', 'Cudgel'];
+      var w_light = ['Staff', 'Wooden stake', 'Shortsword', 'Knife', 'Sickle', 'Cudgel'];
       var w_med = ['Warhammer', 'Sword', 'Club', 'Handaxe', 'Mace', 'Spear', 'Scythe'];
       var w_heavy = ['Flail', 'Battleaxe', 'Goendendag'];
       var weapons = [
@@ -620,24 +620,15 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         ["Shield", "(-1 HP damage or have the shield break to ignore on attack)"],
         ["Crowbar", "(d4 damage)"],
         ["Lard", "(may function as 5 meals in a pinch)"],
-        ["Tent", ""]
-      ]
-      var equip4 = [
-        ["Blanket", ""],
-        ["Firesteel", ""],
-        ["Chewing tabacco", fd(4) + " doses"],
-        ["A bottle of salt", ""],
-        ["Wooden crucifix", ""],
-        ["Manacles", ""],
-        ["A bottle of black poison", fd(4) + " doses (TOUGHNESS DR14 or d6 damage + blind for one hour)"],
-        [fd(4) + " moderately tame rat(s)", "(2 HP, bite d2, only obeys you)"],
+        ["Tent", ""],
+        [fd(6) + " moderately tame rat(s)", "(1 HP, bite d2, only obeys you)"],
         ["Mirror", "worth 15s"],
         ["Scissors", ""],
         ["Meat cleaver", "d4 damage"],
         ["Caltrops", "d4 damage + infection on 1-in-6"],
         ["Hammer", "d4 damage"],
-        ["Noose", ""],
-        [fd(4) + " pieces of chalk", ""]
+        ["Wooden stake" , "d6 damage"],
+        ["Noose", ""]
       ]
 
       document.getElementById("capacity").innerHTML = strength() + 8;
@@ -645,8 +636,8 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
 
       document.getElementById("equipment").innerHTML += "<li>" + food[0] + "<em class='smaller'>" + food[1] + "</em></li>";
       var e1 = frandom_item_from(equip1);
-      var e2 = fd(12);
-      var e3 = fd(12);
+      var e2 = fd(20);
+      var e3 = fd(20);
       var scroll = (e2 == 5 || e3 == 2);
       e2 = equip2[e2 - 1];
       e3 = equip3[e3 - 1];
@@ -692,10 +683,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       }
       document.getElementById("equipment").innerHTML += "<li>" + e2[0] + "<em class='smaller'>&nbsp;" + e2[1] + "</em></li>";
       document.getElementById("equipment").innerHTML += "<li>" + e3[0] + "<em class='smaller'>&nbsp;" + e3[1] + "</em></li>";
-      if (story == 20 || fd(100) <= 8) {
-        let e4 = frandom_item_from(equip4);
-        document.getElementById("equipment").innerHTML += "<li>" + e4[0] + "<em class='smaller'>&nbsp;" + e4[1] + "</em></li>";
-      }
       if (klass == 3) {
         var eso_scroll = fd(2) == 1 ? frandom_item_from(sacred_scrolls) : frandom_item_from(unclean_scrolls);
         document.getElementById("equipment").innerHTML += "<li>" + eso_scroll[0] + "<em class='smaller'>&nbsp;" + eso_scroll[1] + "</em></li>";
