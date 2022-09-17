@@ -641,12 +641,12 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       if (story == 16) {
         starting_weapon = ["Sling", "d4 damage with an unlimited amount of stones"]
       } else {
-        if (scroll || klass == 2 || klass == 6) {
-          starting_weapon = frandom_item_from(weapons.slice(0, 6));
-        } else if (klass == 3) {
+        if (klass == 3) {
           starting_weapon = frandom_item_from(weapons.slice(0, 4));
         } else if (klass == 4 || klass == 5) {
           starting_weapon = frandom_item_from(weapons.slice(0, 8));
+        } else if (scroll || klass == 2 || klass == 6) {
+          starting_weapon = frandom_item_from(weapons.slice(0, 6));
         } else {
           starting_weapon = frandom_item_from(weapons);
         }
