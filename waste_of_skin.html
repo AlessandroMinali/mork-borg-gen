@@ -653,10 +653,10 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       }
       document.getElementById("equipment").innerHTML += "<li>" + starting_weapon[0] + "<em class='smaller'>&nbsp;" + starting_weapon[1] + "</em></li>";
       var starting_armor;
-      if (scroll || klass == 2 || klass == 3 || klass == 6) {
-        starting_armor = frandom_item_from(armor.slice(0, 2));
-      } else if (klass == 4) {
+      if (klass == 4) {
         starting_armor = frandom_item_from(armor.slice(0, 3));
+      } else if (scroll || klass == 2 || klass == 3 || klass == 6) {
+        starting_armor = frandom_item_from(armor.slice(0, 2));
       } else {
         starting_armor = frandom_item_from(armor);
       }
