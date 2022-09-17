@@ -190,6 +190,14 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       ["The Snake-skin Gift", "An expensive sandalwood box bound in snakeskin. It contains a seemingly ordinary dagger, wrapped in silk. The dagger does d4 damage but on a 1 the target dies immediately of deadly poison weeping from the blade."],
       [" Horn of the Schleswig Lords!", "Once per day release a blare from this dented old trumpet and test PRESENCE DR12. One creature may make their next non-combat test an automatic success."]
     ]
+    var wretched_royalty_features_2 = [
+      ["Bedfellow's Writ", "With this parchment, you are under aristocratic immunity and cannot be persecuted for any crime against those beneath you. Only nobles and other aristocrats will respect this decree unless you succeed a DR14 PRESENCE test."],
+      ["BLUEblooded", "Generations of plots carried out with poison and paupers' blades have made your blood particularly resilient against infection. You suffer no daily loss of HP while infected."],
+      ["Bust of a Madman", "Most of your dead relatives are dreaming in the family mausoleum, but the spirit of this great-grand-uncle has decided instead to haunt an antique stone bust. Feed him a day’s worth of food and his eyes will shine with a ghostly pale blue light for d4 hours, illuminating the area. The light also reveals invisible things."],
+      ["Family Jewel", "Once the crown of your family’s collection, this gemstone of sapphire delight makes you an alluring target. When held aloft, any enemy creatures with a mind for riches will attack you before all others."],
+      ["Glassgill Necklace", "This beautiful silver necklace sockets six iridescent pearls. Swallowing one allows you to breathe underwater until the pearl passes. Reusable."],
+      ["Sigil of Opulence", "The debts and indebts of the nobility are not soon forgotten. Show this ancient family seal to a merchant, and there is a 50% chance their prices are halved for you and your party. If not, the prices are doubled."]
+    ]
     var esoteric_hermit_memory = ["were awakening, adult, in a ritual circle underneath the northern bridge to Grift.", "wandered, memoryless, from the mouth of a cavern at the cliffs of Terion", "were a single child survivor of an incident in the Valley of the Unfortunate Undead.", "were dying of plague in a Bergen Chrypt hovel, you touched something from outside.", "were an average individual until you encountered something in a dim glade in Sarkash.", "were raised on a lonely island in Lake Onda. No one else has ever heard of this island and you can't return."
     ]
     var esoteric_hermit_abilities = [
@@ -457,10 +465,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       } else if (klass == 4) {
         wretched_royalty_abilities.forEach(x => skills.push(x));
         var wr_skill1 = frandom_item_from(wretched_royalty_features);
-        var wr_skill2;
-        do {
-          wr_skill2 = frandom_item_from(wretched_royalty_features);
-        } while(wr_skill1 == wr_skill2);
+        var wr_skill2 = frandom_item_from(wretched_royalty_features_2);
         skills.push(wr_skill1);
         skills.push(wr_skill2);
       } else if (klass == 5) {
@@ -631,15 +636,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       var e1 = frandom_item_from(equip1);
       var e2 = fd(12);
       var e3 = fd(12);
-      if (klass == 1) {
-        do {
-          e2 = fd(12);
-        } while(e2 == 5)
-
-        do {
-          e3 = fd(12);
-        } while(e3 == 2)
-      }
       var scroll = (e2 == 5 || e3 == 2);
       e2 = equip2[e2 - 1];
       e3 = equip3[e3 - 1];
