@@ -554,15 +554,18 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       } else if (klass == 5) {
         silver = (fd(6) + fd(6) + fd(6))*10;
       }
+      var w_light = ['Staff', 'Wooden Stake', 'Shortsword', 'Knife', 'Sickle', 'Cudgel'];
+      var w_med = ['Warhammer', 'Sword', 'Club', 'Handaxe', 'Mace', 'Spear', 'Scythe'];
+      var w_heavy = ['Flail', 'Battleaxe', 'Goendendag'];
       var weapons = [
         ["Femur", "d4 damage"],
-        ["Staff", "d4 damage"],
-        ["Shortsword", "d4 damage"],
-        ["Knife", "d4 damage"],
-        ["Warhammer", "d6 damage"],
-        ["Sword", "d6 damage"],
+        [frandom_item_from(w_light), "d4 damage"],
+        [frandom_item_from(w_light), "d4 damage"],
+        [frandom_item_from(w_light), "d4 damage"],
+        [frandom_item_from(w_med), "d6 damage"],
+        [frandom_item_from(w_med), "d6 damage"],
         ["Bow", "d6 damage, with " + (presence() + 10) + " arrows"],
-        ["Flail", "d8 damage"],
+        [frandom_item_from(w_heavy), "d8 damage"],
         ["Crossbow", "d8 damage, with" + (presence() + 10) + " bolts"],
         ["Zweihänder", "d10 damage"]
       ]
