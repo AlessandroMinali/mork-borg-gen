@@ -674,6 +674,8 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         special_item = ["Skull", "a trusted friend"]
       } else if (habit == 20) {
         special_item = ["String Necklace", "with " + (fd(10) + fd(10) + fd(10) + fd(10) + fd(10)) + " mismatched teeth"]
+      } else if (habit == 29) {
+        special_item = ["Sackcloth bag", "and " + (fd(20) + fd(20) + fd(20) + fd(20) + fd(20)) + " chewed fingernails"]
       }
       if (special_item) {
         document.getElementById("equipment").innerHTML += "<li>" + special_item[0] + "<em class='smaller'>&nbsp;" + special_item[1] + "</em></li>";
