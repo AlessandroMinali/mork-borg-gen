@@ -17,7 +17,6 @@
   <script src="utils.js"></script>
   <script type="text/javascript">
     var corpse = [
-      "The remains of something worthless crumbles in your hands.",
       "Pot filled with extremely potent itching ointment.",
       "Necklace of human teeth.",
       "Bag of angry, venomous moths. Test TOUGHNESS DR6 or die.",
@@ -42,18 +41,16 @@
       "Golden ball with an invisible seam, twists open.",
       "Bloodstained knuckle-duster.",
       "Two weighted dice.",
-      "The result in silver."
-    ]
+      "a few bad apples", "pile of skulls", "two blood-stained torches", "comb with a single gray hair", "flute (tastes horrible)", "small blood-filled bottle", "spiked leather bracer", "broken porcelain doll", "piece of moldy bread", "dead black cat", "fishing rod with rusty hook", "crimson hood and mask", "long noose", "small wooden chest (empty)", "d8 colorful glass marbles", "snowshoe (home of a spider)", "oil painting of a hooded skeleton", "fan shaped like a bear claw", "exquisite silk glove", "dried bat meat", "copper nose ring", "two eyes in a jar", "d6 dice (bone)", "d4 huge fangs", "latrine bucket", "broken harp", "horned helmet", "shit-stained ladle", "sad chicken in a cage", "arrow stuck in shield", "handful of human teeth", "recently sharpened scythe (d8)", "empty perfume bottle", "some keys without a lock", "leather vest with rivets", "purse with d10 silver", "well-used belt", "sack of dead rats", "gilded skull worth d20+10 silver", "boot (won’t fit)", "d10 arrows", "book: “Night Queen”", "stuffed magpie", "butcher’s knife (d4)", "d20 silver", "jar of fermented fish", "mousetrap (1 damage)", "black and white face paint", "linen sack with body parts", "cracked mirror", "long iron chain", "book: “Wizard Fight”", "curved ritual knife (d4)", "chain mail, torso still in it", "dog collar with chain", "pouch containing salt", "sooty silver ring", "pennon from a sunken ship", "flayed human skin", "blanket (with fleas)", "charred metal necklace", "broken leather armor", "d4 gold teeth worth 10s each", "pair of scissors (d4)", "pickaxe (d4)", "choker with pentagram amulet", "bloody drill", "book of psalms", "bird-billed mask", "charcoal drawing of a demon", "half a dead dog", "quite fancy eye patch", "hammer and some nails", "ball and chain (and a foot)", "sharp fire iron (d4+1)", "pair of warm socks (soggy)", "box of black feathers", "damaged wolf pelt", "rotten meat (d2 days worth)", "small box with a white marble", "tankard with a needle in it", "wooden dentures", "good luck charm (well...)", "d6 empty scrolls", "hooded lantern", "pair of wooden handcuffs", "jar with 3 severed thumbs", "tangled ball of human hair", "thumbscrew", "very small horseshoe", "shovel (d4)", "necklace of rat teeth", "half a treasure map", "bottle of red poison", "small wooden horse", "heavy iron tongs", "black sack with a cat’s heart", "big lump of coal", "two severed hands", "child-sized iron maiden"]
 
     function loot() {
       var section = d(6);
-      var item = d(6);
       if (section == 1) {
-        return corpse[0];
+        return "The remains of something worthless crumbles in your hands.";
       } else if (section == 6) {
-        return section.toString() + item + " silver"
+        return section.toString() + d6 + " silver"
       } else {
-        return corpse[(section-2)*6 + item];
+        return random_from_array(corpse);
       }
     }
   </script>
