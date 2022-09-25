@@ -8,7 +8,7 @@
   <title>Waste of Skin - A MÖRK BORG Character Generator</a></title>
   <meta name="description" content="Waste of Skin - Classes MÖRK BORG Character Generator">
   <style type="text/css">
-    body { font-family: sans-serif; font-size: 14px }
+    body { font-family: sans-serif; font-size: 12px }
     .smaller { font-size: 85%; }
     ul { padding-left: 15px }
     div > b:first-child { font-size: 120% }
@@ -29,9 +29,13 @@
 </head>
 
 <body>
-  <h1 style="margin: 0px;" class="fantasy">
+  <h1 style="margin: 0px; text-align: center;" class="fantasy">
     <a style='text-decoration: none; color: black;' href='./waste_of_skin.html'>
-      WASTE OF SKIN - A MÖRK BORG MEAT-SACK SPAWNER
+      WASTE OF SKIN
+      <br>
+      A MEAT-SACK SPAWNER
+      <br>
+      <img id='logo' src="CompWith_MORKBORG_horiz.svg" width=150 />
     </a>
   </h1>
   <div id="klass">
@@ -104,7 +108,7 @@
       </div>
       <div style="display: inline-block; padding-right: 20px;">
         <b style="background: black; color: white;">POWERS</b>
-        <span id="powers" class="edit"></span>
+        <span id="powers" class="edit"></span> (PRE+d4)
       </div>
       <div style="display: inline-block; padding-right: 20px;">
         <b style="background: black; color: white;">OMENS</b>
@@ -114,20 +118,19 @@
     </div>
     <br>
     <br>
-    <div style="display: inline-block; max-width: 500px; vertical-align: top;">
+    <div class='top' style="display: inline-block; vertical-align: top;">
       <div id="ablities"><b style="background: black; color: white;">ABILITIES</b></div>
       <pre style="margin-bottom: 0px;">
-  <em>AGILITY</em>      <span id="agility" class="edit"></span>
-  <em>PRESENCE</em>     <span id="presence" class="edit"></span>
-  <em>STRENGTH</em>     <span id="strength" class="edit"></span>
-  <em>TOUGHNESS</em>    <span id="toughness" class="edit"></span>
+  <em>AGILITY</em>     <span id="agility" class="edit"></span>   Defend, balance, swim, flee
+  <em>PRESENCE</em>    <span id="presence" class="edit"></span>   Perceive, aim, charm, Powers
+  <em>STRENGTH</em>    <span id="strength" class="edit"></span>   Crush, lift, strike, grapple
+  <em>TOUGHNESS</em>   <span id="toughness" class="edit"></span>   Resistances, survive falling
     </pre>
       <div>
         <b style="background: black; color: white;">EQUIPMENT</b>
         <span class="smaller" style="float: right; background: #aaa; color: white; margin-top: 3px; margin-right: 10px;">
           CAPACITY
-          <span id="capacity" class="edit"></span>+ items then STRENGTH and AGILITY DR+2. Max
-          <span id="capacity_max" class="edit"></span>
+          STR+8 items. Max 2*(STR+8) items.
         </span>
         <ul id="equipment" class="edit">
         </ul>
@@ -280,6 +283,16 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         return arr.filter(e => e != min);
     }
 
+    function two_unique(array) {
+      var x = frandom_item_from(array);
+      var y;
+      do {
+        y = frandom_item_from(array);
+      } while(x == y);
+
+      return [x, y]
+    }
+
     function load_char() {
       if (!window.location.hash) { reseed(); klass = (d(6) - 1).toString(); return; }
 
@@ -336,7 +349,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       window.location.hash = [_seed, klass.padStart(2, '0'), selected.join('')].join('&');
       enable_edits();
       document.getElementById("klass").style.display = "none";
-      document.getElementById("prompt").style.display = "none";
       document.getElementById("save").style.display = "none";
       document.getElementById("edit").style.display = "none";
       document.getElementById("save_edits").style.display = "inline";
@@ -360,7 +372,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     document.getElementById("stop").addEventListener('click', function() {
       disable_edits();
       document.getElementById("klass").style.display = "block";
-      document.getElementById("prompt").style.display = klass == 0 ? "block" : "none";
       document.getElementById("save").style.display = "inline";
       document.getElementById("edit").style.display = "inline";
       document.getElementById("save_edits").style.display = "none";
@@ -377,8 +388,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     var buttons = document.querySelectorAll("#klass > button");
     for(var i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener('click', function(e) {
-        if (e.target.value != 0) { document.getElementById("prompt").style.display = "none"; }
-        if (e.target.value == 0) { document.getElementById("prompt").style.display = "block"; }
         klass = e.target.value;
         history.pushState("", document.title, window.location.pathname);
         document.getElementById("load").style.display = "none";
@@ -392,13 +401,12 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       document.getElementById("equipment").innerHTML = "";
       document.getElementById("description").innerHTML = "";
       document.getElementById("skills").innerHTML = "";
-      if (klass == 0) {
-        document.getElementById("prompt").style.display = "block";
-      }
-
       document.getElementById("class_name").innerHTML = classes[parseInt(klass)];
       document.getElementById("name").innerHTML = names[(fd(6) - 1)*8 + fd(8) - 1];
       selected = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(e => e.value);
+      if (selected.length == 0) {
+        selected = two_unique(Array.from(document.querySelectorAll('input[type=checkbox]'))).map(e => e.value);
+      }
 
       var memory;
       if (klass == 0) {
@@ -521,7 +529,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       document.getElementById("hp").innerHTML = hp + "/" + hp;
 
       var power = Math.max(0, presence() + fd(4));
-      document.getElementById("powers").innerHTML = power + "/" + power;
+      document.getElementById("powers").innerHTML = power;
 
       var omens;
       if (klass == 3 || klass == 5) {
@@ -529,7 +537,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       } else {
         omens = [fd(2), 2];
       }
-      document.getElementById("omens").innerHTML = omens[0] + '/' + omens[0];
+      document.getElementById("omens").innerHTML = omens[0];
       document.getElementById("omens_dice").innerHTML =  "(d" + omens[1] + ")";
 
       var food = ["Waterskin", " and " + fd(4) + " days' worth of food"]
@@ -617,9 +625,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         ["Noose", ""],
         [fd(4) + " pieces of chalk", ""]
       ]
-
-      document.getElementById("capacity").innerHTML = strength() + 8;
-      document.getElementById("capacity_max").innerHTML = (strength() + 8) * 2;
 
       document.getElementById("equipment").innerHTML += "<li>" + food[0] + "<em class='smaller'>" + food[1] + "</em></li>";
       var e1 = frandom_item_from(equip1);
