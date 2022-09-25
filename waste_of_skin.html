@@ -193,6 +193,14 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       ["The Snake-skin Gift", "An expensive sandalwood box bound in snakeskin. It contains a seemingly ordinary dagger, wrapped in silk. The dagger does d4 damage but on a 1 the target dies immediately of deadly poison weeping from the blade."],
       [" Horn of the Schleswig Lords!", "Once per day release a blare from this dented old trumpet and test PRESENCE DR12. One creature may make their next non-combat test an automatic success."]
     ]
+    var wretched_royalty_features_2 = [
+      ["Bedfellow's Writ", "With this parchment, you are under aristocratic immunity and cannot be persecuted for any crime against those beneath you. Only nobles and other aristocrats will respect this decree unless you succeed a DR14 PRESENCE test."],
+      ["BLUEblooded", "Generations of plots carried out with poison and paupers' blades have made your blood particularly resilient against infection. You suffer no daily loss of HP while infected."],
+      ["Bust of a Madman", "Most of your dead relatives are dreaming in the family mausoleum, but the spirit of this great-grand-uncle has decided instead to haunt an antique stone bust. Feed him a day’s worth of food and his eyes will shine with a ghostly pale blue light for d4 hours, illuminating the area. The light also reveals invisible things."],
+      ["Family Jewel", "Once the crown of your family’s collection, this gemstone of sapphire delight makes you an alluring target. When held aloft, any enemy creatures with a mind for riches will attack you before all others."],
+      ["Glassgill Necklace", "This beautiful silver necklace sockets six iridescent pearls. Swallowing one allows you to breathe underwater until the pearl passes. Reusable."],
+      ["Sigil of Opulence", "The debts and indebts of the nobility are not soon forgotten. Show this ancient family seal to a merchant, and there is a 50% chance their prices are halved for you and your party. If not, the prices are doubled."]
+    ]
     var esoteric_hermit_memory = ["were awakening, adult, in a ritual circle underneath the northern bridge to Grift.", "wandered, memoryless, from the mouth of a cavern at the cliffs of Terion", "were a single child survivor of an incident in the Valley of the Unfortunate Undead.", "were dying of plague in a Bergen Chrypt hovel, you touched something from outside.", "were an average individual until you encountered something in a dim glade in Sarkash.", "were raised on a lonely island in Lake Onda. No one else has ever heard of this island and you can't return."
     ]
     var esoteric_hermit_abilities = [
@@ -203,7 +211,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       ["Master of Fate", "What use are maps when the substance of causality itself is open to you? You know the right way with a DR8 PRESENCE test."],
       ["Book of Boiling Blood", "You may open and read from this book once a day. Your enemy must make a DR12 test to prevent this. If they fail d2 Berserker-slayers(page 59) appear from the depths of a forgotten dimension of blood. Roll a d6. On a 1-4 these creatures fight alongside you. On a 5-6 they turn on you, attempting to kill you and destroy the book. After the battle they return to their imprisonment."],
       ["Speaker of Truths", "Twice per day use your wisdom, knowledge, advice and inner calm to bring clarity to a creature of your choice. The DR of the next test they undertake is lowered by 4."],
-      ["Initiate of the Invisible College", "Once per day you may summon d2 scrolls, whose power can be used only once. Roll a d4, on a 1-2 the scrolls are sacred, on a 3-4, unclean. If the scrolls are not used before sunrise they turn to ash."],
+      ["Initiate of the Invisible College", "Once per day you may summon d2 scrolls, whose Power can be used only once. Roll a d4, on a 1-2 the scrolls are sacred, on a 3-4, unclean. If the scrolls are not used before sunrise they turn to ash."],
       ["Bard of the Undying", "You learn your melodies in the Otherworld. The music of your Harp gives +d4 on reaction rolls."],
       ["Hawk as Weapon", "Your crafty almost-intelligent hawk is loyal only to you. Even without shared language, you understand its cries as it keeps watch, scouts and swoops to attack foes. (8 HP Attacks/Defence DR10 claws/bite d4 damage) "]
     ]
@@ -217,18 +225,24 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       ["Coward's Jab", "When attacking by surprise test AGILITY DR10. On a success you automatically hit once with a light one-handed weapon, dealing normal damage +3."],
       ["Filthy Fingersmith", "Your snaky little digits get into pockets and pick locks with DR8 AGILITY test. You also begin with lockpicks!"],
       ["Abominable Gob Lobber", "Your phlegm is viscous, lumpy and vile and ballistically accurate at short range. You can spit d2 times during a fight. Roll a DR8 PRESENCE test for accuracy. Targets are blinded, retching and vomiting for d4 rounds. Anyone witnessing this-friend and foe- must make a TOUGHNESS test to not also vomit. PCs test DR10 and enemies DR12."],
-      ["Escaping Stealth", "Every time you use an omen there is a 50% chance it is not spent."],
+      ["Escaping Stealth", "Every time you use an Omen there is a 50% chance it is not spent."],
       ["Excretal Stealth", "You have an astounding almost, preternatural ability to hide in muck, debris and filth. When hidden in these conditions a DR16 PRESENCE test is required to notice you."],
       ["Dodgin Death", "You are so unpleasant, irrelevant, disgusting and vile even Death rather avoid you if it can. On Death, if there is even the slightest possibility that you survived, there is a 50% chance that you did. If successful, after 10 rounds you pop back up with d4 HP and an unlikely explanation of your escape."]
     ]
     var fanged_deserter_memory = ["a burnt-black building in Sarkash. Your home?", "a derelict rotting ship rolling endlessly across a grey sea.", "a brothel in Schleswig. Quite a friendly environment.", "sleeping with dogs in the corner of an inn, waiting for", "following an army in eastern Wästland.", "suckling a wolf in the wild of Bergen Chrypt."]
-    var fanged_deserter_features =[
+    var fanged_deserter_features = [
       ["Crumpled Monster Mask", "Strikes primitive fear into lesser creatures like golbins, gnoums and children. While worn they check Morale every round."],
-      ["The Brown Scimitar of Galgenbeck", "A stinking sword you pulled from a military shit-ditch. d6 damage DR10 Attack and Defence while you wield it. 1-in-6 chance a wounded enemy is smitten with potent sepsis, dying in 10 minutes."],
+      ["The Brown Scimitar of Galgenbeck", "A stinking sword you pulled from a military shit-ditch. d6 damage DR10 Attack and Defence while no you wield it. 1-in-6 chance a wounded enemy is smitten with potent sepsis, dying in 10 minutes."],
       ["Wizard Teeth", "Four weird teeth rattle within a blackened pouch. Before battle roll a d6 for each one. For every 6 one of your attacks deals maximum damage."],
       ["Old Sigûrd's Sling", "Sigûrd was the strongest man whose throat you ever gnawed. Woven from his long grey hair, this sling has never failed you. 2d5 damage, requires fist-sized rocks which, perhaps regrettably, are everywhere."],
       ["Ancient Gore-Hound", "Asthmatic, deluded and on its last legs, this wizened creature still has a superb nose and can sniffle up treasure in the most disgusting debris. Attack with DR10 (bite d6 damage). Defends with DR12, 10 HP. Becomes frenzied around goblins and berserkers."],
-      ["The Shoe of Death's Horse", "It looks normal but since finding it in an obscure crypt you are convinced this show came from the horse of Death himself. In your hands it hits with DR10, d4 damage. 1-in-6 chance the shoe smashes the skull, instantly killing small-to-medium size creatures. The show returns to your hand link a boomerang."]
+      ["The Shoe of Death's Horse", "It looks normal but since finding it in an obscure crypt you are convinced this show came from the horse of Death himself. In your hands it hits with DR10, d4 damage. 1-in-6 chance the shoe smashes the skull, instantly killing small-to-medium size creatures. The show returns to your hand link a boomerang."],
+      ["Apostate Spear", "With the spear that once soaked in the blood of <em>ʍɹouƃ ɾǝsns</em>, you perform a critical on a natural 19 in addition to a 20. D6 damage and DR10 Attack."],
+      ["Greymatter Crown", "This always-sticky circlet has seen many a scholar-king’s brain sprayed across its thorny rim. Wearing it grants +1 PRESENCE and allows the comprehension of scrolls."],
+      ["Man-sized Tower Shield", "It’s said that this targe of massive proportions was once the tea tray of a half-giant tavern keep. While wielding it, Defence is DR10 and uses STRENGTH instead of AGILITY."],
+      ["Pathogenic Fangs", "Your sordid teeth contain years of accumulated filth and muck. On a successful bite, the enemy must test DR12 TOUGHNESS or have their immune system SHATTER, suffering d10 damage and leaving them infected."],
+      ["Rusted Spirit Stein", "A spit-stained tankard found after an unrecalled night of binging. Drink any liquid from it and test DR12 TOUGHNESS. Regain d6 HP on a success or take the same amount of damage on a failure."],
+      ["War-tattoos of the Beserker Cult", "Only etched into the fiercest of blood-crazed maniacs. After killing an enemy, you may enter a blood-rage and make an attack at DR14 against another enemy within range. As long as you keep killing with each attack, you may keep attacking, each time increasing the DR by +2."]
     ]
     var fanged_deserter_abilites = [
       ["Built Like a Bull", ""],
@@ -238,9 +252,9 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     ]
     var classes = ['Wretch', 'Fanged Deserter', 'Gutterborn Scum', 'Esoteric Hermit', 'Wretched Royalty', 'Heretical Priest', 'Occult Herbmaster'];
     var names = ["Aerg-Tval","Agn","Arvant","Belsum","Belum","Brinta","B\xf6rda","Daeru","Eldar","Felban","Gotven","Graft","Grin","Grittr","Haer\xfc","Hargha","Harmug","Jotna","Karg","Karva","Katla","Keftar","Klort","Kratar","Kutz","Kvetin","Lygan","Margar","Merkari","Nagl","Niduk","Nifehl","Pr\xfcgl","Qillnach","Risten","Svind","Theras","Therg","Torvul","T\xf6rn","Urm","Urvarg","Vagal","Vatan","Von","Vrakh","Vresi","Wemut"];
-    var traits = ["Endlessly aggravated", "Inferiority complex", "Problems with authority", "Loud mouth", "Cruel", "Egocentric", "Nihilistic", "Prone to substance abuse", "Conflicted", "Shrewd", "Vindictive", "Cowardly", "Lazy", "Suspicious", "Ruthless", "Worried", "Bitter", "Deceitful", "Wasteful", "Arrogant"];
-    var bodies = ["Staring manic gaze.", "Covered in (for some) blasphemous tattoos.", "Rotting face. Wears a mask.", "Lost three toes, limps.", "Starved: taunt and pale.", "One hand replaced with rusting hook (d6 damage).", "Decaying teeth.", "Hauntingly beautiful, unnervingly clean.", "Hands caked with sores.", "Cataracts slowly but surly spreading in both eyes.", "Long tangled hair, at least one cockroach in residence.", "Broken, crushed ears.", "Juddering and stuttering from nerve damage or stress.", "Corpulent, ravenous, drooling.", "One hand lacks thumb and index finger, grips like a lobster.", "Red, swollen alcoholic’s nose.", "Resting maniac face, making friends is hard.", "Chronic athlete’s foot. Stinks.", "Recently slashed and stinking eye covered with a patch.", "Nails cracked and black, maybe about to drop off."]
-    var bad_habits = ["Obsessively collect small sharp stones.", "Won’t use a blade without testing it on your own flesh. Arms knitted with scars.", "Can’t stop drinking once you start.", "Gambling addict. Must bet every day. If you lose, raise and bet again.", "Cannot tolerate criticism of any kind. Results in rage and weeping.", "Unable to get to the point. Have never actually finished a story.", "Best friend is a skull. Carry it with you, tell it everything, you trust no one more.", "You pick your nose so deep it bleeds.", "Laugh hysterically at your own jokes which you then explain in detail.", "A nihilist. You insist on telling everyone you are a nihilist and explaining why.", "Inveterate bug eater.", "Stress response is aesthetic display. The worse things get the fancier you need to be.", "Permanent phlegm deposit in throat. Continuously cough, snort, spit and swallow.", "Pyromaniac.", "Consistently lose important items and forget vital facts.", "Insecure shit-stirrer. Will talk about whoever just left the room.", "You stutter when lying.", "You giggle insanely at the worst possible times.", "You whistle while trying to hide. You will deny this. Whistle when 5, 7, 9, 11 or 13 is rolled on a d20.", "You make jewelry from the teeth of the dead."]
+    var traits = ["Endlessly aggravated", "Inferiority complex", "Problems with authority", "Loud mouth", "Cruel", "Egocentric", "Nihilistic", "Prone to substance abuse", "Conflicted", "Shrewd", "Vindictive", "Cowardly", "Lazy", "Suspicious", "Ruthless", "Worried", "Bitter", "Deceitful", "Wasteful", "Arrogant", "Abrasive", "Mannerless", "Self-assured", "Fanatical", "Hypocritical", "Eccentric", "Morbid", "One-sided", "Enigmatic", "Hesitant", "Scared of commitment", "Aggressive", "Shortsighted", "Stubborn", "Mischievous", "Grim", "Ritualistic", "Brutal", "Unpredictable", "Prejudiced", "Vulgar", "Sloppy", "Impulsive", "Calculating", "Pedantic", "Gullible", "Demanding", "Whiny", "Ungrateful", "Hedonistic", "Shallow", "Fearless", "Scheming", "Nagging", "Fatalistic", "Defensive", "Hateful", "Argumentative", "Tormenting", "Self-conscious", "Irresponsible", "Melancholic", "Arbitrary", "Inconsistent", "Imitative", "Sarcastic", "Rude", "Vain", "Petty", "Resentful", "Disloyal", "Strict", "Anarchistic", "Dependent", "Snobbish", "Untrusting", "Assertive", "Charmless", "Pompous", "Greedy", "Tactless", "Unhelpful", "Anxious", "Gloomy", "Undisciplined", "Careless", "Nosy", "Domineering", "Dull", "Rebellious"];
+    var bodies = ["Staring manic gaze.", "Covered in (for some) blasphemous tattoos.", "Rotting face. Wears a mask.", "Lost three toes, limps.", "Starved: taunt and pale.", "One hand replaced with rusting hook (d6 damage).", "Decaying teeth.", "Hauntingly beautiful, unnervingly clean.", "Hands caked with sores.", "Cataracts slowly but surly spreading in both eyes.", "Long tangled hair, at least one cockroach in residence.", "Broken, crushed ears.", "Juddering and stuttering from nerve damage or stress.", "Corpulent, ravenous, drooling.", "One hand lacks thumb and index finger, grips like a lobster.", "Red, swollen alcoholic’s nose.", "Resting maniac face, making friends is hard.", "Chronic athlete’s foot. Stinks.", "Recently slashed and stinking eye covered with a patch.", "Nails cracked and black, maybe about to drop off.", "Always-dripping nose.", "Lacking a navel.", "Bulbous growth on the neck. It moves when nobody sees.", "Chapped and cracked lips.", "Painfully average.", "Face covered in pustules.", "Short of stature.", "Bones that crack with every movement.", "Taller than most.", "Eyebrows lost to fire and memory.", "Broken nose, crooked forever.", "Gut telling tales of too many ales.", "Completely and utterly hairless.", "Forked tongue. A sign?", "Eyelids marked with charcoal, always.", "Nasty scar where a lung used to sit.", "Born with six fingers on each hand.", "Small eyes, making anyone suspicious.", "Hair coarse like bristles.", "Bad back and worse posture."];
+    var bad_habits = ["Obsessively collect small sharp stones.", "Won’t use a blade without testing it on your own flesh. Arms knitted with scars.", "Can’t stop drinking once you start.", "Gambling addict. Must bet every day. If you lose, raise and bet again.", "Cannot tolerate criticism of any kind. Results in rage and weeping.", "Unable to get to the point. Have never actually finished a story.", "Best friend is a skull. Carry it with you, tell it everything, you trust no one more.", "You pick your nose so deep it bleeds.", "Laugh hysterically at your own jokes which you then explain in detail.", "A nihilist. You insist on telling everyone you are a nihilist and explaining why.", "Inveterate bug eater.", "Stress response is aesthetic display. The worse things get the fancier you need to be.", "Permanent phlegm deposit in throat. Continuously cough, snort, spit and swallow.", "Pyromaniac.", "Consistently lose important items and forget vital facts.", "Insecure shit-stirrer. Will talk about whoever just left the room.", "You stutter when lying.", "You giggle insanely at the worst possible times.", "You whistle while trying to hide. You will deny this. Whistle when 5, 7, 9, 11 or 13 is rolled on a d20.", "You make jewelry from the teeth of the dead.", "Cannot remember a name to save your life. Great at faces, though.", "Compelled to lick things clean.", "Yawns constantly.", "Snores like a dreaming troll. Others must test TOUGHNESS to sleep.", "Only eats things with given names.", "Obsessively steals from those that have less. Fears those that have more.", "Never learned to share.", "Feels the need to point out any and all mistakes others make. In detail.", "You bite your nails and save them for later.", "Terrified of being alone.", "Never trusts anything with 4 legs.", "You walk in your sleep, 1 in 12 times waking somewhere very unfortunate.", "Convinced you are a talented singer. This is not the case.", "A terrible winner and even worse loser. Everything’s a competition.", "Convinced you cannot die.", "A mythomaniac, you like to create your own truths.", "Dumb labor is beneath you.", "Compulsively swallows silver coins, to keep them safe for the afterlife. Jingle-jangle when you run.", "Can speak to horses. Or so you think.", "You are a philosopher. But are you really a philosopher?"];
     var tales = ["Pursued for manslaughter. There is a bounty.", "In massive debt. The debt is being traded to successively more ruthless groups.", "Have a rare, sought after item.", "Have a cursed never healing wound.", "Had an illegal, immoral and secret affair with a member of the royal family. Has proof.", "Escaped cult member. Terrified and paranoid. Other cultists are everywhere.", "An identity thief who recently killed and replaced this person.", "Banished and disowned for unspecified deeds. Can never go home.", "Deserted military after witnessing a massacre, bounty on head. Hunted by former friends.", "Very recently murdered a close relative. Very recently.", "A puzzle cube has been calibrated incorrectly (or has it?), awakening a slumbering abomination.", "Evil creatures love the scent of your spoor and are drawn to it, bringing disaster in your wake.", "A battle wound left a shard of metal slowly inching closer to your heart. Every day there is a 2% chance it reaches it.", "Violence forced you into the wilderness. You think waving trees are whispering. You talk to, scream at, attack trees.", "Cursed to share the nightmares of others, you sleep far, far away.", "At permanent war with all corvids. No contact without some violence. You carry a sling.", "After dreaming of an underground temple to a forgotten god you understand the songs of insects and worms.", "Being tracked and observed by a golem after an agreement which you know has been wiped form your mind.", "\'Burn or be burned\' is the fate you accept.", "Your flesh heals twice as fast, but your companions twice as slow. You see a many-eye \'guardian angel\'."]
     var unclean_scrolls = [
       ["Palms Open the Southern Gate (unclean scroll)", "A ball of fire hits d2 creatures dealing d8 damage per creature"],
@@ -459,10 +473,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       } else if (klass == 4) {
         wretched_royalty_abilities.forEach(x => skills.push(x));
         var wr_skill1 = frandom_item_from(wretched_royalty_features);
-        var wr_skill2;
-        do {
-          wr_skill2 = frandom_item_from(wretched_royalty_features);
-        } while(wr_skill1 == wr_skill2);
+        var wr_skill2 = frandom_item_from(wretched_royalty_features_2);
         skills.push(wr_skill1);
         skills.push(wr_skill2);
       } else if (klass == 5) {
@@ -551,15 +562,18 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       } else if (klass == 5) {
         silver = (fd(6) + fd(6) + fd(6))*10;
       }
+      var w_light = ['Staff', 'Wooden stake', 'Shortsword', 'Knife', 'Sickle', 'Cudgel'];
+      var w_med = ['Warhammer', 'Sword', 'Club', 'Handaxe', 'Mace', 'Spear', 'Scythe'];
+      var w_heavy = ['Flail', 'Battleaxe', 'Goendendag'];
       var weapons = [
         ["Femur", "d4 damage"],
-        ["Staff", "d4 damage"],
-        ["Shortsword", "d4 damage"],
-        ["Knife", "d4 damage"],
-        ["Warhammer", "d6 damage"],
-        ["Sword", "d6 damage"],
+        [frandom_item_from(w_light), "d4 damage"],
+        [frandom_item_from(w_light), "d4 damage"],
+        [frandom_item_from(w_light), "d4 damage"],
+        [frandom_item_from(w_med), "d6 damage"],
+        [frandom_item_from(w_med), "d6 damage"],
         ["Bow", "d6 damage, with " + (presence() + 10) + " arrows"],
-        ["Flail", "d8 damage"],
+        [frandom_item_from(w_heavy), "d8 damage"],
         ["Crossbow", "d8 damage, with" + (presence() + 10) + " bolts"],
         ["Zweihänder", "d10 damage"]
       ]
@@ -592,7 +606,15 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         ["Bear trap", "PRESENCE DR14 to spot, d8 damage"],
         ["Bomb", "(sealed bottle, d10 damage)"],
         ["A bottle of red poison", fd(4) + " doses (TOUGHNESS DR12 or d10 damage)"],
-        ["Silver crucifix", ""]
+        ["Silver crucifix", ""],
+        ["Blanket", ""],
+        ["Firesteel", ""],
+        ["Chewing tobacco", fd(6) + " uses"],
+        ["A bottle of salt", ""],
+        ["Wooden crucifix", ""],
+        [fd(6) + " sticks of chalk", ""],
+        ["Manacles", ""],
+        ["A bottle of black poison", fd(4) + " doses (TOUGHNESS DR14 or d6 damage + blind for one hour)"],
       ]
       var equip3 = [
         ["Life elixir", fd(4) + " doses (heals d6 HP and removes infection)"],
@@ -606,39 +628,21 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         ["Shield", "(-1 HP damage or have the shield break to ignore on attack)"],
         ["Crowbar", "(d4 damage)"],
         ["Lard", "(may function as 5 meals in a pinch)"],
-        ["Tent", ""]
-      ]
-      var equip4 = [
-        ["Blanket", ""],
-        ["Firesteel", ""],
-        ["Chewing tabacco", fd(4) + " doses"],
-        ["A bottle of salt", ""],
-        ["Wooden crucifix", ""],
-        ["Manacles", ""],
-        ["A bottle of black poison", fd(4) + " doses (TOUGHNESS DR14 or d6 damage + blind for one hour)"],
-        [fd(4) + " moderately tame rat(s)", "(2 HP, bite d2, only obeys you)"],
+        ["Tent", ""],
+        [fd(6) + " moderately tame rat(s)", "(1 HP, bite d2, only obeys you)"],
         ["Mirror", "worth 15s"],
         ["Scissors", ""],
         ["Meat cleaver", "d4 damage"],
         ["Caltrops", "d4 damage + infection on 1-in-6"],
         ["Hammer", "d4 damage"],
-        ["Noose", ""],
-        [fd(4) + " pieces of chalk", ""]
+        ["Wooden stake" , "d6 damage"],
+        ["Noose", ""]
       ]
 
       document.getElementById("equipment").innerHTML += "<li>" + food[0] + "<em class='smaller'>" + food[1] + "</em></li>";
       var e1 = frandom_item_from(equip1);
-      var e2 = fd(12);
-      var e3 = fd(12);
-      if (klass == 1) {
-        do {
-          e2 = fd(12);
-        } while(e2 == 5)
-
-        do {
-          e3 = fd(12);
-        } while(e3 == 2)
-      }
+      var e2 = fd(20);
+      var e3 = fd(20);
       var scroll = (e2 == 5 || e3 == 2);
       e2 = equip2[e2 - 1];
       e3 = equip3[e3 - 1];
@@ -646,22 +650,22 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       if (story == 16) {
         starting_weapon = ["Sling", "d4 damage with an unlimited amount of stones"]
       } else {
-        if (scroll || klass == 2 || klass == 6) {
-          starting_weapon = frandom_item_from(weapons.slice(0, 6));
-        } else if (klass == 3) {
+        if (klass == 3) {
           starting_weapon = frandom_item_from(weapons.slice(0, 4));
         } else if (klass == 4 || klass == 5) {
           starting_weapon = frandom_item_from(weapons.slice(0, 8));
+        } else if (scroll || klass == 2 || klass == 6) {
+          starting_weapon = frandom_item_from(weapons.slice(0, 6));
         } else {
           starting_weapon = frandom_item_from(weapons);
         }
       }
       document.getElementById("equipment").innerHTML += "<li>" + starting_weapon[0] + "<em class='smaller'>&nbsp;" + starting_weapon[1] + "</em></li>";
       var starting_armor;
-      if (scroll || klass == 2 || klass == 3 || klass == 6) {
-        starting_armor = frandom_item_from(armor.slice(0, 2));
-      } else if (klass == 4) {
+      if (klass == 4) {
         starting_armor = frandom_item_from(armor.slice(0, 3));
+      } else if (scroll || klass == 2 || klass == 3 || klass == 6) {
+        starting_armor = frandom_item_from(armor.slice(0, 2));
       } else {
         starting_armor = frandom_item_from(armor);
       }
@@ -675,6 +679,8 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         special_item = ["Skull", "a trusted friend"]
       } else if (habit == 20) {
         special_item = ["String Necklace", "with " + (fd(10) + fd(10) + fd(10) + fd(10) + fd(10)) + " mismatched teeth"]
+      } else if (habit == 29) {
+        special_item = ["Sackcloth bag", "and " + (fd(20) + fd(20) + fd(20) + fd(20) + fd(20)) + " chewed fingernails"]
       }
       if (special_item) {
         document.getElementById("equipment").innerHTML += "<li>" + special_item[0] + "<em class='smaller'>&nbsp;" + special_item[1] + "</em></li>";
@@ -684,10 +690,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       }
       document.getElementById("equipment").innerHTML += "<li>" + e2[0] + "<em class='smaller'>&nbsp;" + e2[1] + "</em></li>";
       document.getElementById("equipment").innerHTML += "<li>" + e3[0] + "<em class='smaller'>&nbsp;" + e3[1] + "</em></li>";
-      if (story == 20 || fd(100) <= 8) {
-        let e4 = frandom_item_from(equip4);
-        document.getElementById("equipment").innerHTML += "<li>" + e4[0] + "<em class='smaller'>&nbsp;" + e4[1] + "</em></li>";
-      }
       if (klass == 3) {
         var eso_scroll = fd(2) == 1 ? frandom_item_from(sacred_scrolls) : frandom_item_from(unclean_scrolls);
         document.getElementById("equipment").innerHTML += "<li>" + eso_scroll[0] + "<em class='smaller'>&nbsp;" + eso_scroll[1] + "</em></li>";
