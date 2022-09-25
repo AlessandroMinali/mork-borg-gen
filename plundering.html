@@ -48,7 +48,7 @@
       if (section == 1) {
         return "The remains of something worthless crumbles in your hands.";
       } else if (section == 6) {
-        return section.toString() + d6 + " silver"
+        return section.toString() + d(6) + " silver"
       } else {
         return random_item_from(corpse);
       }
