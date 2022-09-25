@@ -50,6 +50,7 @@
     <button id="he" value="5">Heretical Priest</button>
     <button id="oh" value="6">Occult Herbmaster</button>
     <button id="fo" value="7">Forlorn Philosopher</button>
+    <button id="dgp" value="8">Dead God's Prophet</button>
   </div>
   <hr style="margin: 0px;">
   <div id=prompt style="display: none;">
@@ -161,8 +162,26 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     var total_checks = 0;
     var klass;
     var selected;
-    var descriptions = ["Of unknown origins.", "You have thirty or so friends who never let you down: YOUR TEETH. Disloyal, deranged or simply uncontrollable, any group that didn’t boot you out you left anyway. But your parliament of teeth—enormous, protruding, thick and sharp—have always been your allies.", "An ill star smiled upon your birth. Poverty, crime and bad parenting didn’t help either. In your community an honest day’s work was never an option. Not that you ever tried, what are you, some kind of mug? A razor blade and a moonless night are worth a week of chump-work.", "The stone of your cave is one with the stars. Silence and perfection. Now the chaos of a fallen world disturbs your rituals and the caul of night grows blacker than your cavern’s gloom. Irritating!", "Bowed down only by the memories of your own lost glory, you could never submit to anyone else. Not you, of noble blood! (Not that you expect these peons to understand the depths of your sorrow.)", "Hunted by the two-headed basilisks of the One True Faith, this heretic can be found raving in ruins, traipsing endlessly down dusty roads and desecrating cathedrals by night.", "Born of the mushroom, raised in the glade, watched by the eye of the moon in a silverblack pool.", "The road an unreasoning maze, every temple soaked in blood, each destination drenched in gloom; you once though that cold analysis might tame Fate itself, now that dream of reason has decayed to shifting madness and only the cold remains."]
+    var descriptions = ["Of unknown origins.", "You have thirty or so friends who never let you down: YOUR TEETH. Disloyal, deranged or simply uncontrollable, any group that didn’t boot you out you left anyway. But your parliament of teeth—enormous, protruding, thick and sharp—have always been your allies.", "An ill star smiled upon your birth. Poverty, crime and bad parenting didn’t help either. In your community an honest day’s work was never an option. Not that you ever tried, what are you, some kind of mug? A razor blade and a moonless night are worth a week of chump-work.", "The stone of your cave is one with the stars. Silence and perfection. Now the chaos of a fallen world disturbs your rituals and the caul of night grows blacker than your cavern’s gloom. Irritating!", "Bowed down only by the memories of your own lost glory, you could never submit to anyone else. Not you, of noble blood! (Not that you expect these peons to understand the depths of your sorrow.)", "Hunted by the two-headed basilisks of the One True Faith, this heretic can be found raving in ruins, traipsing endlessly down dusty roads and desecrating cathedrals by night.", "Born of the mushroom, raised in the glade, watched by the eye of the moon in a silverblack pool.", "The road an unreasoning maze, every temple soaked in blood, each destination drenched in gloom; you once though that cold analysis might tame Fate itself, now that dream of reason has decayed to shifting madness and only the cold remains.", "Voices in your head tell you what to do — at least you think so. You are the prophet of a god slain by the Basilisk SHE within Bergen Chrypt’s wretched peaks. Now no one wants to hear the words of your god, but you can still can. Day and night. Like hot wires through your brain."]
     var base_skills = [["Nimble", ""], ["Witty", ""], ["Well-fed", ""], ["Indomitable", ""]]
+    var dead_gods_prophet_memory_1 = ["Acrophoe", "Elioch", "Ekk", "Ghzat", "Gnost", "Kvera", "Malais", "Varkka", "Ääel", "Öde"]
+    var dead_gods_prophet_memory_2 = ["Beacon", "Bearer", "Bride", "Child", "Herald", "King", "Lady", "Prince", "Queen", "Song"]
+    var dead_gods_prophet_memory_3 = ["of Blood", "of Death", "of Decay", "of Flies", "of Impotence of Panic", "of Rot", "of Rust", "of Unease", "of the Flesh"]
+    var dead_gods_prophet_abilities = [
+      ['Obsessed', ''],
+      ['Weak From Neglect', ''],
+      ['Fundamentalist', "You are literate and can use scrolls but must pass a DR12 PRESENCE test or immediately attempt to destroy false gods' words"]
+    ]
+    var dead_gods_prophet_features = [
+      ["Blood Tells", "A flagellant, you regularly beat yourself to awaken your lost god. If you inflict d3 damage to yourself prior to combat, gain +2 to rolls equal to the lost HP."],
+      ["Lord of Nothing", "You wear a bizarre arrangement of garments and scraps like a parody of a king or queen. Still, you gain +2 to rolls to impress the easily fooled."],
+      ["Smell of Decay", "Not only is your god dead but their decaying odour permeates you. +2 Defense roll bonus due to the gut-wrenching stench."],
+      ["Incoherent Sophistic Babble", "Concentrate to babble a disconcerting litany whose listeners must pass a DR10 PRESENCE test or lose their next action."],
+      ["Ichor Of Rot", "Your rotting god’s foul fluids seep from your hands - a black stigmata. As a DR12 Attack you can wipe your hands on an assailant’s bare skin, who must pass a DR12 TOUGHNESS test or descend into frothing spasms for two turns."],
+      ["My Body, A Vessel", "Your god may be dead but what is death to a god? Once a day you may allow you god’s ghost to enter your flesh and reveal a truth—one yes/no question to the GM which must be answered truthfully. The god departs leaving you weakened and frail."],
+      ["In Death I Live", "When you die, make a DR14 PRESENCE test. If you pass, your god refuses your passage into the afterlife and you recover with 1HP. Otherwise, your body is consumed in holy flames."],
+      ["Eyes of Holy Fire", "Your pupils burn with your lord’s soul. Once per combat you may attack (DR10) spurting fire from your eyes (d6 damage); blinding yourself for the fight’s duration."]
+    ]
     var forlorn_philosopher_memory_1 = ["Your mother alternated praise and humiliation leading to grandiose self-image and burning self-hatred.", "You wanted to be a warrior or great leader but you can’t! Stop! THINKING! STOP THE THOUGHTS!!", "Ambient stupidity and bright lights cause your hypersensitive mental tissues to INFLAME.", "You could save this doomed world! If only the unwashed masses would understand your GENIUS!", "You fell victim to the mental virus of “love,” then the object of your affection went to live in a hole.", "You encoded your omnivalent philosophy in a single tome for safekeeping and saw it burn as you fled. All is lost.", "Udok cultists captured your family and forced you to debate with them while they devoured your parents alive.", "You were Südglans’ most revered philosopher—which sank into the sea and now everyone ruthlessly mocks you."]
     var forlorn_philosopher_memory_2 = ["Raised by fanatical Theists in a temple beneath Grift’s bridges.", "Born to a nameless mother in a Galgenbeck sanatorium.", "Brought up by illiterate, pig-ignorant churls in a peaceful Wästland forest.", "Raised by life-shaming cultists of the frozen Kergüs waste who think no one should be born into this dying world.", "Abandoned in Bergen Chrypt’s catacombs.", "Educated by the damned amongst the Valley of the Unfortunate Undead’s mud pits."]
     var forlorn_philosopher_abilities = [
@@ -267,7 +286,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       ["Illiterate", "You are incapable of understanding scrolls. If you begin with one then reroll, eat it or use it as toilet paper."],
       ["Bite Attack", "DR10 to Attack d6 damage. You must be close to your target. 1-2 on d6 chance the enemy gets a free attack."]
     ]
-    var classes = ['Wretch', 'Fanged Deserter', 'Gutterborn Scum', 'Esoteric Hermit', 'Wretched Royalty', 'Heretical Priest', 'Occult Herbmaster', 'Forlorn Philospher'];
+    var classes = ['Wretch', 'Fanged Deserter', 'Gutterborn Scum', 'Esoteric Hermit', 'Wretched Royalty', 'Heretical Priest', 'Occult Herbmaster', 'Forlorn Philospher', "Dead Gods' Prophet"];
     var names = ["Aerg-Tval","Agn","Arvant","Belsum","Belum","Brinta","B\xf6rda","Daeru","Eldar","Felban","Gotven","Graft","Grin","Grittr","Haer\xfc","Hargha","Harmug","Jotna","Karg","Karva","Katla","Keftar","Klort","Kratar","Kutz","Kvetin","Lygan","Margar","Merkari","Nagl","Niduk","Nifehl","Pr\xfcgl","Qillnach","Risten","Svind","Theras","Therg","Torvul","T\xf6rn","Urm","Urvarg","Vagal","Vatan","Von","Vrakh","Vresi","Wemut"];
     var traits = ["Endlessly aggravated", "Inferiority complex", "Problems with authority", "Loud mouth", "Cruel", "Egocentric", "Nihilistic", "Prone to substance abuse", "Conflicted", "Shrewd", "Vindictive", "Cowardly", "Lazy", "Suspicious", "Ruthless", "Worried", "Bitter", "Deceitful", "Wasteful", "Arrogant", "Abrasive", "Mannerless", "Self-assured", "Fanatical", "Hypocritical", "Eccentric", "Morbid", "One-sided", "Enigmatic", "Hesitant", "Scared of commitment", "Aggressive", "Shortsighted", "Stubborn", "Mischievous", "Grim", "Ritualistic", "Brutal", "Unpredictable", "Prejudiced", "Vulgar", "Sloppy", "Impulsive", "Calculating", "Pedantic", "Gullible", "Demanding", "Whiny", "Ungrateful", "Hedonistic", "Shallow", "Fearless", "Scheming", "Nagging", "Fatalistic", "Defensive", "Hateful", "Argumentative", "Tormenting", "Self-conscious", "Irresponsible", "Melancholic", "Arbitrary", "Inconsistent", "Imitative", "Sarcastic", "Rude", "Vain", "Petty", "Resentful", "Disloyal", "Strict", "Anarchistic", "Dependent", "Snobbish", "Untrusting", "Assertive", "Charmless", "Pompous", "Greedy", "Tactless", "Unhelpful", "Anxious", "Gloomy", "Undisciplined", "Careless", "Nosy", "Domineering", "Dull", "Rebellious"];
     var bodies = ["Staring manic gaze.", "Covered in (for some) blasphemous tattoos.", "Rotting face. Wears a mask.", "Lost three toes, limps.", "Starved: taunt and pale.", "One hand replaced with rusting hook (d6 damage).", "Decaying teeth.", "Hauntingly beautiful, unnervingly clean.", "Hands caked with sores.", "Cataracts slowly but surly spreading in both eyes.", "Long tangled hair, at least one cockroach in residence.", "Broken, crushed ears.", "Juddering and stuttering from nerve damage or stress.", "Corpulent, ravenous, drooling.", "One hand lacks thumb and index finger, grips like a lobster.", "Red, swollen alcoholic’s nose.", "Resting maniac face, making friends is hard.", "Chronic athlete’s foot. Stinks.", "Recently slashed and stinking eye covered with a patch.", "Nails cracked and black, maybe about to drop off.", "Always-dripping nose.", "Lacking a navel.", "Bulbous growth on the neck. It moves when nobody sees.", "Chapped and cracked lips.", "Painfully average.", "Face covered in pustules.", "Short of stature.", "Bones that crack with every movement.", "Taller than most.", "Eyebrows lost to fire and memory.", "Broken nose, crooked forever.", "Gut telling tales of too many ales.", "Completely and utterly hairless.", "Forked tongue. A sign?", "Eyelids marked with charcoal, always.", "Nasty scar where a lung used to sit.", "Born with six fingers on each hand.", "Small eyes, making anyone suspicious.", "Hair coarse like bristles.", "Bad back and worse posture."];
@@ -337,7 +356,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     }
 
     function load_char() {
-      if (!window.location.hash) { reseed(); klass = (d(6) - 1).toString(); return; }
+      if (!window.location.hash) { reseed(); klass = (d(classes.length) - 1).toString(); return; }
 
       var tag = window.location.hash.split('&');
       if (tag.length < 2) { return; }
@@ -473,6 +492,11 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         } else {
           memory = "The Dejection of your Roots: " + frandom_item_from(forlorn_philosopher_memory_2);
         }
+      } else if (klass == 8) {
+        memory = "ALL HAIL " +
+                 frandom_item_from(dead_gods_prophet_memory_1).toUpperCase() + " " +
+                 frandom_item_from(dead_gods_prophet_memory_2).toUpperCase() + " " +
+                 frandom_item_from(dead_gods_prophet_memory_3).toUpperCase() + "!";
       }
       var trait1 = frandom_item_from(traits);
       var trait2 = trait1;
@@ -519,6 +543,9 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       } else if (klass == 7) {
         forlorn_philosopher_abilities.forEach(x => skills.push(x));
         skills.push(frandom_item_from(forlorn_philosopher_features));
+      } else if (klass == 8) {
+        dead_gods_prophet_abilities.forEach(x => skills.push(x));
+        two_unique(dead_gods_prophet_features).forEach(el => skills.push(el));
       }
       for(var i = 0; i < skills.length; i++) {
         document.getElementById("skills").innerHTML += "<br><b>" + skills[i][0] + "</b>";
@@ -550,6 +577,9 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       } else if (klass == 6) {
         stats[2] -= 2;
         stats[3] += 2;
+      } else if (klass == 8) {
+        stats[1] += 2;
+        stats[3] -= 2;
       }
 
       for(var i = 0; i < 4; i++) {
@@ -571,7 +601,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         hp_mod = fd(10);
       } else if (klass == 2 || klass == 4 || klass == 6) {
         hp_mod = fd(6);
-      } else if (klass == 3 || klass == 7) {
+      } else if (klass == 3 || klass == 7 || klass == 8) {
         hp_mod = fd(4);
       }
       var hp = Math.max(1, toughness() + hp_mod);
@@ -583,6 +613,8 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       var omens;
       if (klass == 3 || klass == 5 || klass == 7) {
         omens = [fd(4), 4];
+      } else if (klass == 8) {
+        omens = [fd(3), 3];
       } else {
         omens = [fd(2), 2];
       }
@@ -599,6 +631,8 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         silver = (fd(6) + fd(6) + fd(6) + fd(6))*10;
       } else if (klass == 5) {
         silver = (fd(6) + fd(6) + fd(6))*10;
+      } else if (klass == 8) {
+        silver = fd(6)*5;
       }
       var w_light = ['Staff', 'Wooden stake', 'Shortsword', 'Knife', 'Sickle', 'Cudgel'];
       var w_med = ['Warhammer', 'Sword', 'Club', 'Handaxe', 'Mace', 'Spear', 'Scythe'];
@@ -688,7 +722,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       if (story == 16) {
         starting_weapon = ["Sling", "d4 damage with an unlimited amount of stones"]
       } else {
-        if (klass == 3) {
+        if (klass == 3 || klass == 8) {
           starting_weapon = frandom_item_from(weapons.slice(0, 4));
         } else if (klass == 4 || klass == 5) {
           starting_weapon = frandom_item_from(weapons.slice(0, 8));
@@ -702,7 +736,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       var starting_armor;
       if (klass == 4) {
         starting_armor = frandom_item_from(armor.slice(0, 3));
-      } else if (scroll || klass == 2 || klass == 3 || klass == 6 || klass == 7) {
+      } else if (scroll || klass == 2 || klass == 3 || klass == 6 || klass == 7 || klass == 8) {
         starting_armor = frandom_item_from(armor.slice(0, 2));
       } else {
         starting_armor = frandom_item_from(armor);
