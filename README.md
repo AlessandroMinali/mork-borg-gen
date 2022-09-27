@@ -4,6 +4,11 @@ Allows sharing of generated characters and local editing so that you can use the
 
 https://alessandrominali.github.io/mork-borg-gen/waste_of_skin.html
 
+# MASS OF SKIN
+100 SCVM READY TO DIE
+
+https://alessandrominali.github.io/mork-borg-gen/mass_of_skin.html
+
 # MISERY
 Track days and misery automagically for your MÖRK BORG campaign.
 
