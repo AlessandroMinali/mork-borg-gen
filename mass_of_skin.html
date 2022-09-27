@@ -5,57 +5,49 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Waste of Skin - A MÖRK BORG Character Generator</a></title>
-  <meta name="description" content="Waste of Skin - Classes MÖRK BORG Character Generator">
+  <title>Mass of Skin - A MÖRK BORG Character Generator</a></title>
+  <meta name="description" content="Mass of Skin - Classes MÖRK BORG Character Generator">
   <style type="text/css">
-    body { font-family: sans-serif; font-size: 12px }
+    @media print {
+      @page {
+        size: A4;
+      }
+    }
+    div { page-break-inside: avoid; }
+    html, body {
+      width: 210mm; // A4 Paper width
+      height: 100%;
+    }
+    html {
+      display: table;
+      margin: auto;
+    }
+    body { border: 1px solid #eee; font-family: sans-serif; font-size: 8pt }
     .smaller { font-size: 85%; }
-    ul { padding-left: 15px }
-    div > b:first-child { font-size: 120% }
-    html, body { height: 99%;}
+    .fantasy { font-family: Trattatello, fantasy; }
     body > footer {
+      clear: both;
       position: sticky;
       top: 100vh;
     }
+    ol, ul { margin: 0; padding-left: 5mm; padding-right: 5mm;}
     footer > pre { white-space: pre-wrap; }
-    .fantasy { font-family: Trattatello, fantasy; }
-    label { display: inline-block; }
-    .character > button { margin: 10px; }
-    .top { width: 500px }
     @media only screen and (max-width: 400px) {
       .top { width: auto; }
     }
-    em > ol { padding-left: 5px; }
   </style>
 </head>
 
 <body>
   <h1 style="margin: 0px; text-align: center;" class="fantasy">
-    <a style='text-decoration: none; color: black;' href='./waste_of_skin.html'>
-      WASTE OF SKIN
+    <a style='text-decoration: none; color: black;' href='./mass_of_skin.html'>
+      MASS OF SKIN
       <br>
-      A MEAT-SACK SPAWNER
+      A MEAT-SACK MEGA-SPAWNER
       <br>
       <img id='logo' src="CompWith_MORKBORG_horiz.svg" width=150 />
     </a>
   </h1>
-  <div id="klass">
-    <span class="fantasy">PICK YOUR CLASS</span>
-    <br>
-    <button id="ws" value="0">Scvm (no class)</button>
-    <button id="fd" value="1">Fanged Deserter</button>
-    <button id="gs" value="2">Gutterborn Scum</button>
-    <button id="eh" value="3">Esoteric Hermit</button>
-    <button id="wr" value="4">Wretched Royalty</button>
-    <button id="he" value="5">Heretical Priest</button>
-    <button id="oh" value="6">Occult Herbmaster</button>
-    <button id="fo" value="7">Forlorn Philosopher</button>
-    <button id="dgp" value="8">Dead God's Prophet</button>
-    <button id="po" value="9">Pale One</button>
-    <button id="cs" value="10">Cursed Skinwalker</button>
-    <button id="ss" value="11">Sacrilegious Songbird</button>
-  </div>
-  <hr style="margin: 0px;">
   <div id=prompt style="display: none;">
     Which abilities would you like to try and excel with (select 2):
     <form>
@@ -88,75 +80,40 @@
     </form>
     <b>AFTER SELECTING, CLICK <em>WRETCH</em> AGAIN TO REROLL WITH CHANGES</b>
   </div>
-  <div id=character>
-    <button id="save">Share</button>
-    <button id="edit">Edit Locally</button>
-    <button id="save_edits" style="display: none;">Save Local Edit</button>
-    <button id="load" style="display: none;">Load Local Edit</button>
-    <button id="delete" style="display: none;">Delete Local Edit</button>
-    <button id="stop" style="display: none;">Stop Editing</button>
-    <span style='display: none; background: green; color: white; padding: 1px 5px;' id='status'></span>
-    <br>
-    <div class='top' style="display: inline-block;">
-      <div style="display: inline-block; padding-right: 20px;">
+  <article id='list1' style='max-width: 100mm; display: inline-block;'>
+    <div id=character>
+      <div style="display: inline-block;">
         <b style="background: black; color: white;">NAME</b>
         <span id="name" class="edit"></span>
-      </div>
-      <div style="display: inline-block; padding-right: 20px;">
         <b style="background: black; color: white;">CLASS</b>
         <span id="class_name"></span>
-      </div>
-    </div>
-    <div class='top' style="display: inline-block;">
-      <div style="display: inline-block; padding-right: 20px;">
         <b style="background: black; color: white;">HP</b>
         <span id="hp" class="edit"></span>
-      </div>
-      <div style="display: inline-block; padding-right: 20px;">
         <b style="background: black; color: white;">POWERS</b>
-        <span id="powers" class="edit"></span> (PRE+d4)
-      </div>
-      <div style="display: inline-block; padding-right: 20px;">
+        <span id="powers" class="edit"></span>
         <b style="background: black; color: white;">OMENS</b>
         <span id="omens" class="edit"></span>
         <span id="omens_dice"></span>
       </div>
-    </div>
-    <br>
-    <br>
-    <div class='top' style="display: inline-block; vertical-align: top;">
-      <div id="ablities"><b style="background: black; color: white;">ABILITIES</b></div>
-      <pre style="margin-bottom: 0px;">
-  <em>AGILITY</em>     <span id="agility" class="edit"></span>   Defend, balance, swim, flee
-  <em>PRESENCE</em>    <span id="presence" class="edit"></span>   Perceive, aim, charm, Powers
-  <em>STRENGTH</em>    <span id="strength" class="edit"></span>   Crush, lift, strike, grapple
-  <em>TOUGHNESS</em>   <span id="toughness" class="edit"></span>   Resistances, survive falling
-    </pre>
       <div>
-        <b style="background: black; color: white;">EQUIPMENT</b>
-        <span class="smaller" style="float: right; background: #aaa; color: white; margin-top: 3px; margin-right: 10px;">
-          CAPACITY
-          STR+8 items. Max 2*(STR+8) items.
-        </span>
-        <ul id="equipment" class="edit">
-        </ul>
+        <b style="background: black; color: white;">AGI</b> <span id="agility" class="edit"></span>
+        <b style="background: black; color: white;">PRE</b> <span id="presence" class="edit"></span>
+        <b style="background: black; color: white;">STR</b> <span id="strength" class="edit"></span>
+        <b style="background: black; color: white;">TOU</b> <span id="toughness" class="edit"></span>
       </div>
-      <div style="max-width: 500px">
-        <b style="background: black; color: white;">BACKGROUND</b>
-        <span id="description" class="smaller edit"></span>
-      </div>
+      <div class="edit"><b style="background: black; color: white;">CLASS SKILLS</b><br><span id="skills"></span></div>
+      <b style="background: black; color: white;">EQUIPMENT</b>
+      <div id="equipment" class="edit"></div>
+      <b style="background: black; color: white;">BACKGROUND</b>
+      <span id="description" class="smaller edit"></span>
     </div>
-    <div style="display: inline-block; max-width: 500px;">
-      <b style="background: black; color: white;">CLASS SKILLS</b>
-      <div id="skills" style="padding: 0px 20px 0px  0px;" class="edit"></div>
-    </div>
-  </div>
-  <hr>
-  <div class='fantasy' id="saved_souls">SAVED SOULS<br><span id="souls"></span></div>
+  </article>
+  <article id='list2' style='float: right; max-width: 100mm; display: inline-block; vertical-align: top;'>
+  </article>
   <footer style="text-align: center; font-size: 65%; opacity: 75%;">
     <hr>
     <pre style="margin: 0px 15px;">
-Waste of Skin is an independent production by Alessandro Minali and is not affiliated with Ockult Örtmästare Games or Stockholm Kartell. It is published under the MÖRK BORG Third Party License.
+Mass of Skin is an independent production by Alessandro Minali and is not affiliated with Ockult Örtmästare Games or Stockholm Kartell. It is published under the MÖRK BORG Third Party License.
 MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     </pre>
   </footer>
@@ -415,17 +372,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     ]
     var abilities = ["-3", "-3", "-3", "-3", "-2", "-2", "-1", "-1", "±0", "±0", "±0", "±0", "+1", "+1", "+2", "+2", "+3", "+3", "+3", "+3"]
 
-    function update_souls() {
-      document.getElementById("souls").innerHTML = '';
-      for (var i = 0, len = localStorage.length; i < len; i++ ) {
-        if (localStorage.key(i).slice(0, 2) == 'CY') { continue; }
-        var item = localStorage.getItem(localStorage.key(i)).split('&666&', 2);
-        document.getElementById("souls").innerHTML +=
-          "<a style='padding-right: 10px;' href='" + window.location.pathname + '?reload=' + (new Date()) + '#' + localStorage.key(i) + "'>" + item[0];
-      }
-      // if (localStorage.length == 0) { document.getElementById("saved_souls").style.display = "none"; return }
-    }
-
     function removeSmallest(arr) {
         var min = Math.min(...arr);
         return arr.filter(e => e != min);
@@ -441,114 +387,43 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       return [x, y]
     }
 
-    function load_char() {
-      if (!window.location.hash) { reseed(); klass = (d(classes.length) - 1).toString(); return; }
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+      get: (searchParams, prop) => searchParams.get(prop),
+    });
 
-      var tag = window.location.hash.split('&');
-      if (tag.length < 2) { return; }
-      if (tag[1].length != 2) { return; }
-      if (tag[2]) {
-        if (tag[2].length != 2) {return; }
-        total_checks = 2;
-        document.querySelectorAll('input[type=checkbox]')[tag[2][0]].checked = true;
-        document.querySelectorAll('input[type=checkbox]')[tag[2][1]].checked = true;
-        selected = tag[2].split('');
-      }
-
-      _seed = tag[0].slice(1,);
-      seed();
-      klass = tag[1];
-    }
-    load_char();
-    fixed_rolls_only();
+    reseed();
+    klass = (d(classes.length) - 1).toString();
     generate();
-    if (check_edits(hash())) {
-      load_edits(hash());
-      document.getElementById("load").style.display = "inline";
-      document.getElementById("delete").style.display = "inline";
-    }
-    update_souls();
-
-    var checkboxes = document.querySelectorAll('input[type=checkbox]');
-    for(var i = 0, len = checkboxes.length; i < len; i++) {
-      checkboxes[i].addEventListener('change', function() {
-        if (this.checked) {
-          total_checks += 1;
-        } else {
-          total_checks -= 1;
-        }
-
-        if (total_checks > 2) {
-          alert("Stop fooling around vagrant, only select two!");
-          checkboxes.forEach(e => e.checked = false);
-          total_checks = 0;
-        }
-      })
+    for(var i = 0; i < 49; i++) {
+      var node = document.getElementById('character');
+      var new_node = node.cloneNode(true);
+      node.prepend(document.createElement('hr'));
+      document.getElementById('list1').insertBefore(new_node, node);
+      klass = (d(classes.length) - 1).toString();
+      generate();
     }
 
-    document.getElementById("save").addEventListener('click', function() {
-      alert("Shareable link:\n\n" +
-              window.location.origin + window.location.pathname +
-                "#" +
-                  [_seed, klass.padStart(2, '0'), selected.join('')].join('&') +
-                    "\n\nNOTE: Other people will only see the base sheet!");
-    })
-    document.getElementById("edit").addEventListener('click', function() {
-      window.location.hash = [_seed, klass.padStart(2, '0'), selected.join('')].join('&');
-      enable_edits();
-      document.getElementById("klass").style.display = "none";
-      document.getElementById("save").style.display = "none";
-      document.getElementById("edit").style.display = "none";
-      document.getElementById("save_edits").style.display = "inline";
-      document.getElementById("load").style.display = "inline";
-      document.getElementById("delete").style.display = "inline";
-      document.getElementById("stop").style.display = "inline";
-    })
-
-    document.getElementById("save_edits").addEventListener('click', function() {
-      save_edits(hash());
-      update_souls();
-    })
-    document.getElementById("load").addEventListener('click', function() {
-      load_edits(hash());
-      update_souls();
-    })
-    document.getElementById("delete").addEventListener('click', function() {
-      delete_edits(hash());
-      update_souls();
-    })
-    document.getElementById("stop").addEventListener('click', function() {
-      disable_edits();
-      document.getElementById("klass").style.display = "block";
-      document.getElementById("save").style.display = "inline";
-      document.getElementById("edit").style.display = "inline";
-      document.getElementById("save_edits").style.display = "none";
-      if (check_edits(hash())) {
-        document.getElementById("load").style.display = "inline";
-        document.getElementById("delete").style.display = "inline";
-      } else {
-        document.getElementById("load").style.display = "none";
-        document.getElementById("delete").style.display = "none";
+    var node = document.getElementById('character');
+    var new_node = node.cloneNode(true);
+    new_node.append(document.createElement('hr'));
+    document.getElementById('list2').appendChild(new_node);
+    klass = (d(classes.length) - 1).toString();
+    generate();
+    for(var i = 0; i < 49; i++) {
+      var node = document.getElementById('character');
+      var new_node = node.cloneNode(true);
+      if (i != 48) {
+        new_node.append(document.createElement('hr'));
       }
-      document.getElementById("stop").style.display = "none";
-    })
-
-    var buttons = document.querySelectorAll("#klass > button");
-    for(var i = 0; i < buttons.length; i++) {
-      buttons[i].addEventListener('click', function(e) {
-        klass = e.target.value;
-        history.pushState("", document.title, window.location.pathname);
-        document.getElementById("load").style.display = "none";
-        document.getElementById("delete").style.display = "none";
-        reseed();
-        generate();
-      });
+      document.getElementById('list2').appendChild(new_node);
+      klass = (d(classes.length) - 1).toString();
+      generate();
     }
 
     function generate() {
+      document.getElementById("skills").innerHTML = "";
       document.getElementById("equipment").innerHTML = "";
       document.getElementById("description").innerHTML = "";
-      document.getElementById("skills").innerHTML = "";
       document.getElementById("class_name").innerHTML = classes[parseInt(klass)];
       if (klass == 9) {
         document.getElementById("name").innerHTML =
@@ -604,71 +479,67 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       }
       var habit = fd(bad_habits.length);
       var story;
-      document.getElementById("description").innerHTML += "<p>" + memory + "</p>";
-      document.getElementById("description").innerHTML += "<p>" + descriptions[parseInt(klass)] + "</p>";
       document.getElementById("description").innerHTML += [
-        "<p>",
+        '<br>',
         trait1 + " and " + trait2.toLowerCase() + '.',
         frandom_item_from(bodies),
         bad_habits[habit-1],
-        "</p>"
       ].join(' ');
 
 
       var skills = [];
       if (klass == 0) {
-        if (selected[0]) { skills.push(base_skills[selected[0]]); }
-        if (selected[1]) { skills.push(base_skills[selected[1]]); }
         skills.push(frandom_item_from(feats))
       } else if (klass == 1) {
-        fanged_deserter_abilites.forEach(x => skills.push(x));
+        fanged_deserter_abilites.forEach(x => x[1] != '' && skills.push(x));
         skills.push(frandom_item_from(fanged_deserter_features));
       } else if (klass == 2) {
-        gutterborn_abilities.forEach(x => skills.push(x));
+        gutterborn_abilities.forEach(x => x[1] != '' && skills.push(x));
         skills.push(frandom_item_from(gutterborn_features));
       } else if (klass == 3) {
-        esoteric_hermit_abilities.forEach(x => skills.push(x));
+        esoteric_hermit_abilities.forEach(x => x[1] != '' && skills.push(x));
         skills.push(frandom_item_from(esoteric_hermit_features));
       } else if (klass == 4) {
-        wretched_royalty_abilities.forEach(x => skills.push(x));
+        wretched_royalty_abilities.forEach(x => x[1] != '' && skills.push(x));
         var wr_skill1 = frandom_item_from(wretched_royalty_features);
         var wr_skill2 = frandom_item_from(wretched_royalty_features_2);
         skills.push(wr_skill1);
         skills.push(wr_skill2);
       } else if (klass == 5) {
-        heretical_priest_abilities.forEach(x => skills.push(x));
+        heretical_priest_abilities.forEach(x => x[1] != '' && skills.push(x));
         skills.push(frandom_item_from(heretical_priest_features));
       } else if (klass == 6) {
-        occult_herbmaster_abilities.forEach(x => skills.push(x));
+        occult_herbmaster_abilities.forEach(x => x[1] != '' && skills.push(x));
       } else if (klass == 7) {
-        forlorn_philosopher_abilities.forEach(x => skills.push(x));
+        forlorn_philosopher_abilities.forEach(x => x[1] != '' && skills.push(x));
         skills.push(frandom_item_from(forlorn_philosopher_features));
       } else if (klass == 8) {
-        dead_gods_prophet_abilities.forEach(x => skills.push(x));
+        dead_gods_prophet_abilities.forEach(x => x[1] != '' && skills.push(x));
         two_unique(dead_gods_prophet_features).forEach(el => skills.push(el));
       } else if (klass == 9) {
-        pale_one_abilities.forEach(x => skills.push(x));
+        pale_one_abilities.forEach(x => x[1] != '' && skills.push(x));
         skills.push(frandom_item_from(pale_one_features));
       } else if (klass == 10) {
-        cursed_skinwalker_abilities.forEach(x => skills.push(x));
+        cursed_skinwalker_abilities.forEach(x => x[1] != '' && skills.push(x));
         skills.push(frandom_item_from(cursed_skinwalker_features));
       } else if (klass == 11) {
-        songbird_abilities.forEach(x => skills.push(x));
+        songbird_abilities.forEach(x => x[1] != '' && skills.push(x));
         skills.push(frandom_item_from(songbird_features));
       }
-      for(var i = 0; i < skills.length; i++) {
-        document.getElementById("skills").innerHTML += "<br><b>" + skills[i][0] + "</b>";
-        if (skills[i][1] != '') {
-          document.getElementById("skills").innerHTML += "<br>" + skills[i][1] + "<br>";
-        }  else {
-          document.getElementById("skills").innerHTML += "<br>"
-        }
-        if (skills[i][2] != undefined) {
-          document.getElementById("skills").innerHTML += "<span class='smaller'>" + skills[i][2] + "</span><br>";
-        }
-      }
-      document.getElementById("skills").innerHTML += "<br>"
 
+      if (params.s) {
+        for(var i = 0; i < skills.length; i++) {
+          document.getElementById("skills").innerHTML += "<b>" + skills[i][0] + "</b> ";
+          if (skills[i][2] != undefined) {
+            document.getElementById("skills").innerHTML += skills[i][2] + '<br>';
+          } else if (skills[i][1] != '') {
+            document.getElementById("skills").innerHTML += skills[i][1] + '<br>';
+          }
+        }
+      } else {
+        document.getElementById("skills").innerHTML += skills.map(el => el[0]).join(', ');
+      }
+      
       var stats = []
       for(var i = 0; i < 4; i++) {
         if (klass == 0) {
@@ -725,7 +596,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         hp_mod = fd(4);
       }
       var hp = Math.max(1, toughness() + hp_mod);
-      document.getElementById("hp").innerHTML = hp + "/" + hp;
+      document.getElementById("hp").innerHTML = hp;
 
       var power = Math.max(0, presence() + fd(4));
       document.getElementById("powers").innerHTML = power;
@@ -741,7 +612,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       document.getElementById("omens").innerHTML = omens[0];
       document.getElementById("omens_dice").innerHTML =  "(d" + omens[1] + ")";
 
-      var food = ["Waterskin", " and " + fd(4) + " days' worth of food"]
+      var food = ["Waterskin", fd(4) + " days' worth of food"]
       var silver;
       if (klass == 0 || klass == 1 || klass == 6 || klass == 10) {
         silver = (fd(6) + fd(6))*10;
@@ -831,7 +702,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         ["Noose", ""]
       ]
 
-      document.getElementById("equipment").innerHTML += "<li>" + food[0] + "<em class='smaller'>" + food[1] + "</em></li>";
       var e1 = frandom_item_from(equip1);
       var e2 = fd(20);
       var e3 = fd(20);
@@ -852,7 +722,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
           starting_weapon = frandom_item_from(weapons);
         }
       }
-      document.getElementById("equipment").innerHTML += "<li>" + starting_weapon[0] + "<em class='smaller'>&nbsp;" + starting_weapon[1] + "</em></li>";
       var starting_armor;
       if (klass == 4 || klass == 11) {
         starting_armor = frandom_item_from(armor.slice(0, 3));
@@ -860,9 +729,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         starting_armor = frandom_item_from(armor.slice(0, 2));
       } else {
         starting_armor = frandom_item_from(armor);
-      }
-      if (starting_armor[0] != "") {
-        document.getElementById("equipment").innerHTML += "<li>" + starting_armor[0] + "<em class='smaller'>&nbsp;" + starting_armor[1] + "</em></li>";
       }
       var special_item;
       if (habit == 1) {
@@ -874,23 +740,58 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       } else if (habit == 29) {
         special_item = ["Sackcloth bag", "and " + (fd(20) + fd(20) + fd(20) + fd(20) + fd(20)) + " chewed fingernails"]
       }
-      if (special_item) {
-        document.getElementById("equipment").innerHTML += "<li>" + special_item[0] + "<em class='smaller'>&nbsp;" + special_item[1] + "</em></li>";
-      }
-      if (e1[0] != "") {
-        document.getElementById("equipment").innerHTML += "<li>" + e1[0] + "<em class='smaller'>&nbsp;" + e1[1] + "</em></li>";
-      }
-      document.getElementById("equipment").innerHTML += "<li>" + e2[0] + "<em class='smaller'>&nbsp;" + e2[1] + "</em></li>";
-      document.getElementById("equipment").innerHTML += "<li>" + e3[0] + "<em class='smaller'>&nbsp;" + e3[1] + "</em></li>";
+      var eso_scroll;
       if (klass == 3) {
-        var eso_scroll = fd(2) == 1 ? frandom_item_from(sacred_scrolls) : frandom_item_from(unclean_scrolls);
-        document.getElementById("equipment").innerHTML += "<li>" + eso_scroll[0] + "<em class='smaller'>&nbsp;" + eso_scroll[1] + "</em></li>";
+        eso_scroll = fd(2) == 1 ? frandom_item_from(sacred_scrolls) : frandom_item_from(unclean_scrolls);
       }
+      var for_tab;
       if (klass == 7) {
-        var for_tab = frandom_item_from(tablets);
-        document.getElementById("equipment").innerHTML += "<li>" + for_tab[0] + "<em class='smaller'>&nbsp;" + for_tab[1] + "</em></li>";
+        for_tab = frandom_item_from(tablets);
       }
-      document.getElementById("equipment").innerHTML += "<li>" + silver + " silver</li>";
+
+      if (params.e) {
+        document.getElementById("equipment").innerHTML += food[0] + " <em class='smaller'>" + food[1] + "</em>";
+        document.getElementById("equipment").innerHTML += ", " + silver + " silver";
+        document.getElementById("equipment").innerHTML += '<br>' + starting_weapon[0] + "<em class='smaller'>&nbsp;" + starting_weapon[1] + "</em>";
+        if (starting_armor[0] != "") {
+          document.getElementById("equipment").innerHTML += ', ' + starting_armor[0] + "<em class='smaller'>&nbsp;" + starting_armor[1] + "</em>";
+        }
+        if (e1[0] != "") {
+          document.getElementById("equipment").innerHTML += "<br>"+ e1[0] + "<em class='smaller'>&nbsp;" + e1[1] + "</em>";
+        }
+        if (special_item) {
+          document.getElementById("equipment").innerHTML += ", " + special_item[0] + "<em class='smaller'>&nbsp;" + special_item[1] + "</em>";
+        }
+        document.getElementById("equipment").innerHTML += "<br>" + e2[0] + "<em class='smaller'>&nbsp;" + e2[1] + "</em>";
+        document.getElementById("equipment").innerHTML += "<br>" + e3[0] + "<em class='smaller'>&nbsp;" + e3[1] + "</em>";
+        if (eso_scroll) {
+          document.getElementById("equipment").innerHTML += "<br>" + eso_scroll[0] + "<em class='smaller'>&nbsp;" + eso_scroll[1] + "</em>";
+        }
+        if (for_tab) {
+          document.getElementById("equipment").innerHTML += "<br>" + for_tab[0] + "<em class='smaller'>&nbsp;" + for_tab[1] + "</em>";
+        }
+      } else {
+        document.getElementById("equipment").innerHTML += food[0] + ', ' + food[1];
+        document.getElementById("equipment").innerHTML += ', ' + starting_weapon[0];
+        if (starting_armor[0] != "") {
+          document.getElementById("equipment").innerHTML += ', ' + starting_armor[0]
+        }
+        if (e1[0] != "") {
+          document.getElementById("equipment").innerHTML += ", "+ e1[0]
+        }
+        if (special_item) {
+          document.getElementById("equipment").innerHTML += ", " + special_item[0]
+        }
+        document.getElementById("equipment").innerHTML += ", " + e2[0]
+        document.getElementById("equipment").innerHTML += ", " + e3[0]
+        if (eso_scroll) {
+          document.getElementById("equipment").innerHTML += ", " + eso_scroll[0]
+        }
+        if (for_tab) {
+          document.getElementById("equipment").innerHTML += ", " + for_tab[0]
+        }
+        document.getElementById("equipment").innerHTML += ", " + silver + " silver";
+      }
     }
   </script>
 </body>
