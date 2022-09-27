@@ -20,15 +20,6 @@ Updated reference sheets with ALL the rules.
 For [PLAYERS](https://github.com/AlessandroMinali/mork-borg-gen/blob/master/MÖRK%20BORG%20REFERENCE%20PLAYER.pdf)
 
 For [DM](https://github.com/AlessandroMinali/mork-borg-gen/blob/master/MÖRK%20BORG%20REFERENCE%20DM.pdf)
-<!-- 
-# Roadmap
-
- - [ ] Auto level-up button for character sheets
- - [ ] Auto daily-refresh button for character sheets (ie. restore heal, power, and omens)
- - [ ] Simple generator for every table
- - [ ] Shop generator
- - [ ] Full dungeon generator w/ encounters + loot
- - [ ] Outcast generator??? -->
 
 # Legal
 All the code is an independent production by Alessandro Minali and is not affiliated with Ockult Örtmästare Games or Stockholm Kartell. It is published under the MÖRK BORG Third Party License.
