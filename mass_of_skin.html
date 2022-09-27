@@ -12,8 +12,8 @@
       @page {
         size: A4;
       }
+      div { page-break-inside: avoid; }
     }
-    div { page-break-inside: avoid; }
     html, body {
       width: 210mm; // A4 Paper width
       height: 100%;
@@ -32,9 +32,7 @@
     }
     ol, ul { margin: 0; padding-left: 5mm; padding-right: 5mm;}
     footer > pre { white-space: pre-wrap; }
-    @media only screen and (max-width: 400px) {
-      .top { width: auto; }
-    }
+    article { max-width: 104mm; }
   </style>
 </head>
 
@@ -80,13 +78,15 @@
     </form>
     <b>AFTER SELECTING, CLICK <em>WRETCH</em> AGAIN TO REROLL WITH CHANGES</b>
   </div>
-  <article id='list1' style='max-width: 100mm; display: inline-block;'>
+  <article id='list1' style='float: left;'>
     <div id=character>
+      <hr>
       <div style="display: inline-block;">
         <b style="background: black; color: white;">NAME</b>
         <span id="name" class="edit"></span>
         <b style="background: black; color: white;">CLASS</b>
         <span id="class_name"></span>
+        <br>
         <b style="background: black; color: white;">HP</b>
         <span id="hp" class="edit"></span>
         <b style="background: black; color: white;">POWERS</b>
@@ -94,8 +94,6 @@
         <b style="background: black; color: white;">OMENS</b>
         <span id="omens" class="edit"></span>
         <span id="omens_dice"></span>
-      </div>
-      <div>
         <b style="background: black; color: white;">AGI</b> <span id="agility" class="edit"></span>
         <b style="background: black; color: white;">PRE</b> <span id="presence" class="edit"></span>
         <b style="background: black; color: white;">STR</b> <span id="strength" class="edit"></span>
@@ -108,7 +106,7 @@
       <span id="description" class="smaller edit"></span>
     </div>
   </article>
-  <article id='list2' style='float: right; max-width: 100mm; display: inline-block; vertical-align: top;'>
+  <article id='list2' style='float: right; display: inline-block; vertical-align: top;'>
   </article>
   <footer style="text-align: center; font-size: 65%; opacity: 75%;">
     <hr>
@@ -397,24 +395,19 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     for(var i = 0; i < 49; i++) {
       var node = document.getElementById('character');
       var new_node = node.cloneNode(true);
-      node.prepend(document.createElement('hr'));
-      document.getElementById('list1').insertBefore(new_node, node);
+      document.getElementById('list1').insertBefore(new_node, node.nextSibling);
       klass = (d(classes.length) - 1).toString();
       generate();
     }
 
     var node = document.getElementById('character');
     var new_node = node.cloneNode(true);
-    new_node.append(document.createElement('hr'));
     document.getElementById('list2').appendChild(new_node);
     klass = (d(classes.length) - 1).toString();
     generate();
     for(var i = 0; i < 49; i++) {
       var node = document.getElementById('character');
       var new_node = node.cloneNode(true);
-      if (i != 48) {
-        new_node.append(document.createElement('hr'));
-      }
       document.getElementById('list2').appendChild(new_node);
       klass = (d(classes.length) - 1).toString();
       generate();
