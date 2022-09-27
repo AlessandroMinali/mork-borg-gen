@@ -14,7 +14,7 @@
       div { page-break-inside: avoid; }
     }
     html, body {
-      width: 210mm; // A4 Paper width
+      width: 210mm;
       height: 100%;
     }
     html {
@@ -77,6 +77,9 @@
     </form>
     <b>AFTER SELECTING, CLICK <em>WRETCH</em> AGAIN TO REROLL WITH CHANGES</b>
   </div>
+  <button id='show_e'>Equipment details</button>
+  <button id='show_s'>Skill details</button>
+  <br>
   <article id='list1' style='float: left;'>
     <div id=character>
       <hr>
@@ -412,6 +415,16 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       klass = (d(classes.length) - 1).toString();
       generate();
     }
+
+    const query = new URLSearchParams(location.search);
+    document.getElementById('show_e').addEventListener('click', function() {
+      query.get('e') ? query.delete('e') : query.set('e', true);
+      document.location = '?' + query.toString();
+    })
+    document.getElementById('show_s').addEventListener('click', function() {
+      query.get('s') ? query.delete('s') : query.set('s', true);
+      document.location = '?' + query.toString();
+    })
 
     function generate() {
       document.getElementById("skills").innerHTML = "";
