@@ -1,3 +1,8 @@
+# DNGNCRWL
+A conversion of solo play rules for Mörk Borg into a playable game.
+
+[Link](https://silentbunny.itch.io/dngncrwl)
+
 # WASTE OF SKIN
 A fully automated MÖRK BORG character generator, class or class-less.
 Allows sharing of generated characters and local editing so that you can use the character in actual play.
