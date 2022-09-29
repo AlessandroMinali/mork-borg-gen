@@ -27,6 +27,8 @@ For [PLAYERS](https://github.com/AlessandroMinali/mork-borg-gen/blob/master/MÖR
 For [DM](https://github.com/AlessandroMinali/mork-borg-gen/blob/master/MÖRK%20BORG%20REFERENCE%20DM.pdf)
 
 # Legal
+![CompWith_MORKBORG_horiz](https://user-images.githubusercontent.com/4143332/193059599-8a26b891-c152-43d7-8be6-c22f76643ee8.svg)
+
 All the code is an independent production by Alessandro Minali and is not affiliated with Ockult Örtmästare Games or Stockholm Kartell. It is published under the MÖRK BORG Third Party License.
 
 MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
