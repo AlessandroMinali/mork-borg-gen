@@ -111,7 +111,7 @@ class Monster {
     if (this.name == 'Arch Cultist') { guardian = false; log("The guardian is dead, now you may seek an audience with Verhu in the lair."); }
     current_target = _room().monsters[0] || undefined;
     this.current_room().draw();
-    this = undefined;
+    delete this;
   }
 }
 var arch_cultist = function(seed) {return new Monster("Arch Cultist", 16, 14, 10, 'slashing', "The cultits let's out a howl and flourshes their blade.",
