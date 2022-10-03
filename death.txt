@@ -1,0 +1,42 @@
+"Exploding" Trauma Rules
+When you reach ≤0 HP roll d4.
+Use the next table you haven't rolled yet, starting from the top.
+
+You always:
+  i.  Gain infection. (No healing when resting. Take d6 damage each day.)
+  ii. Lose any remaining Omens for the day.
+
+\\\----------------------------------\\||//----------------------------------\\\
+TABLE I
+1 Fall unconscious for 1 round and awaken with 1 HP
+2 Fall unconscious for d4 rounds and awaken with d4 HP
+3 Bleeding out, death in d2 hours unless treated:
+  i.  First hour: all tests DR16
+  ii. Last hour:  all tests DR18
+4 Re-roll on the next table
+
+TABLE II - Sever or irreplaceably break(DR+2 to any action that requires it):
+1 Arm
+2 Ear
+3 Jaw, can no longer use powers
+4 Re-roll on the next table
+
+TABLE III - Sever or irreplaceably break(DR+2 to any action that requires it):
+1 Leg
+2 Eye
+3 Head, can no longer use powers
+4 Re-roll on the next table
+
+TABLE IV - DEATH
+1 Dead peacefully.
+2 Dead painfully.
+3 Dead sweetly.
+4 Dead tragically.
+///----------------------------------//||\\----------------------------------\\\
+
+Chance of death with these rules:
+1.5625% of dying from first table.
+6.25%   of dying from second table.
+25%     of dying from third table.
+100%    of dying from last table.
+Chance of death with original rules: Yes.
