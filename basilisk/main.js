@@ -44,12 +44,29 @@ function refresh_player_stats() {
     }).join('') +
     "</ul>"
   var room_monsters = document.getElementById('room_monsters')
-  room_monsters.innerHTML =
+  var room_monsters_text =
     current_player.current_room().monsters.map((el, index) => {
       return "<li>" + el.name +
              ((current_target == el) ? '' : "<button onclick='(function() { current_player.current_room().target_monster(" + index + ") })()'>Target (t)</button>") +
              "</li>";
     }).join('');
+  if (current_player.items.some(el => el.name.includes('Crossbow'))) {
+    current_player.adjacent_targets().forEach((el, index) => {
+      if (el) {
+        room_monsters_text += 'ROOM ' + HDIRECTIONS[index] + '<br>'
+        el.forEach((e, i) => {
+          if (e) {
+            room_monsters_text +=
+              "<li>" + e.name +
+              ((current_target == e) ? '' : "<button onclick='(function() { rooms[current_player.y+"+NEIGHBOURS[index][1]+"][current_player.x+"+NEIGHBOURS[index][0]+"].target_monster(" + i + ") })()'>Target</button>") +
+              "</li>"
+          }
+        })
+      }
+    })
+  }
+  room_monsters.innerHTML = room_monsters_text;
+
   var room_traps = document.getElementById('room_traps')
   room_traps.innerHTML =
     current_player.current_room().traps.map((el, index) => {

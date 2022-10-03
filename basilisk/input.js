@@ -10,6 +10,7 @@ const RIGHT = 1;
 const DOWN  = 2;
 const LEFT  = 3;
 const DIRECTIONS = ['UP', 'RIGHT', 'DOWN', 'LEFT'];
+const HDIRECTIONS = ['ABOVE', 'TO THE RIGHT', 'BELOW', 'TO THE LEFT'];
 const NEIGHBOURS = [
   [0, -1], // above neighbour
   [1, 0],  // right neighbour

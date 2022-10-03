@@ -28,14 +28,19 @@ class Monster {
       current_player.points += this.dr;
       return this.clear();
     }
+
+    this.move_to_player();
   }
   hit(damage, type, crossbow=false) {
     if (this.current_room().spire) {
+      this.move_to_player();
       return log("A sickly black tendril of lighting emnates from the spire blocking the attack.");
     }
     if (this.name == "Whisper Bird") {
       if (this.miss && !current_player.presence(10)) {
         log("Try as you might you can't bring your self to attack this pathetic creature.");
+        this.move_to_player();
+
         return this.inflict_damage();
       } else { this.miss = false; }
     }
@@ -51,8 +56,8 @@ class Monster {
     } else if (attack_roll > (this.dr - this.blinded())) {
       this.take_damage(damage, type);
     } else if (attack_roll == (this.dr - this.blinded())) {
-      this.current_room().monsters.forEach(el => el.inflict_damage());
       this.take_damage(damage, type);
+      this.current_room().monsters.forEach(el => el.inflict_damage());
     } else if (attack_roll < (this.dr - this.blinded())) {
       log("Your attack misses");
       this.current_room().monsters.forEach(el => el.inflict_damage());
@@ -64,6 +69,8 @@ class Monster {
       this.current_room().draw();
       log("The creature howls and another Dusk Troull appears!");
     }
+
+    this.move_to_player();
   }
   take_damage(damage, type) {
     log("The " + this.name +" suffers " + damage + "HP of " + type + " damage!");
@@ -73,13 +80,16 @@ class Monster {
       current_player.points += this.dr;
       return this.clear();
     }
-    if (current_player.current_room() != this.current_room()) {
-      _room().move_monsters(current_player.x, current_player.y);
-      this.encounter();
-    } else {
+    if (current_player.current_room() == this.current_room()) {
       for(var i = 0; i < current_player.pets.length; i++) {
         current_player.pets[i].combat()
       }
+    }
+  }
+  move_to_player() {
+    if (current_player.current_room() != this.current_room()) {
+      this.current_room().move_monsters(current_player.x, current_player.y);
+      this.encounter();
     }
   }
   inflict_damage(critical) {
@@ -101,6 +111,7 @@ class Monster {
     if (this.name == 'Arch Cultist') { guardian = false; log("The guardian is dead, now you may seek an audience with Verhu in the lair."); }
     current_target = _room().monsters[0] || undefined;
     this.current_room().draw();
+    this = undefined;
   }
 }
 var arch_cultist = function(seed) {return new Monster("Arch Cultist", 16, 14, 10, 'slashing', "The cultits let's out a howl and flourshes their blade.",

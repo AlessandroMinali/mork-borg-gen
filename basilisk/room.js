@@ -236,7 +236,8 @@ class Room {
       rooms[y][x].monsters.push(m);
     });
     this.monsters = [];
-    if (push && rooms[y][x].visited) { rooms[y][x].draw(); }
+    if (rooms[y][x].visited) { rooms[y][x].draw(); }
+    this.draw();
   }
   target_monster(index) {
     current_target = this.monsters[index];

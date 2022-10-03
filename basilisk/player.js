@@ -118,6 +118,18 @@ class Player {
     if (this.y == undefined) { return; }
     return rooms[this.y][this.x]
   }
+  adjacent_targets() {
+    return NEIGHBOURS.map((el) => {
+      var out;
+      try {
+        out = ((rooms[this.y+el[1]][this.x+el[0]].monsters.length > 0) ? rooms[this.y+el[1]][this.x+el[0]].monsters : undefined)
+      } catch {
+        //
+      }
+
+      return out;
+    })
+  }
   pick_up(obj, evasion) {
     if (this.current_room()?.check_monsters(evasion) ) { return; }
     if (obj instanceof Pet) {
