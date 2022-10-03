@@ -29,19 +29,6 @@ class Room {
     ctx.fillStyle = (this.darkness ? 'black' : "grey");
     if (this.lair) { ctx.fillStyle = 'rgb(0, 0, 0, 0.8)'; }
     ctx.fillRect(size*this.x+border, size*this.y+border, size - border, size - border);
-    if (this.chasm) {
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = 'white';
-      ctx.beginPath();
-      if (this.chasm_dir) {
-        ctx.moveTo(this.x*size, this.y*size);
-        ctx.lineTo(this.x*size + size, this.y*size + size);
-      } else {
-        ctx.moveTo(this.x*size + size + border, this.y*size);
-        ctx.lineTo(this.x*size, this.y*size + size + border);
-      }
-      ctx.stroke();
-    }
     if (this.cave_in) {
       ctx.fillStyle = '#aaa';
       for(var i = 0; i < 10; i++) {
@@ -120,6 +107,19 @@ class Room {
       ctx.beginPath();
       ctx.moveTo(this.x*size,          this.y*size + size/2 + border/2);
       ctx.lineTo(this.x*size + border, this.y*size + size/2 + border/2);
+      ctx.stroke();
+    }
+    if (this.chasm) {
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = 'white';
+      ctx.beginPath();
+      if (this.chasm_dir) {
+        ctx.moveTo(this.x*size, this.y*size);
+        ctx.lineTo(this.x*size + size, this.y*size + size);
+      } else {
+        ctx.moveTo(this.x*size + size + border, this.y*size);
+        ctx.lineTo(this.x*size, this.y*size + size + border);
+      }
       ctx.stroke();
     }
     refresh_player_stats();
