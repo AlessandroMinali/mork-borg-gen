@@ -93,14 +93,14 @@ class Treasure {
     }
   }
   discard() {
-    this.deactivate();
     current_player.current_room().add_item(this);
     current_player.items.splice(current_player.items.indexOf(this), 1);
+    this.deactivate();
     refresh_player_stats();
   }
   destroy() {
-    this.deactivate();
     current_player.items.splice(current_player.items.indexOf(this), 1);
+    this.deactivate();
     refresh_player_stats();
   }
 }
@@ -138,7 +138,7 @@ var treasure_table = [
       log('Grappling hook equipped. Should make crossing Hellvents and Chasms easy.');
     },
     function() {
-      current_player.hook = false;
+      current_player.hook = current_player.items.some(el => el.name.includes('Hook'));
     }, seed
   )},
   function(seed) {return new Treasure("Salve",
@@ -230,7 +230,7 @@ var treasure_table = [
       log('Gas mask equipped. Should make nullifying Basilisk Vapours and Neurotoxins easy.');
     },
     function() {
-      current_player.gas_mask = false;
+      current_player.gas_mask = current_player.items.some(el => el.name.includes('Mask'));
     }, seed
   )},
   function() {return new Weapon("Sword", 6, 'slashing')},

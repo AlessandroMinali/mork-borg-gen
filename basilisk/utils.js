@@ -4,7 +4,7 @@ function log(msg) {
     var log_window = document.getElementById('log')
     log_window.innerHTML += msg.replace(/a\ A/, 'an A') + "<br>";
     log_window.scrollTop = log_window.scrollHeight;
-    console.warn(msg.replace(/\ [aeiouy]\ ([aeiouy])/i, " an $1"));
+    // console.warn(msg.replace(/\ [aeiouy]\ ([aeiouy])/i, " an $1"));
   }
 }
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);

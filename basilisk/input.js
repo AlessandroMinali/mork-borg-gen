@@ -56,7 +56,6 @@ function key_up(e) {
       break;
     }
     case('a'): {
-      console.log('hello');
       if (!_room().lair) {
         _room().approach();
       } else {

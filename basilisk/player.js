@@ -188,7 +188,7 @@ class Player {
     refresh_player_stats();
   }
   trade_pet(index) {
-    this.pet[index].destroy();
+    this.pets[index].destroy();
     this.pick_up(this.current_room().trade);
     complete_trade();
     refresh_player_stats();
