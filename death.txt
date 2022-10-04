@@ -17,21 +17,19 @@ TABLE I
 
 TABLE II -
 i.  Sever or irreplaceably break(DR+2 to any action that requires it)
-ii. Fall unconscious for 1 round and awaken with 1 HP
-
 1 Arm
 2 Ear
 3 Jaw, can no longer use powers
 4 Re-roll on the next table
+ii. Fall unconscious for 1 round and awaken with 1 HP
 
 TABLE III -
 i.  Sever or irreplaceably break(DR+2 to any action that requires it)
-ii. Fall unconscious for 1 round and awaken with 1 HP
-
 1 Leg
 2 Eye
 3 Head, can no longer use powers
 4 Re-roll on the next table
+ii. Fall unconscious for 1 round and awaken with 1 HP
 
 TABLE IV -
 DEATH
