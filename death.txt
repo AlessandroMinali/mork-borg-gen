@@ -29,7 +29,6 @@ i.  Sever or irreplaceably break(DR+2 to any action that requires it):
   2 Eye
   3 Head, can no longer use powers
   4 Re-roll on the next table
-
 ii. Fall unconscious for 1 round and awaken with 1 HP
 ///----------------------------------//||\\----------------------------------\\\
 
