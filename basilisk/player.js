@@ -31,6 +31,7 @@ class Player {
   strength(dr)  { return (d(20) + this.str) > (dr + this.blinded()); }
   toughness(dr) { return (d(20) + this.tou) > (dr + this.blinded()); }
   fists() {
+    if (!this.current_room()) { return; }
     log('You attack with your fists.');
     if (current_target) {
       current_target.hit(d(2), 'blunt');
@@ -119,7 +120,8 @@ class Player {
     return rooms[this.y][this.x]
   }
   adjacent_targets() {
-    return NEIGHBOURS.map((el) => {
+    return NEIGHBOURS.map((el, index) => {
+      if (this.current_room().exits[index] == 0) { return; }
       var out;
       try {
         out = ((rooms[this.y+el[1]][this.x+el[0]].monsters.length > 0) ? rooms[this.y+el[1]][this.x+el[0]].monsters : undefined)
@@ -227,7 +229,7 @@ class Player {
     log('Dive down into the catacombs...');
     this.starting_items.forEach(el => this.pick_up(el));
     entering_from = LEFT;
-    this.move(0, [0, 3, 6][stairwell], true);
+    this.move(0, [0, 3, 6][stairwell], true, true);
   }
   left() {
     return this.move(this.x - 1, this.y);
@@ -273,7 +275,7 @@ class Player {
           else { return; }
         }
       }
-      if (this.current_room()?.monsters.length > 0 && !random) { this.evade(x, y); }
+      if (this.current_room()?.monsters.length > 0) { !random ? this.evade(x, y) : undefined; }
       if (this.slide) { this.teleported.push(check_exits[entering_from]); this.slide = false; log("You pass through without a trace."); }
       this.x = x;
       this.y = y;
@@ -285,8 +287,8 @@ class Player {
         rooms[this.prev_y][this.prev_x].secret_exit = (entering_from + 2)%4;
       }
       this.last_entrance = entering_from;
-      rooms[this.prev_y]?.[this.prev_x].draw();
       rooms[this.y][this.x].enter();
+      rooms[this.prev_y]?.[this.prev_x].draw();
       this.round();
       if (!this.teleported.length && !start && !replaying) { track([x, y, entering_from]); }
       return true;
@@ -345,6 +347,8 @@ class Player {
     this.items = [];
     this.pets = [];
     this.armor = [];
+    delete this;
+    current_target = undefined;
     current_player = undefined;
     room.draw();
   }

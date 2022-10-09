@@ -52,15 +52,21 @@ class Monster {
       this.take_damage(damage * 2, type);
     } else if (base_roll == 1) {
       log("Critical miss!");
-      this.current_room().monsters.forEach(el => el.inflict_damage(true));
+      if (current_player.current_room() == this.current_room()) {
+        this.current_room().monsters.forEach(el => el.inflict_damage(true));
+      }
     } else if (attack_roll > (this.dr - this.blinded())) {
       this.take_damage(damage, type);
     } else if (attack_roll == (this.dr - this.blinded())) {
       this.take_damage(damage, type);
-      this.current_room().monsters.forEach(el => el.inflict_damage());
+      if (current_player.current_room() == this.current_room()) {
+        this.current_room().monsters.forEach(el => el.inflict_damage());
+      }
     } else if (attack_roll < (this.dr - this.blinded())) {
       log("Your attack misses");
-      this.current_room().monsters.forEach(el => el.inflict_damage());
+      if (current_player.current_room() == this.current_room()) {
+        this.current_room().monsters.forEach(el => el.inflict_damage());
+      }
     }
 
     if (this.name == "Dusk Troull" && this.roll(4) == 1) {
