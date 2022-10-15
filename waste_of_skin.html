@@ -506,8 +506,8 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     load_char();
     fixed_rolls_only();
     generate();
-    if (check_edits(hash())) {
-      load_edits(hash());
+    if (check_edits(search())) {
+      load_edits(search());
       document.getElementById("load").style.display = "inline";
       document.getElementById("delete").style.display = "inline";
     }
@@ -550,15 +550,15 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     })
 
     document.getElementById("save_edits").addEventListener('click', function() {
-      save_edits(hash());
+      save_edits(search());
       update_souls();
     })
     document.getElementById("load").addEventListener('click', function() {
-      load_edits(hash());
+      load_edits(search());
       update_souls();
     })
     document.getElementById("delete").addEventListener('click', function() {
-      delete_edits(hash());
+      delete_edits(search());
       update_souls();
     })
     document.getElementById("stop").addEventListener('click', function() {
@@ -567,7 +567,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       document.getElementById("save").style.display = "inline";
       document.getElementById("edit").style.display = "inline";
       document.getElementById("save_edits").style.display = "none";
-      if (check_edits(hash())) {
+      if (check_edits(search())) {
         document.getElementById("load").style.display = "inline";
         document.getElementById("delete").style.display = "inline";
       } else {

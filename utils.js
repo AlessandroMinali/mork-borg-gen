@@ -2,7 +2,11 @@ function hash() {
   return window.location.hash.slice(1,);
 }
 function search() {
- return window.location.search.slice(1,);
+  if (window.location.hash) {
+    return window.location.hash.slice(1,);
+  } else {
+    return window.location.search.slice(1,);
+  }
 }
 
 function save_edits(tag) {
