@@ -93,6 +93,7 @@ class Monster {
     }
   }
   move_to_player() {
+    if (this.knockback) { return this.knockback = undefined; }
     if (current_player.current_room() != this.current_room()) {
       this.current_room().move_monsters(current_player.x, current_player.y);
       this.encounter();
@@ -168,8 +169,9 @@ var tough_monster = [
     function() {
       if (!current_player.strength(8)) {
         log("The force of the blow knocks you out of the room and onto your ass.");
-        current_player.hit(this.roll(4), 'blunt', 'knockback');
         current_player.random_move(this.rand);
+        this.knockback = true;
+        current_player.hit(this.roll(4), 'blunt', 'knockback');
       }
     }, function() {}, seed)},
   function(seed) {return new Monster("Cult Inquisitor", 13, 8, 10, 'piercing', 'With a deft movement the Inquisitor parries and lunges with his rapier.', function() {}, function() {}, seed)},

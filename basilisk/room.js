@@ -186,10 +186,10 @@ class Room {
       var t_pile = this.two_unique(traps_table);
       this.traps_pile = [new Trap(...t_pile[0], this.seed), new Trap(...t_pile[1], this.seed)];
       // monster_pool
-      var w_pile = this.two_unique(weak_monster);
-      this.weak_monsters_pile = [w_pile[0](this.seed), w_pile[1](this.seed)];
-      var t_pile = this.two_unique(tough_monster);
-      this.tough_monsters_pile = [t_pile[0](this.seed), t_pile[1](this.seed)];
+      var wm_pile = this.two_unique(weak_monster);
+      this.weak_monsters_pile = [wm_pile[0](this.seed), wm_pile[1](this.seed)];
+      var tm_pile = this.two_unique(tough_monster);
+      this.tough_monsters_pile = [tm_pile[0](this.seed), tm_pile[1](this.seed)];
       // power_pool
       this.powers_pile = this.choice(scrolls)(this.seed);
       // search_pool
@@ -243,10 +243,9 @@ class Room {
     current_target = this.monsters[index];
     refresh_player_stats();
   }
-  remove_treasure(index) {
-    var treasue = this.items_pile[index];
-    this.items_pile.splice(index, 1);
-    return treasue;
+  remove_trade() {
+    this.items_pile.splice(this.items_pile.indexOf(trade), 1);
+    this.trade = undefined;
   }
   reveal(type) {
     var obj = this[type + '_pile'].pop();

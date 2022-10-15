@@ -96,6 +96,8 @@ function refresh_player_stats() {
                "<button onclick='(function(e) { trade(" + index + ") })()'>Trade</button>" +
                "</li>";
       }).join('');
+    document.getElementById('merchant_items').innerHTML +=
+      "<li id='end_trade'><button onclick='(function(e) { stop_trade() })()'>Stop trade</button></li>";
   } else {
     document.getElementById('merchant').style.display = 'none';
   }
@@ -116,8 +118,8 @@ function trade(index) {
   document.querySelectorAll('#inventory > ol > li > button, #inventory > ul > li > button').forEach(el => {
     el.style.display = (el.style.display == 'none' ? 'inline' : 'none');
   })
-  current_player.current_room().trade = current_player.current_room().remove_treasure(index);
-  document.querySelectorAll('#merchant_items > li > button').forEach(el => el.style.visibility = 'hidden');
+  current_player.current_room().trade = current_player.current_room().items_pile[index];
+  document.querySelectorAll('#merchant_items > li:not(#end_trade) > button').forEach(el => el.style.visibility = 'hidden');
 }
 function complete_trade() {
   window.addEventListener('keyup', key_up);
@@ -130,6 +132,10 @@ function complete_trade() {
     _room().shop = false;
     _room().draw();
   }
+}
+function stop_trade() {
+  complete_trade();
+  refresh_player_stats();
 }
 function choose_char(show) {
   players.forEach((player, index) => {

@@ -192,18 +192,21 @@ class Player {
   trade(index) {
     this.items[index].destroy();
     this.pick_up(this.current_room().trade);
+    this.current_room().remove_trade();
     complete_trade();
     refresh_player_stats();
   }
   trade_armor(index) {
     this.armor[index].destroy();
     this.pick_up(this.current_room().trade);
+    this.current_room().remove_trade();
     complete_trade();
     refresh_player_stats();
   }
   trade_pet(index) {
     this.pets[index].destroy();
     this.pick_up(this.current_room().trade);
+    this.current_room().remove_trade();
     complete_trade();
     refresh_player_stats();
   }
