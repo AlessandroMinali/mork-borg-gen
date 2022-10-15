@@ -428,8 +428,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     }
 
     function removeSmallest(arr) {
-        var min = Math.min(...arr);
-        return arr.filter(e => e != min);
+      return arr.sort().filter((_,i) => i)
     }
 
     function two_unique(array) {
@@ -603,7 +602,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         document.getElementById("name").innerHTML = names[(fd(6) - 1)*8 + fd(8) - 1];
       }
       selected = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(e => e.value);
-      if (selected.length == 0) {
+      if (selected.length == 0 && klass == 0) {
         selected = two_unique(Array.from(document.querySelectorAll('input[type=checkbox]'))).map(e => e.value);
       }
 
@@ -661,9 +660,9 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
 
       var skills = [];
       if (klass == 0) {
-        if (selected[0]) { skills.push(base_skills[selected[0]]); }
-        if (selected[1]) { skills.push(base_skills[selected[1]]); }
-        skills.push(frandom_item_from(feats))
+        skills.push(base_skills[selected[0]]);
+        skills.push(base_skills[selected[1]]);
+        skills.push(frandom_item_from(feats));
       } else if (klass == 1) {
         fanged_deserter_abilites.forEach(x => skills.push(x));
         skills.push(frandom_item_from(fanged_deserter_features));

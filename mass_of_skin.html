@@ -378,8 +378,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     var abilities = ["-3", "-3", "-3", "-3", "-2", "-2", "-1", "-1", "±0", "±0", "±0", "±0", "+1", "+1", "+2", "+2", "+3", "+3", "+3", "+3"]
 
     function removeSmallest(arr) {
-        var min = Math.min(...arr);
-        return arr.filter(e => e != min);
+      return arr.sort().filter((_,i) => i)
     }
     function two_unique(array) {
       var x = random_item_from(array);
