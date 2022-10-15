@@ -420,8 +420,9 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       for (var i = 0, len = localStorage.length; i < len; i++ ) {
         if (localStorage.key(i).slice(0, 2) == 'CY') { continue; }
         var item = localStorage.getItem(localStorage.key(i)).split('&666&', 2);
+        if (item.length < 2) { continue; }
         document.getElementById("souls").innerHTML +=
-          "<a style='padding-right: 10px;' href='" + window.location.pathname + '?reload=' + (new Date()) + '#' + localStorage.key(i) + "'>" + item[0];
+          "<a style='padding-right: 10px;' href='" + window.location.pathname + '?' + localStorage.key(i) + "'>" + item[0];
       }
       // if (localStorage.length == 0) { document.getElementById("saved_souls").style.display = "none"; return }
     }
@@ -440,11 +441,54 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
 
       return [x, y]
     }
+    function fallbackCopyTextToClipboard(text) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+
+      // Avoid scrolling to bottom
+      textArea.style.top = "0";
+      textArea.style.left = "0";
+      textArea.style.position = "fixed";
+
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        if (document.execCommand('copy')) { show_status('COPIED'); }
+      } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+      }
+
+      document.body.removeChild(textArea);
+    }
+    function copyTextToClipboard(text) {
+      if (!navigator.clipboard) {
+        fallbackCopyTextToClipboard(text);
+        return;
+      }
+      navigator.clipboard.writeText(text).then(function() {
+        show_status('COPIED');
+      }, function(err) {
+        console.error('Async: Could not copy text: ', err);
+      });
+    }
+    function copy_text() {
+      copyTextToClipboard(
+        window.location.origin + window.location.pathname +
+          "?" +
+            [_seed, klass.padStart(2, '0'), selected.join('')].join('&'));
+    }
 
     function load_char() {
-      if (!window.location.hash) { reseed(); klass = (d(classes.length) - 1).toString(); return; }
+      if (!window.location.hash && !window.location.search) { reseed(); klass = (d(classes.length) - 1).toString(); return; }
 
-      var tag = window.location.hash.split('&');
+      var tag;
+      if (window.location.hash) {
+        tag = window.location.hash.split('&');
+      } else if (window.location.search) {
+        tag = window.location.search.split('&');
+      }
       if (tag.length < 2) { return; }
       if (tag[1].length != 2) { return; }
       if (tag[2]) {
@@ -486,15 +530,15 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       })
     }
 
-    document.getElementById("save").addEventListener('click', function() {
-      alert("Shareable link:\n\n" +
-              window.location.origin + window.location.pathname +
-                "#" +
-                  [_seed, klass.padStart(2, '0'), selected.join('')].join('&') +
-                    "\n\nNOTE: Other people will only see the base sheet!");
-    })
+    document.getElementById("save").addEventListener('click', function() { copy_text(); })
     document.getElementById("edit").addEventListener('click', function() {
-      window.location.hash = [_seed, klass.padStart(2, '0'), selected.join('')].join('&');
+      if (history.pushState) {
+        var newurl = window.location.protocol + "//" +
+                     window.location.host +
+                     window.location.pathname + '?' +
+                     [_seed, klass.padStart(2, '0'), selected.join('')].join('&');
+        window.history.pushState({path:newurl},'',newurl);
+      }
       enable_edits();
       document.getElementById("klass").style.display = "none";
       document.getElementById("save").style.display = "none";
