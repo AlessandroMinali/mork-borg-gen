@@ -12,7 +12,7 @@ Allows sharing of generated characters and local editing so that you can use the
 # MASS OF SKIN
 100 SCVM READY TO DIE
 
-[Link](https://alessandrominali.github.io/mork-borg-gen/mass_of_skin.html)
+[Link](https://silentbunny.itch.io/mass-of-skin)
 
 # MISERY
 Track days and misery automagically for your MÖRK BORG campaign.
