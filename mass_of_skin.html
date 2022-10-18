@@ -36,7 +36,7 @@
     }
     ol, ul { margin: 0; padding-left: 5mm; padding-right: 5mm;}
     footer > pre { white-space: pre-wrap; }
-    article { max-width: 104mm; }
+    article { display: grid;  grid-template-columns: 1fr 1fr; grid-gap: 8px; }
   </style>
 </head>
 
@@ -84,8 +84,10 @@
   </div>
   <button id='show_e'>Equipment details</button>
   <button id='show_s'>Skill details</button>
+  <button id='spawn'>SPAWN</button>
+  <input id='spawn_input' type="text" name="spawn" value="99" style='width: 30px;' autofocus>
   <br>
-  <article id='list1' style='float: left;'>
+  <article id='list1'>
     <div id=character>
       <hr>
       <div style="display: inline-block;">
@@ -112,8 +114,6 @@
       <b style="background: black; color: white;">BACKGROUND</b>
       <span id="description" class="smaller edit"></span>
     </div>
-  </article>
-  <article id='list2' style='float: right; display: inline-block; vertical-align: top;'>
   </article>
   <footer style="text-align: center; font-size: 65%; opacity: 75%;">
     <hr>
@@ -400,29 +400,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       get: (searchParams, prop) => searchParams.get(prop),
     });
 
-    klass = (d(classes.length) - 1).toString();
-    generate();
-    for(var i = 0; i < 49; i++) {
-      var node = document.getElementById('character');
-      var new_node = node.cloneNode(true);
-      document.getElementById('list1').insertBefore(new_node, node.nextSibling);
-      klass = (d(classes.length) - 1).toString();
-      generate();
-    }
-
-    var node = document.getElementById('character');
-    var new_node = node.cloneNode(true);
-    document.getElementById('list2').appendChild(new_node);
-    klass = (d(classes.length) - 1).toString();
-    generate();
-    for(var i = 0; i < 49; i++) {
-      var node = document.getElementById('character');
-      var new_node = node.cloneNode(true);
-      document.getElementById('list2').appendChild(new_node);
-      klass = (d(classes.length) - 1).toString();
-      generate();
-    }
-
     const query = new URLSearchParams(location.search);
     document.getElementById('show_e').addEventListener('click', function() {
       query.get('e') ? query.delete('e') : query.set('e', true);
@@ -432,6 +409,23 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       query.get('s') ? query.delete('s') : query.set('s', true);
       document.location = '?' + query.toString();
     })
+    document.getElementById('spawn').addEventListener('click', function() {
+      query.set('n', spawn_input.value);
+      document.location = '?' + query.toString();
+    })
+
+    klass = (d(classes.length) - 1).toString();
+    generate();
+    var node = document.getElementById('character');
+    var n = query.get('n');
+    n = (!isNaN(n) && Number(n)) || 100
+    spawn_input.value = n;
+    for(var i = 0; i < n - 1; i++) {
+      var new_node = node.cloneNode(true);
+      document.getElementById('list1').insertBefore(new_node, node.nextSibling);
+      klass = (d(classes.length) - 1).toString();
+      generate();
+    }
 
     function generate() {
       document.getElementById("skills").innerHTML = "";
