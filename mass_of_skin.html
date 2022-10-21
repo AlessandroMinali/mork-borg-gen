@@ -416,21 +416,19 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
 
     klass = (d(classes.length) - 1).toString();
     generate();
-    var node = document.getElementById('character');
-    var list = document.getElementById('list1');
     var n = query.get('n');
     n = (!isNaN(n) && Number(n)) || 100
     spawn_input.value = n;
 
     var c = document.createDocumentFragment();
-    for(var i = 0; i < n - 1; i++) {
-      var new_node = node.cloneNode(true);
+    for(var i = 0; i < n + 1; i++) {
+      var new_node = character.cloneNode(true);
       c.append(new_node);
       klass = (d(classes.length) - 1).toString();
       generate();
     }
     for(var i = 0; i < c.children.length; ++i) {
-      list.append(c.children[i]);
+      list1.append(c.children[i]);
     }
 
     function generate() {
