@@ -17,7 +17,8 @@ Allows sharing of generated characters and local editing so that you can use the
 # "EXPLODING" TRAUMA RULES
 There may yet be life to draw before death  
 
-[Link](https://silentbunny.itch.io/trauma-rules-compatible-with-mrk-borg)
+[Link](https://silentbunny.itch.io/trauma-rules-compatible-with-mrk-borg)  
+[Link (plain text)](https://raw.githubusercontent.com/AlessandroMinali/mork-borg-gen/master/death.txt)
 
 # MISERY
 Track days and misery automagically for your MÖRK BORG campaign.
