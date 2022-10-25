@@ -14,6 +14,11 @@ Allows sharing of generated characters and local editing so that you can use the
 
 [Link](https://silentbunny.itch.io/mass-of-skin)
 
+# "EXPLODING" TRAUMA RULES
+There may yet be life to draw before death  
+
+[Link](https://silentbunny.itch.io/trauma-rules-compatible-with-mrk-borg)
+
 # MISERY
 Track days and misery automagically for your MÖRK BORG campaign.
 
