@@ -244,7 +244,7 @@ class Room {
     refresh_player_stats();
   }
   remove_trade() {
-    this.items_pile.splice(this.items_pile.indexOf(trade), 1);
+    this.items_pile.splice(this.items_pile.indexOf(this.trade), 1);
     this.trade = undefined;
   }
   reveal(type) {
