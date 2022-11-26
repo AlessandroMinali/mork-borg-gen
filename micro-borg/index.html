@@ -1,0 +1,177 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>MICRO BORG D6 GENERATORS</title>
+  <meta name="description" content="MICRO BORG D6 - A lite solo TTRPG">
+  <meta name="author" content="Alessandro">
+  <style>
+    .grid-container-3, .grid-container-4, .grid-container-5 {
+      max-width: 600px;
+      display: grid;
+      overflow: auto;
+    }
+    .grid-container-3 {
+      grid-template-columns: auto auto auto;
+    }
+    .grid-container-4 {
+      grid-template-columns: auto auto auto auto;
+    }
+    .grid-container-5 {
+      grid-template-columns: auto auto auto auto auto;
+    }
+    .grid-item {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.8);
+      padding: 5px;
+      text-align: center;
+    }
+    #result {
+      border: 1px solid black;
+      text-align: center;
+      width: 15px;
+      margin-left: 15px;
+      margin-bottom: 15px;
+      padding: 5px 10px;
+    }
+    pre {
+      max-width: 600px;
+      overflow: auto;
+    }
+</style>
+</head>
+
+<body>
+  <h1>MICRO BORG D6 GENERATORS</h1>
+  <h2>DUNGEON</h2>
+  <button id='mini'>mini</button>
+  <button id='medium'>medium</button>
+  <button id='large'>large</button>
+  <div id='layout'>
+  </div>
+
+  <h2>CHARACTER</h2>
+  <pre>
+HP <span id='hp'>0</span> | STR <span id='str'>0</span> | AGI <span id='agi'>0</span> | PRE <span id='pre'>0</span>
+<span id='klass'></span>
+  </pre>
+  
+  <h2>RESOURCES</h2>
+  <button id='roll'>roll d6</button>
+  <span id='result'>6</span>
+  <br>
+  <br>
+  <a href="https://silentbunny.itch.io/micro-borg-d6/purchase" target="_blank">Rules / How to Play (FREE)</a>
+  <br>
+  <a href="https://perchance.org/liminal-horror-spells" target="_blank">Spell Generator</a>
+  <br>
+  <a href="https://monster.makedatanotlore.dev" target="_blank">Monster Generator</a>
+  <br>
+  <a href="https://goatmansgoblet.itch.io/denizens-of-the-dying-world" target="_blank">NPC Generator</a>
+
+  <footer style="text-align: center; font-size: 65%; opacity: 75%;">
+    <hr>
+    <pre style="margin: 0px 15px;">
+MICRO BORG D6 is an independent production by <a href="https://silentbunny.itch.io">Alessandro Minali</a>.
+  </footer>
+
+  <script type="text/javascript">
+    const shuffleArray = array => {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+    }
+
+    function d(max) {
+      return Math.floor(Math.random() * max);
+    }
+
+    function random_item_from(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function two_unique(array) {
+      var x = random_item_from(array);
+      var y;
+      do {
+        y = random_item_from(array);
+      } while(x == y);
+
+      return [x, y]
+    }
+
+    const tiles = ["ABERRATION", "BAZAAR", "BLESSING", "BOSS", "BRIGANDS", "CLERIC", "CURSED", "DEBT", "DISEASE", "DRAGON", "INFECTION", "ITEM", "LOST", "MERCHANT", "MOB", "MONSTER", "PEGASUS", "PLAGUE", "ROGUE", "SWORD", "TRAP", "WANDERER", "WARRIOR", "WIZARD"];
+
+    const classes = [
+      ["Deserter", "+(current level) damage with weapons.", "May hit multiple targets."],
+      ["Scvm", "x2 damage on sneak attacks."],
+      ["Hermit", "Start with a random spell.", "+(current level) damage for spells."],
+      ["Royalty", "Start with 1 armor and 60 gold."],
+      ["Priest", "Start with a random spell", "+(current level) damage with weapons."],
+      ["Herbmaster", "Start with 2 random potions. Potions use d3 for effects.", "Gain 2 random potions every time you find a new item."]
+    ]
+
+    const clothes = ['tattered robes', 'silk robes', 'nude', 'merchant attire', 'flowing cloaks'];
+    const bag = ['sack', 'backpack', 'bindle', 'donkey'];
+    const trinket = ['crucifix', 'lucky coin', 'false dice', 'rotten tooth', 'wire', 'noose'];
+    const weapon = ['axe', 'bow', 'club', 'dagger', 'sword', 'staff', 'whip', 'flail', 'femur'];
+
+    const dungeon = int => {
+      const victory = int == 25 ? 2 : 1;
+      var list = Array.from(tiles);
+      shuffleArray(list);
+      list = list.slice(0, int - 1 - victory);
+      for(var i = 0; i < victory; ++i) {
+        list.splice(d(list.length), 0, 'VICTORY');
+      }
+      list.splice(0, 0, 'GOLD');
+      var out = "";
+      for(var i = 0; i < list.length; ++i) {
+        out += "<div class='grid-item'>" + list[i] + "</div>"
+      }
+      return out;
+    }
+
+    mini.addEventListener('click', function() {
+      layout.className = 'grid-container-3';
+      layout.innerHTML = dungeon(9);
+    })
+    medium.addEventListener('click', function() {
+      layout.className = 'grid-container-4';
+      layout.innerHTML = dungeon(16);
+    })
+    large.addEventListener('click', function() {
+      layout.className = 'grid-container-5';
+      layout.innerHTML = dungeon(25);
+    })
+    roll.addEventListener('click', function() {
+      result.innerText = d(6) + 1;
+      result.style.color = (result.style.color == 'black' ? 'white' : 'black');
+      result.style.background = (result.style.background == 'white' ? 'black' : 'white');
+    })
+
+    layout.className = 'grid-container-4';
+    layout.innerHTML = dungeon(16);
+
+    hp.innerText = d(6) + 1;
+    var skills = two_unique([str, agi, pre])
+    skills[0].innerText = '+1';
+    skills[1].innerText = '-1';
+    g_klass = classes[d(6)];
+    klass.innerText = g_klass[0].toUpperCase();
+    for(var i = 1; i < g_klass.length; ++i) {
+      klass.innerText += "\n  " + g_klass[i];
+    }
+
+    result.innerText = d(6) + 1;
+    result.style.color = 'black';
+    result.style.background = 'white';
+  </script>
+</body>
+</html>

@@ -3,6 +3,11 @@ A conversion of solo play rules for Mörk Borg into a playable game.
 
 [Link](https://silentbunny.itch.io/dngncrwl)
 
+# MICRO BORG D6
+A rules lite solo-play TTRPG
+
+[Link](https://silentbunny.itch.io/micro-borg-d6)
+
 # WASTE OF SKIN
 A fully automated MÖRK BORG character generator, class or class-less.
 Allows sharing of generated characters and local editing so that you can use the character in actual play.
