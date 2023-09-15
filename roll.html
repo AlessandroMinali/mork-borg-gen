@@ -1,29 +1,61 @@
 <style type="text/css">
-  table {
-    width: 100px;
-    border: 1px black solid;
-    text-align: center;
-    display: inline-block;
-    table-layout: fixed;
+  b {
+    font-size: 200%;
   }
-  td { border: 1px black solid; }
-  h2 { display: inline-block; padding-right: 20px; }
-</style>
-<body><pre></pre></body>
-<script src='utils.js'></script>
+
+  table {
+    text-align: center;
+    display: inline;
+    font-size: 150%;
+  }
+  td {
+    border: 1px black solid;
+    min-width: 15px;
+  }
+
+  #main {
+    display: flex;
+  }
+
+  #main div {
+    flex: 1;
+    text-align: center;
+  }
+  </style>
+<body>
+  <pre>
+    <div id="main"></div>
+  </pre>
+</body>
 <script type="text/javascript">
-  const b = document.body; // document.getElementsByTagName('pre')[0];
-  [2, 4, 6, 8, 10, 12, 20, 100].forEach(el => {
-    const title = document.createElement('h2');
-    title.innerHTML = 'd' + el;
+  function d(max) {
+    return Math.floor(Math.random() * max) + 1;
+  }
+
+  const f = document.createDocumentFragment();
+  const m = document.getElementById('main');
+  [20, 6, 8, 10, 12].forEach(el => {
+    const b = document.createElement('div');
+    const title = document.createElement('b');
+    title.textContent = 'd' + el;
     b.appendChild(title);
+    b.appendChild(document.createElement('hr'));
     const tbl = document.createElement('table');
-    const tr = tbl.insertRow();
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < 6; i++) {
+      const tr = tbl.insertRow();
       const td = tr.insertCell();
-      td.innerHTML = d(el);
+      const roll = d(el);
+      if (roll == 1) {
+        td.style.color = 'white';
+        td.style.backgroundColor = 'red';
+      } else if (roll == el) {
+        td.style.color = 'white';
+        td.style.backgroundColor = 'green';
+      }
+      td.textContent = roll;
     }
     b.appendChild(tbl);
-    b.appendChild(document.createElement('br'));
+    f.appendChild(b);
   })
+  m.appendChild(f);
 </script>
