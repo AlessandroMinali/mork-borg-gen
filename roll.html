@@ -1,46 +1,27 @@
 <style type="text/css">
-  b {
-    font-size: 200%;
-  }
-
-  table {
-    text-align: center;
-    display: inline;
-    font-size: 150%;
-  }
-  td {
-    border: 1px black solid;
-    min-width: 15px;
-  }
-
-  #main {
-    display: flex;
-  }
-
-  #main div {
-    flex: 1;
-    text-align: center;
-  }
-  </style>
-<body>
-  <pre>
-    <div id="main"></div>
-  </pre>
-</body>
+b{font-size: 200%}
+table{text-align: center;display: inline;font-size: 150%}
+td{border: 1px black solid;min-width: 15px}
+#main{display: flex}
+#main div{flex: 1;text-align: center;cursor:pointer}
+</style>
+<body><pre><div id="main"></div></pre></body>
 <script type="text/javascript">
-  function d(max) {
-    return Math.floor(Math.random() * max) + 1;
-  }
+function d(max) {
+  return Math.floor(Math.random() * max) + 1;
+}
 
-  const f = document.createDocumentFragment();
-  const m = document.getElementById('main');
-  [20, 6, 8, 10, 12].forEach(el => {
-    const b = document.createElement('div');
-    const title = document.createElement('b');
-    title.textContent = 'd' + el;
-    b.appendChild(title);
-    b.appendChild(document.createElement('hr'));
-    const tbl = document.createElement('table');
+const f = document.createDocumentFragment();
+const m = document.getElementById('main');
+[20, 6, 8, 10, 12].forEach(el => {
+  const b = document.createElement('div');
+  const title = document.createElement('b');
+  title.textContent = 'd' + el;
+  b.appendChild(title);
+  b.appendChild(document.createElement('hr'));
+  const tbl = document.createElement('table');
+  b.addEventListener("click", function() {
+    tbl.innerHTML = "";
     for (i = 0; i < 6; i++) {
       const tr = tbl.insertRow();
       const td = tr.insertCell();
@@ -54,8 +35,11 @@
       }
       td.textContent = roll;
     }
-    b.appendChild(tbl);
-    f.appendChild(b);
   })
-  m.appendChild(f);
+  b.click();
+  b.appendChild(tbl);
+
+  f.appendChild(b);
+})
+m.appendChild(f);
 </script>
