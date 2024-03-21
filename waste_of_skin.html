@@ -18,13 +18,12 @@
       top: 100vh;
     }
     footer > pre { white-space: pre-wrap; }
-    .fantasy { font-family: Trattatello, fantasy; }
     label { display: inline-block; }
     .character > button { margin: 10px; }
     .top { width: 500px }
-    @media only screen and (max-width: 400px) {
+    @media only screen and (max-width: 500px) {
       .top { width: auto; }
-      h1 { font-size: large; }
+      h1 { font-size: 18px; }
       #logo { display: none; }
     }
     em > ol { padding-left: 5px; }
@@ -32,7 +31,7 @@
 </head>
 
 <body>
-  <h1 style="margin: 0px; text-align: center;" class="fantasy">
+  <h1 style="text-align: center; cursor: pointer;">
     <a style='text-decoration: none; color: black;' href='./waste_of_skin.html'>
       WASTE OF SKIN
       <br>
@@ -42,7 +41,7 @@
     </a>
   </h1>
   <div id="klass">
-    <span class="fantasy" onclick='(function(e){
+    <span style="font-weight: bold; cursor: pointer;" onclick='(function(e){
       x = document.querySelector("#klass > div")
       y = document.querySelector("#klass > span")
       if (x.style.display === "none") {
@@ -167,7 +166,7 @@
     </div>
   </div>
   <hr>
-  <div class='fantasy' id="saved_souls">SAVED SOULS<br><span id="souls"></span></div>
+  <div id="saved_souls">SAVED SOULS<br><span id="souls"></span></div>
   <footer style="text-align: center; font-size: 65%; opacity: 75%;">
     <hr>
     <pre style="margin: 0px 15px;">
