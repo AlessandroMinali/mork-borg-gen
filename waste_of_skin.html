@@ -24,6 +24,8 @@
     .top { width: 500px }
     @media only screen and (max-width: 400px) {
       .top { width: auto; }
+      h1 { font-size: large; }
+      #logo { display: none; }
     }
     em > ol { padding-left: 5px; }
   </style>
@@ -40,20 +42,31 @@
     </a>
   </h1>
   <div id="klass">
-    <span class="fantasy">PICK YOUR CLASS</span>
-    <br>
-    <button id="ws" value="0">Scvm (no class)</button>
-    <button id="fd" value="1">Fanged Deserter</button>
-    <button id="gs" value="2">Gutterborn Scum</button>
-    <button id="eh" value="3">Esoteric Hermit</button>
-    <button id="wr" value="4">Wretched Royalty</button>
-    <button id="he" value="5">Heretical Priest</button>
-    <button id="oh" value="6">Occult Herbmaster</button>
-    <button id="fo" value="7">Forlorn Philosopher</button>
-    <button id="dgp" value="8">Dead God's Prophet</button>
-    <button id="po" value="9">Pale One</button>
-    <button id="cs" value="10">Cursed Skinwalker</button>
-    <button id="ss" value="11">Sacrilegious Songbird</button>
+    <span class="fantasy" onclick='(function(e){
+      x = document.querySelector("#klass > div")
+      y = document.querySelector("#klass > span")
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        y.innerText = "PICK YOUR CLASS -"
+      } else {
+        x.style.display = "none";
+        y.innerText = "PICK YOUR CLASS +"
+      }
+    })()'>PICK YOUR CLASS +</span>
+    <div style="display: none;">
+      <button id="ws" value="0">Scvm (no class)</button>
+      <button id="fd" value="1">Fanged Deserter</button>
+      <button id="gs" value="2">Gutterborn Scum</button>
+      <button id="eh" value="3">Esoteric Hermit</button>
+      <button id="wr" value="4">Wretched Royalty</button>
+      <button id="he" value="5">Heretical Priest</button>
+      <button id="oh" value="6">Occult Herbmaster</button>
+      <button id="fo" value="7">Forlorn Philosopher</button>
+      <button id="dgp" value="8">Dead God's Prophet</button>
+      <button id="po" value="9">Pale One</button>
+      <button id="cs" value="10">Cursed Skinwalker</button>
+      <button id="ss" value="11">Sacrilegious Songbird</button>
+    </div>
   </div>
   <hr style="margin: 0px;">
   <div id=prompt style="display: none;">
@@ -89,6 +102,7 @@
     <b>AFTER SELECTING, CLICK <em>WRETCH</em> AGAIN TO REROLL WITH CHANGES</b>
   </div>
   <div id=character>
+    <br>
     <button id="save">Share</button>
     <button id="edit">Edit Locally</button>
     <button id="save_edits" style="display: none;">Save Local Edit</button>
@@ -96,6 +110,7 @@
     <button id="delete" style="display: none;">Delete Local Edit</button>
     <button id="stop" style="display: none;">Stop Editing</button>
     <span style='display: none; background: green; color: white; padding: 1px 5px;' id='status'></span>
+    <br>
     <br>
     <div class='top' style="display: inline-block;">
       <div style="display: inline-block; padding-right: 20px;">
@@ -709,7 +724,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       document.getElementById("stop").style.display = "none";
     })
 
-    var buttons = document.querySelectorAll("#klass > button");
+    var buttons = document.querySelectorAll("#klass > div > button");
     for(var i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener('click', function(e) {
         klass = e.target.value;
