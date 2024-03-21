@@ -190,6 +190,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
 
     function roll(max, n = 1, mod = 0 ) {
       r = []
+      let m;
       for (let i  = 0; i < n; ++i) {
         r.push(Math.floor(Math.random() * max) + 1);
       }
@@ -198,9 +199,14 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       s = "Rolling ";
       if (n > 1) { s += n };
       s += `d${max}`
-      if(mod != 0) { s += `+${mod}` }
+      if(mod != 0) {
+        m = mod > 0 ? `+${mod}` : mod
+        s += m
+      } else {
+        m = ''
+      }
 
-      confirm(`${s}\n<${r.join(' + ')}> ${mod != 0 ? '+ ' + mod : ''}= ${total}`)
+      confirm(`${s}\n<${r.join(' + ')}>${m}= ${total}`)
     }
 
     function save_edits(tag) {
@@ -465,7 +471,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       ["Crumpled Monster Mask", "Strikes primitive fear into lesser creatures like golbins, gnoums and children. While worn they check Morale every round."],
       ["The Brown Scimitar of Galgenbeck", "A stinking sword you pulled from a military shit-ditch. d6 damage DR10 Attack and Defence while no you wield it. 1-in-6 chance a wounded enemy is smitten with potent sepsis, dying in 10 minutes."],
       ["Wizard Teeth", "Four weird teeth rattle within a blackened pouch. Before battle roll a d6 for each one. For every 6 one of your attacks deals maximum damage."],
-      ["Old Sigûrd's Sling", "Sigûrd was the strongest man whose throat you ever gnawed. Woven from his long grey hair, this sling has never failed you. 2d5 damage, requires fist-sized rocks which, perhaps regrettably, are everywhere."],
+      ["Old Sigûrd's Sling", "Sigûrd was the strongest man whose throat you ever gnawed. Woven from his long grey hair, this sling has never failed you. 2d4 damage, requires fist-sized rocks which, perhaps regrettably, are everywhere."],
       ["Ancient Gore-Hound", "Asthmatic, deluded and on its last legs, this wizened creature still has a superb nose and can sniffle up treasure in the most disgusting debris. Attack with DR10 (bite d6 damage). Defends with DR12, 10 HP. Becomes frenzied around goblins and berserkers."],
       ["The Shoe of Death's Horse", "It looks normal but since finding it in an obscure crypt you are convinced this show came from the horse of Death himself. In your hands it hits with DR10, d4 damage. 1-in-6 chance the shoe smashes the skull, instantly killing small-to-medium size creatures. The show returns to your hand link a boomerang."],
       ["Apostate Spear", "With the spear that once soaked in the blood of <em>ʍɹouƃ ɾǝsns</em>, you perform a critical on a natural 19 in addition to a 20. d6 damage and DR10 Attack."],
