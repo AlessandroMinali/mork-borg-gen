@@ -19,7 +19,7 @@
     }
     footer > pre { white-space: pre-wrap; }
     label { display: inline-block; }
-    .character > button { margin: 10px; }
+    #menu > button { margin: 3px; }
     .top { width: 500px }
     @media only screen and (max-width: 500px) {
       .top { width: auto; }
@@ -104,8 +104,7 @@
     </form>
     <b>AFTER SELECTING, CLICK <em>WRETCH</em> AGAIN TO REROLL WITH CHANGES</b>
   </div>
-  <div id=character>
-    <br>
+  <div id=menu>
     <button id="save">Share</button>
     <button id="edit">Edit Locally</button>
     <button id="save_edits" style="display: none;">Save Local Edit</button>
@@ -113,8 +112,8 @@
     <button id="delete" style="display: none;">Delete Local Edit</button>
     <button id="stop" style="display: none;">Stop Editing</button>
     <span style='display: none; background: green; color: white; padding: 1px 5px;' id='status'></span>
-    <br>
-    <br>
+  </div>
+  <div id=character>
     <div class='top' style="display: inline-block;">
       <div style="display: inline-block; padding-right: 20px;">
         <b style="background: black; color: white;">NAME</b>
@@ -219,6 +218,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         edits.push(editElem[i].innerHTML);
       }
       localStorage.setItem(tag, edits.join('&666&'));
+      inline_roll();
       show_status("SAVED");
     }
     function load_edits(tag) {
@@ -306,10 +306,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     function reseed() {
       _seed = Math.random().toString().slice(2,);
       seed();
-    }
-    function fixed_rolls_only() {
-      window.d = function() { alert() }
-      window.random_item_from = function() { alert() }
     }
     function fd(max) {
       return Math.floor(_r() * max) + 1;
@@ -578,7 +574,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         var item = localStorage.getItem(localStorage.key(i)).split('&666&', 2);
         if (item.length < 2) { continue; }
         document.getElementById("souls").innerHTML +=
-          "<a style='padding-right: 10px;' href='" + window.location.pathname + '?' + localStorage.key(i) + "'>" + item[0];
+          `<a style='padding-right: 10px;' href='${window.location.pathname}?${localStorage.key(i)} '>${item[0]}</a>`;
       }
       if (localStorage.length == 0) { document.getElementById("saved_souls").style.display = "none"; return }
     }
@@ -629,12 +625,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         fallbackCopyTextToClipboard(text);
       });
     }
-    function copy_text() {
-      copyTextToClipboard(
-        window.location.origin + window.location.pathname +
-          "?" +
-            [_seed, klass.padStart(2, '0'), selected.join('')].join('&'));
-    }
 
     function load_char() {
       if (!window.location.hash && !window.location.search) { reseed(); klass = (d(classes.length) - 1).toString(); return; }
@@ -660,13 +650,12 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       klass = tag[1];
     }
     load_char();
-    fixed_rolls_only();
     generate();
     if (check_edits(search())) {
       load_edits(search());
-      document.getElementById("load").style.display = "inline";
       document.getElementById("delete").style.display = "inline";
     }
+    inline_roll();
     update_souls();
 
     var checkboxes = document.querySelectorAll('input[type=checkbox]');
@@ -686,13 +675,18 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       })
     }
 
-    document.getElementById("save").addEventListener('click', function() { copy_text(); })
-    document.getElementById("edit").addEventListener('click', function() {
+    document.getElementById("save").addEventListener('click', function() {
+      const tag = [_seed, klass.padStart(2, '0'), selected.join('')].join('&');
       if (history.pushState) {
-        var newurl = window.location.protocol + "//" +
-                     window.location.host +
-                     window.location.pathname + '?' +
-                     [_seed, klass.padStart(2, '0'), selected.join('')].join('&');
+        var newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${tag}`;
+        window.history.pushState({path:newurl},'',newurl);
+      }
+      copyTextToClipboard(`${window.location.origin}${window.location.pathname}?${tag}`);
+    })
+    document.getElementById("edit").addEventListener('click', function() {
+      const tag = [_seed, klass.padStart(2, '0'), selected.join('')].join('&');
+      if (history.pushState) {
+        var newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${tag}`;
         window.history.pushState({path:newurl},'',newurl);
       }
       enable_edits();
@@ -742,6 +736,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         document.getElementById("delete").style.display = "none";
         reseed();
         generate();
+        inline_roll();
       });
     }
 
@@ -752,9 +747,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       document.getElementById("class_name").innerHTML = classes[parseInt(klass)];
       if (klass == 9) {
         document.getElementById("name").innerHTML =
-          frandom_item_from(pale_one_name_1) + " " +
-          frandom_item_from(pale_one_name_2) + " " +
-          frandom_item_from(pale_one_name_3);
+          `${frandom_item_from(pale_one_name_1)} ${frandom_item_from(pale_one_name_2)} ${frandom_item_from(pale_one_name_3)}`;
       } else {
         document.getElementById("name").innerHTML = names[(fd(6) - 1)*8 + fd(8) - 1];
       }
@@ -772,34 +765,31 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         story = fd(tales.length);
         memory = tales[story - 1];
       } else if (klass == 1) {
-        memory = "Your earliest memories are of " + frandom_item_from(fanged_deserter_memory);
+        memory = `Your earliest memories are of ${frandom_item_from(fanged_deserter_memory)}`;
       } else if (klass == 2) {
-        memory = "As a child, " + frandom_item_from(gutterborn_memory);
+        memory = `As a child, ${frandom_item_from(gutterborn_memory)}`;
       } else if (klass == 3) {
-        memory = "You " + frandom_item_from(esoteric_hermit_memory);
+        memory = `You ${frandom_item_from(esoteric_hermit_memory)}`;
       } else if (klass == 4) {
-        memory = "Things were going so well, until " +frandom_item_from(wretched_royalty_memory);
+        memory = `Things were going so well, until ${frandom_item_from(wretched_royalty_memory)}`;
       } else if (klass == 5) {
-        memory = "You come from " + frandom_item_from(heretical_priest_memory);
+        memory = `You come from ${frandom_item_from(heretical_priest_memory)}`;
       } else if (klass == 6) {
-        memory = "From " + frandom_item_from(occult_herbmaster_memory);
+        memory = `From ${frandom_item_from(occult_herbmaster_memory)}`;
       } else if (klass == 7) {
         if (fd(2) == 1) {
-          memory = "The Roots of your Dejection: " + frandom_item_from(forlorn_philosopher_memory_1);
+          memory = `The Roots of your Dejection: ${frandom_item_from(forlorn_philosopher_memory_1)}`;
         } else {
-          memory = "The Dejection of your Roots: " + frandom_item_from(forlorn_philosopher_memory_2);
+          memory = `The Dejection of your Roots: ${frandom_item_from(forlorn_philosopher_memory_2)}`;
         }
       } else if (klass == 8) {
-        memory = "ALL HAIL " +
-                 frandom_item_from(dead_gods_prophet_memory_1).toUpperCase() + " " +
-                 frandom_item_from(dead_gods_prophet_memory_2).toUpperCase() + " " +
-                 frandom_item_from(dead_gods_prophet_memory_3).toUpperCase() + "!";
+        memory = `ALL HAIL ${frandom_item_from(dead_gods_prophet_memory_1).toUpperCase()} ${frandom_item_from(dead_gods_prophet_memory_2).toUpperCase()} ${frandom_item_from(dead_gods_prophet_memory_3).toUpperCase()}!`;
       } else if (klass == 9) {
-        memory = "You " + frandom_item_from(pale_one_memory);
+        memory = `You ${frandom_item_from(pale_one_memory)}`;
       } else if (klass == 10) {
-        memory = "You first died " + frandom_item_from(cursed_skinwalker_memory);
+        memory = `You first died ${frandom_item_from(cursed_skinwalker_memory)}`;
       } else if (klass == 11) {
-        memory = "A deal was struck " + frandom_item_from(songbird_memory);
+        memory = `A deal was struck ${frandom_item_from(songbird_memory)}`;
       }
       var trait1 = frandom_item_from(traits);
       var trait2 = trait1;
@@ -808,15 +798,10 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       }
       var habit = fd(bad_habits.length);
       var story;
-      document.getElementById("description").innerHTML += "<p>" + memory + "</p>";
-      document.getElementById("description").innerHTML += "<p>" + descriptions[parseInt(klass)] + "</p>";
-      document.getElementById("description").innerHTML += [
-        "<p>",
-        trait1 + " and " + trait2.toLowerCase() + '.',
-        frandom_item_from(bodies),
-        bad_habits[habit-1],
-        "</p>"
-      ].join(' ');
+      document.getElementById("description").innerHTML += `<p>${memory}</p>`;
+      document.getElementById("description").innerHTML += `<p>${descriptions[parseInt(klass)]}</p>`;
+      document.getElementById("description").innerHTML += 
+        `<p>${trait1} and ${trait2.toLowerCase()}. ${frandom_item_from(bodies)} ${bad_habits[habit-1]}</p>`
 
 
       var skills = [];
@@ -861,14 +846,14 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         skills.push(frandom_item_from(songbird_features));
       }
       for(var i = 0; i < skills.length; i++) {
-        document.getElementById("skills").innerHTML += "<br><b>" + skills[i][0] + "</b>";
+        document.getElementById("skills").innerHTML += `<br><b>${skills[i][0]}</b>`;
         if (skills[i][1] != '') {
-          document.getElementById("skills").innerHTML += "<br>" + skills[i][1] + "<br>";
+          document.getElementById("skills").innerHTML += `<br>${skills[i][1]}<br>`;
         }  else {
           document.getElementById("skills").innerHTML += "<br>"
         }
         if (skills[i][2] != undefined) {
-          document.getElementById("skills").innerHTML += "<span class='smaller'>" + skills[i][2] + "</span><br>";
+          document.getElementById("skills").innerHTML += `<span class='smaller'>${skills[i][2]}</span><br>`;
         }
       }
       document.getElementById("skills").innerHTML += "<br>"
@@ -930,7 +915,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         hp_mod = fd(4);
       }
       var hp = Math.max(1, toughness() + hp_mod);
-      document.getElementById("hp").innerHTML = hp + "/" + hp;
+      document.getElementById("hp").innerHTML = `${hp}/${hp}`;
 
       var power = Math.max(0, presence() + fd(4));
       document.getElementById("powers").innerHTML = power;
@@ -944,9 +929,9 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         omens = [fd(2), 2];
       }
       document.getElementById("omens").innerHTML = omens[0];
-      document.getElementById("omens_dice").innerHTML =  "(d" + omens[1] + ")";
+      document.getElementById("omens_dice").innerHTML =  `(d${omens[1]})`;
 
-      var food = ["Waterskin", " and " + fd(4) + " days' worth of food"]
+      var food = ["Waterskin", ` and ${fd(4)} days' worth of food`]
       var silver;
       if (klass == 0 || klass == 1 || klass == 6 || klass == 10) {
         silver = (fd(6) + fd(6))*10;
@@ -969,9 +954,9 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         [frandom_item_from(w_light), "d4 damage"],
         [frandom_item_from(w_med), "d6 damage"],
         [frandom_item_from(w_med), "d6 damage"],
-        ["Bow", "d6 damage, with " + (presence() + 10) + " arrows"],
+        ["Bow", `d6 damage, with ${presence() + 10} arrows`],
         [frandom_item_from(w_heavy), "d8 damage"],
-        ["Crossbow", "d8 damage, with" + (presence() + 10) + " bolts"],
+        ["Crossbow", `d8 damage, with ${presence() + 10} bolts`],
         ["Zweihänder", "d10 damage"]
       ]
       var light = ["Fur", "Padded cloth", "Leather"];
@@ -979,9 +964,9 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       var heavy = ["Splint", "Plate"];
       var armor = [
         ["", ""],
-        [frandom_item_from(light) + " armor", "-d2 damage, tier 1"],
-        [frandom_item_from(medium) + " armor", "-d4 damage, tier 2, DR+2 on AGILITY tests including Defence"],
-        [frandom_item_from(heavy) + " armor", "-d6 damage, tier 3, DR+4 on AGILITY tests, Defence is DR+2"],
+        [`${frandom_item_from(light)} armor`, "-d2 damage, tier 1"],
+        [`${frandom_item_from(medium)} armor`, "-d4 damage, tier 2, DR+2 on AGILITY tests including Defence"],
+        [`${frandom_item_from(heavy)} armor`, "-d6 damage, tier 3, DR+4 on AGILITY tests, Defence is DR+2"],
       ]
       var equip1 = [
         ["", ""],
@@ -993,31 +978,31 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       ]
       var equip2 = [
         ["Rope", "30 feet"],
-        [(presence() + 4) + " torches", ""],
-        ["Lantern", "with oil for " + (presence() + 6) + " hours"],
+        [`${presence() + 4} torches`, ""],
+        ["Lantern", `with oil for ${presence() + 6} hours`],
         ["Magnesium strip", ""],
         frandom_item_from(unclean_scrolls),
         ["Sharp needle", ""],
-        ["Medicine chest", (presence() + 4) + " uses (stops bleeding/infection and heals d6 HP)"],
+        ["Medicine chest", `${presence() + 4} uses (stops bleeding/infection and heals d6 HP)`],
         ["Metal file and lockpicks", ""],
         ["Bear trap", "PRESENCE DR14 to spot, d8 damage"],
         ["Bomb", "(sealed bottle, d10 damage)"],
-        ["A bottle of red poison", fd(4) + " doses (TOUGHNESS DR12 or d10 damage)"],
+        ["A bottle of red poison", `${fd(4)} doses (TOUGHNESS DR12 or d10 damage)`],
         ["Silver crucifix", ""],
         ["Blanket", ""],
         ["Firesteel", ""],
-        ["Chewing tobacco", fd(6) + " uses"],
+        ["Chewing tobacco", `${fd(6)} uses`],
         ["A bottle of salt", ""],
         ["Wooden crucifix", ""],
-        [fd(6) + " sticks of chalk", ""],
+        [`${fd(6)} sticks of chalk`, ""],
         ["Manacles", ""],
-        ["A bottle of black poison", fd(4) + " doses (TOUGHNESS DR14 or d6 damage + blind for one hour)"],
+        ["A bottle of black poison", `${fd(4)} doses (TOUGHNESS DR14 or d6 damage + blind for one hour)`],
       ]
       var equip3 = [
-        ["Life elixir", fd(4) + " doses (heals d6 HP and removes infection)"],
+        ["Life elixir", `${fd(4)}  doses (heals d6 HP and removes infection)`],
         frandom_item_from(sacred_scrolls),
-        ["Small but vicious dog", "(" + (fd(6) + 2) + " HP, bite d4, only obeys you)"],
-        [fd(4) + " monkey(s) that ignore but love you", "(" + (fd(4) + 2) + " HP, punch/bite d4)"],
+        ["Small but vicious dog", `(${fd(6) + 2} HP, bite d4, only obeys you)`],
+        [`${fd(4)} monkey(s) that ignore but love you`, `(${fd(4) + 2} HP, punch/bite d4)`],
         ["Exquisite perfume", "worth 25s"],
         ["Toolbox", "10 nails, tongs, hammer, small saw, drill"],
         ["Heavy chain", "15 feet"],
@@ -1026,7 +1011,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         ["Crowbar", "d4 damage"],
         ["Lard", "(may function as 5 meals in a pinch)"],
         ["Tent", ""],
-        [fd(6) + " moderately tame rat(s)", "(1 HP, bite d2, only obeys you)"],
+        [`${fd(6)} moderately tame rat(s)`, "(1 HP, bite d2, only obeys you)"],
         ["Mirror", "worth 15s"],
         ["Scissors", ""],
         ["Meat cleaver", "d4 damage"],
@@ -1036,7 +1021,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         ["Noose", ""]
       ]
 
-      document.getElementById("equipment").innerHTML += "<li>" + food[0] + "<em class='smaller'>" + food[1] + "</em></li>";
+      document.getElementById("equipment").innerHTML += `<li>${food[0]}<em class='smaller'>${food[1]}</em></li>`;
       var e1 = frandom_item_from(equip1);
       var e2 = fd(20);
       var e3 = fd(20);
@@ -1057,7 +1042,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
           starting_weapon = frandom_item_from(weapons);
         }
       }
-      document.getElementById("equipment").innerHTML += "<li>" + starting_weapon[0] + "<em class='smaller'>&nbsp;" + starting_weapon[1] + "</em></li>";
+      document.getElementById("equipment").innerHTML += `<li>${starting_weapon[0]}<em class='smaller'>&nbsp;${starting_weapon[1]}</em></li>`;
       var starting_armor;
       if (klass == 4 || klass == 11) {
         starting_armor = frandom_item_from(armor.slice(0, 3));
@@ -1067,37 +1052,39 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         starting_armor = frandom_item_from(armor);
       }
       if (starting_armor[0] != "") {
-        document.getElementById("equipment").innerHTML += "<li>" + starting_armor[0] + "<em class='smaller'>&nbsp;" + starting_armor[1] + "</em></li>";
+        document.getElementById("equipment").innerHTML += `<li>${starting_armor[0]}<em class='smaller'>&nbsp;${starting_armor[1]}</em></li>`;
       }
       var special_item;
       if (habit == 1) {
-        special_item = ["Sackcloth bag", "and " + (fd(20) + fd(20) + fd(20) + fd(20) + fd(20)) + " small sharp stones"]
+        special_item = ["Sackcloth bag", `and ${fd(20) + fd(20) + fd(20) + fd(20) + fd(20)} small sharp stones`]
       } else if (habit == 7) {
         special_item = ["Skull", "a trusted friend"]
       } else if (habit == 20) {
-        special_item = ["String Necklace", "with " + (fd(10) + fd(10) + fd(10) + fd(10) + fd(10)) + " mismatched teeth"]
+        special_item = ["String Necklace", `with ${fd(10) + fd(10) + fd(10) + fd(10) + fd(10)} mismatched teeth`]
       } else if (habit == 29) {
-        special_item = ["Sackcloth bag", "and " + (fd(20) + fd(20) + fd(20) + fd(20) + fd(20)) + " chewed fingernails"]
+        special_item = ["Sackcloth bag", `and ${fd(20) + fd(20) + fd(20) + fd(20) + fd(20)} chewed fingernails`]
       }
       if (special_item) {
-        document.getElementById("equipment").innerHTML += "<li>" + special_item[0] + "<em class='smaller'>&nbsp;" + special_item[1] + "</em></li>";
+        document.getElementById("equipment").innerHTML += `<li>${special_item[0]}<em class='smaller'>&nbsp;${special_item[1]}</em></li>`;
       }
       if (e1[0] != "") {
-        document.getElementById("equipment").innerHTML += "<li>" + e1[0] + "<em class='smaller'>&nbsp;" + e1[1] + "</em></li>";
+        document.getElementById("equipment").innerHTML += `<li>${e1[0]}<em class='smaller'>&nbsp;${e1[1]}</em></li>`;
       }
-      document.getElementById("equipment").innerHTML += "<li>" + e2[0] + "<em class='smaller'>&nbsp;" + e2[1] + "</em></li>";
-      document.getElementById("equipment").innerHTML += "<li>" + e3[0] + "<em class='smaller'>&nbsp;" + e3[1] + "</em></li>";
+      document.getElementById("equipment").innerHTML += `<li>${e2[0]}<em class='smaller'>&nbsp;${e2[1]}</em></li>`;
+      document.getElementById("equipment").innerHTML += `<li>${e3[0]}<em class='smaller'>&nbsp;${e3[1]}</em></li>`;
       if (klass == 3) {
         var eso_scroll = fd(2) == 1 ? frandom_item_from(sacred_scrolls) : frandom_item_from(unclean_scrolls);
-        document.getElementById("equipment").innerHTML += "<li>" + eso_scroll[0] + "<em class='smaller'>&nbsp;" + eso_scroll[1] + "</em></li>";
+        document.getElementById("equipment").innerHTML += `<li>${eso_scroll[0]}<em class='smaller'>&nbsp;${eso_scroll[1]}</em></li>`;
       }
       if (klass == 7) {
         var for_tab = frandom_item_from(tablets);
-        document.getElementById("equipment").innerHTML += "<li>" + for_tab[0] + "<em class='smaller'>&nbsp;" + for_tab[1] + "</em></li>";
+        document.getElementById("equipment").innerHTML += `<li>${for_tab[0]}<em class='smaller'>&nbsp;${for_tab[1]}</em></li>`;
       }
-      document.getElementById("equipment").innerHTML += "<li>" + silver + " silver</li>";
+      document.getElementById("equipment").innerHTML += `<li>${silver} silver</li>`;
+    }
 
-      document.getElementById("character").innerHTML = document.getElementById("character").innerHTML.replace(/([0-9]?)d([0-9][0-9]?)/g,"<a style='color: red; cursor: pointer;' onClick='roll($2, $1)'>$&</a>")
+    function inline_roll() {
+      document.getElementById("character").innerHTML = document.getElementById("character").innerHTML.replace(/([0-9]+)?d([0-9]+)/g,"<a style='color: red; cursor: pointer;' onClick='roll($2, $1)'>$&</a>")
     }
 
     function hide(x) {
