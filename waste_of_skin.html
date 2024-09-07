@@ -902,7 +902,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
 
       ['agility', 'presence', 'strength', 'toughness'].forEach((x, i) => {
         document.getElementById(x).innerHTML = stats[i];
-        document.getElementById(x).parentNode.children[i * 2].innerHTML = `<a style='color: red; cursor: pointer;' onClick='roll(20, 1, ${parseInt(stats[i]) || 0})'>${x.toUpperCase()}</a>`
+        document.getElementById(x).parentNode.children[i * 2].innerHTML = `<a style='color: red; cursor: pointer;' href="#" onClick='roll(20, 1, ${parseInt(stats[i]) || 0})'>${x.toUpperCase()}</a>`
       })
       
       var hp_mod;
