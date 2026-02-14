@@ -10,13 +10,12 @@
     @media print {
       @page {
         size: A4;
+        margin: 10mm;
       }
-      div { page-break-inside: avoid; }
-      button { display: none; }
-      html, body {
-        width: 210mm;
-        height: 100%;
-      }
+      article { display: block; columns: 2; column-gap: 8px; column-fill: auto; height: 100%; overflow: visible; }
+      article > div { break-inside: avoid; page-break-inside: avoid; }
+      #controls, #prompt, body > footer { display: none !important; }
+      html, body { width: 210mm; height: 100%; }
     }
     html, body {
       width: 210mm;
@@ -37,6 +36,11 @@
     ol, ul { margin: 0; padding-left: 5mm; padding-right: 5mm;}
     footer > pre { white-space: pre-wrap; }
     article { display: grid;  grid-template-columns: 1fr 1fr; grid-gap: 8px; }
+    .skills-detail, .equipment-detail { display: none; }
+    body.show-skills .skills-detail { display: inline; }
+    body.show-skills .skills-brief { display: none; }
+    body.show-equipment .equipment-detail { display: block; }
+    body.show-equipment .equipment-brief { display: none; }
   </style>
 </head>
 
@@ -82,11 +86,14 @@
     </form>
     <b>AFTER SELECTING, CLICK <em>WRETCH</em> AGAIN TO REROLL WITH CHANGES</b>
   </div>
-  <button id='show_e'>Equipment details</button>
-  <button id='show_s'>Skill details</button>
-  <button id='spawn'>SPAWN</button>
-  <input id='spawn_input' type="text" name="spawn" value="99" style='width: 30px;' autofocus>
-  <br>
+  <div id="controls" style="display: flex; align-items: center;">
+    <label style="display: inline-flex; align-items: center; gap: 2px;"><input type="checkbox" id="show_e"> Equipment details</label>
+    <label style="display: inline-flex; align-items: center; gap: 2px; margin-left: 8px;"><input type="checkbox" id="show_s"> Skill details</label>
+    <span style="margin-left: auto;">
+      <input id='spawn_input' type="text" name="spawn" value="99" style='width: 30px;' autofocus>
+      <button id='spawn'>SPAWN</button>
+    </span>
+  </div>
   <article id='list1'>
     <div id=character>
       <hr>
@@ -108,9 +115,10 @@
         <b style="background: black; color: white;">STR</b> <span id="strength" class="edit"></span>
         <b style="background: black; color: white;">TOU</b> <span id="toughness" class="edit"></span>
       </div>
-      <div class="edit"><b style="background: black; color: white;">CLASS SKILLS</b><br><span id="skills"></span></div>
+      <div class="edit"><b style="background: black; color: white;">CLASS SKILLS</b><br><span id="skills" class="skills-brief"></span><span id="skills_detail" class="skills-detail"></span></div>
       <b style="background: black; color: white;">EQUIPMENT</b>
-      <div id="equipment" class="edit"></div>
+      <div id="equipment" class="edit equipment-brief"></div>
+      <div id="equipment_detail" class="edit equipment-detail"></div>
       <b style="background: black; color: white;">BACKGROUND</b>
       <span id="description" class="smaller edit"></span>
     </div>
@@ -212,7 +220,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
       ["Tough as Wood", ""],
       ["Low in Protein", ""],
       ["Portable Laboratory", "You carry a portable laboratory and continually search for frequently expended ingredients. Daily you have the materials to create two randomly determined decoctions and can brew a total of d4 doses. If unused they lose vitality after 24 hours."],
-      ["List of Decoctions", "<ol><li><b>Red Poison</b> TOUGHNESS DR12 or -d10 HP.</li><li><b>Ezumiel's Vapor</b> Pass a DR14 test or severe hallucinations for d4 hours.</li><li><b>Southern Frog Stew</b> Vomit for d4 hours, pass a DR14 test or you can do nothing else.</li><li><b>Elixir Vitalis</b> Heals d6 HP and stops infection. Can be habit-forming.</li><li><b>Spider-Owl Soup</b> See in darkness, climb on walls for 30 minutes.</li><li><b>Fernor’s Philtre</b> Translucent oil, must be dabbed right into the eye. Heals infection and gives +2 on PRESENCE tests for d4 hours.</li><li><b>Hyphos’ Enervating Snuff</b> Berserk! Two attacks per round but defend with DR14. Lasts one fight. Must be snorted, causes sneezing.</li><li><b>Black Poison</b> TOUGHNESS DR14 or -d6 HP and blinded for one hour.</li></ul>"]
+      ["List of Decoctions", "<ol><li><b>Red Poison</b> TOUGHNESS DR12 or -d10 HP.</li><li><b>Ezumiel's Vapor</b> Pass a DR14 test or severe hallucinations for d4 hours.</li><li><b>Southern Frog Stew</b> Vomit for d4 hours, pass a DR14 test or you can do nothing else.</li><li><b>Elixir Vitalis</b> Heals d6 HP and stops infection. Can be habit-forming.</li><li><b>Spider-Owl Soup</b> See in darkness, climb on walls for 30 minutes.</li><li><b>Fernor’s Philtre</b> Translucent oil, must be dabbed right into the eye. Heals infection and gives +2 on PRESENCE tests for d4 hours.</li><li><b>Hyphos’ Enervating Snuff</b> Berserk! Two attacks per round but defend with DR14. Lasts one fight. Must be snorted, causes sneezing.</li><li><b>Black Poison</b> TOUGHNESS DR14 or -d6 HP and blinded for one hour.</li></ol>"]
     ]
     var heretical_priest_memory = ["Galgenbeck, near the cathedral of the Two-Headed Basilisks.", "a massacred Alliáns cult, sole survivor.", "the crypts of Grift.", "temple ruins in the Valley of the Unfortunate Undead.", "one of the many Graven-Tosk thief-tunnels.", "a secret Bergen Chrypt church."]
     var heretical_priest_abilities = [
@@ -401,17 +409,29 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     });
 
     const query = new URLSearchParams(location.search);
-    document.getElementById('show_e').addEventListener('click', function() {
-      query.get('e') ? query.delete('e') : query.set('e', true);
-      document.location = '?' + query.toString();
+    var showE = document.getElementById('show_e');
+    var showS = document.getElementById('show_s');
+    showE.checked = !!query.get('e');
+    showS.checked = !!query.get('s');
+    if (showE.checked) document.body.classList.add('show-equipment');
+    if (showS.checked) document.body.classList.add('show-skills');
+    showE.addEventListener('change', function() {
+      document.body.classList.toggle('show-equipment', this.checked);
+      this.checked ? query.set('e', true) : query.delete('e');
+      history.replaceState(null, '', '?' + query.toString());
     })
-    document.getElementById('show_s').addEventListener('click', function() {
-      query.get('s') ? query.delete('s') : query.set('s', true);
-      document.location = '?' + query.toString();
+    showS.addEventListener('change', function() {
+      document.body.classList.toggle('show-skills', this.checked);
+      this.checked ? query.set('s', true) : query.delete('s');
+      history.replaceState(null, '', '?' + query.toString());
     })
-    document.getElementById('spawn').addEventListener('click', function() {
+    function doSpawn() {
       query.set('n', spawn_input.value);
       document.location = '?' + query.toString();
+    }
+    document.getElementById('spawn').addEventListener('click', doSpawn)
+    document.getElementById('spawn_input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') doSpawn();
     })
 
     klass = (d(classes.length) - 1).toString();
@@ -421,19 +441,19 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
     spawn_input.value = n;
 
     var c = document.createDocumentFragment();
-    for(var i = 0; i < n + 1; i++) {
+    for(var i = 0; i < n - 1; i++) {
       var new_node = character.cloneNode(true);
       c.append(new_node);
       klass = (d(classes.length) - 1).toString();
       generate();
     }
-    for(var i = 0; i < c.children.length; ++i) {
-      list1.append(c.children[i]);
-    }
+    list1.append(c);
 
     function generate() {
       document.getElementById("skills").innerHTML = "";
+      document.getElementById("skills_detail").innerHTML = "";
       document.getElementById("equipment").innerHTML = "";
+      document.getElementById("equipment_detail").innerHTML = "";
       document.getElementById("description").innerHTML = "";
       document.getElementById("class_name").innerHTML = classes[parseInt(klass)];
       if (klass == 9) {
@@ -538,17 +558,14 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         skills.push(random_item_from(songbird_features));
       }
 
-      if (params.s) {
-        for(var i = 0; i < skills.length; i++) {
-          document.getElementById("skills").innerHTML += "<b>" + skills[i][0] + "</b> ";
-          if (skills[i][2] != undefined) {
-            document.getElementById("skills").innerHTML += skills[i][2] + '<br>';
-          } else if (skills[i][1] != '') {
-            document.getElementById("skills").innerHTML += skills[i][1] + '<br>';
-          }
+      document.getElementById("skills").innerHTML = skills.map(el => el[0]).join(', ');
+      for(var i = 0; i < skills.length; i++) {
+        document.getElementById("skills_detail").innerHTML += "<b>" + skills[i][0] + "</b> ";
+        var desc = skills[i][2] !== undefined ? skills[i][2] : skills[i][1];
+        if (desc !== '') {
+          var suffix = /<\/(ol|ul)>\s*$/.test(desc) ? '' : '<br>';
+          document.getElementById("skills_detail").innerHTML += desc + suffix;
         }
-      } else {
-        document.getElementById("skills").innerHTML += skills.map(el => el[0]).join(', ');
       }
       
       var stats = []
@@ -760,48 +777,45 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
         for_tab = random_item_from(tablets);
       }
 
-      if (params.e) {
-        document.getElementById("equipment").innerHTML += food[0] + " <em class='smaller'>" + food[1] + "</em>";
-        document.getElementById("equipment").innerHTML += ", " + silver + " silver";
-        document.getElementById("equipment").innerHTML += '<br>' + starting_weapon[0] + "<em class='smaller'>&nbsp;" + starting_weapon[1] + "</em>";
-        if (starting_armor[0] != "") {
-          document.getElementById("equipment").innerHTML += ', ' + starting_armor[0] + "<em class='smaller'>&nbsp;" + starting_armor[1] + "</em>";
-        }
-        if (e1[0] != "") {
-          document.getElementById("equipment").innerHTML += "<br>"+ e1[0] + "<em class='smaller'>&nbsp;" + e1[1] + "</em>";
-        }
-        if (special_item) {
-          document.getElementById("equipment").innerHTML += ", " + special_item[0] + "<em class='smaller'>&nbsp;" + special_item[1] + "</em>";
-        }
-        document.getElementById("equipment").innerHTML += "<br>" + e2[0] + "<em class='smaller'>&nbsp;" + e2[1] + "</em>";
-        document.getElementById("equipment").innerHTML += "<br>" + e3[0] + "<em class='smaller'>&nbsp;" + e3[1] + "</em>";
-        if (eso_scroll) {
-          document.getElementById("equipment").innerHTML += "<br>" + eso_scroll[0] + "<em class='smaller'>&nbsp;" + eso_scroll[1] + "</em>";
-        }
-        if (for_tab) {
-          document.getElementById("equipment").innerHTML += "<br>" + for_tab[0] + "<em class='smaller'>&nbsp;" + for_tab[1] + "</em>";
-        }
-      } else {
-        document.getElementById("equipment").innerHTML += food[0] + ', ' + food[1];
-        document.getElementById("equipment").innerHTML += ', ' + starting_weapon[0];
-        if (starting_armor[0] != "") {
-          document.getElementById("equipment").innerHTML += ', ' + starting_armor[0]
-        }
-        if (e1[0] != "") {
-          document.getElementById("equipment").innerHTML += ", "+ e1[0]
-        }
-        if (special_item) {
-          document.getElementById("equipment").innerHTML += ", " + special_item[0]
-        }
-        document.getElementById("equipment").innerHTML += ", " + e2[0]
-        document.getElementById("equipment").innerHTML += ", " + e3[0]
-        if (eso_scroll) {
-          document.getElementById("equipment").innerHTML += ", " + eso_scroll[0]
-        }
-        if (for_tab) {
-          document.getElementById("equipment").innerHTML += ", " + for_tab[0]
-        }
-        document.getElementById("equipment").innerHTML += ", " + silver + " silver";
+      document.getElementById("equipment").innerHTML += food[0] + ', ' + food[1];
+      document.getElementById("equipment").innerHTML += ', ' + starting_weapon[0];
+      if (starting_armor[0] != "") {
+        document.getElementById("equipment").innerHTML += ', ' + starting_armor[0]
+      }
+      if (e1[0] != "") {
+        document.getElementById("equipment").innerHTML += ", "+ e1[0]
+      }
+      if (special_item) {
+        document.getElementById("equipment").innerHTML += ", " + special_item[0]
+      }
+      document.getElementById("equipment").innerHTML += ", " + e2[0]
+      document.getElementById("equipment").innerHTML += ", " + e3[0]
+      if (eso_scroll) {
+        document.getElementById("equipment").innerHTML += ", " + eso_scroll[0]
+      }
+      if (for_tab) {
+        document.getElementById("equipment").innerHTML += ", " + for_tab[0]
+      }
+      document.getElementById("equipment").innerHTML += ", " + silver + " silver";
+      document.getElementById("equipment_detail").innerHTML += food[0] + " <em class='smaller'>" + food[1] + "</em>";
+      document.getElementById("equipment_detail").innerHTML += ", " + silver + " silver";
+      document.getElementById("equipment_detail").innerHTML += '<br>' + starting_weapon[0] + "<em class='smaller'>&nbsp;" + starting_weapon[1] + "</em>";
+      if (starting_armor[0] != "") {
+        document.getElementById("equipment_detail").innerHTML += ', ' + starting_armor[0] + "<em class='smaller'>&nbsp;" + starting_armor[1] + "</em>";
+      }
+      if (e1[0] != "") {
+        document.getElementById("equipment_detail").innerHTML += "<br>"+ e1[0] + "<em class='smaller'>&nbsp;" + e1[1] + "</em>";
+      }
+      if (special_item) {
+        document.getElementById("equipment_detail").innerHTML += ", " + special_item[0] + "<em class='smaller'>&nbsp;" + special_item[1] + "</em>";
+      }
+      document.getElementById("equipment_detail").innerHTML += "<br>" + e2[0] + "<em class='smaller'>&nbsp;" + e2[1] + "</em>";
+      document.getElementById("equipment_detail").innerHTML += "<br>" + e3[0] + "<em class='smaller'>&nbsp;" + e3[1] + "</em>";
+      if (eso_scroll) {
+        document.getElementById("equipment_detail").innerHTML += "<br>" + eso_scroll[0] + "<em class='smaller'>&nbsp;" + eso_scroll[1] + "</em>";
+      }
+      if (for_tab) {
+        document.getElementById("equipment_detail").innerHTML += "<br>" + for_tab[0] + "<em class='smaller'>&nbsp;" + for_tab[1] + "</em>";
       }
     }
   </script>
