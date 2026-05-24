@@ -21,13 +21,34 @@
     label { display: inline-block; }
     #menu > button { margin: 3px; }
     .top { width: 500px }
-    @media only screen and (max-width: 500px) {
-      .top { width: auto; }
-      h1 { font-size: 18px; }
-      #logo { display: none; }
-    }
     em > ol { padding-left: 5px; }
     #picker_label:hover { color: white; background: #181818; }
+    @media only screen and (max-width: 720px) {
+      body { font-size: 14px; margin: 6px; }
+      h1 { font-size: 18px; }
+      #logo { display: none; }
+      .top { width: auto !important; max-width: 100%; display: block !important; }
+      #character .top > div,
+      #character > div[style*="inline-block"] { padding-right: 10px !important; }
+      #character div[style*="max-width: 500px"] { max-width: 100% !important; display: block !important; }
+      #klass #picker:not([style*="display: none"]) { display: flex !important; flex-wrap: wrap; gap: 6px; }
+      #klass #picker button { margin: 0; padding: 8px 10px; flex: 1 1 calc(50% - 6px); font-size: 14px; min-height: 40px; }
+      #menu > button { padding: 8px 10px; min-height: 40px; font-size: 14px; }
+      #ablities + pre {
+        white-space: pre-wrap;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      #character span.smaller[style*="float: right"] {
+        float: none !important;
+        display: block;
+        margin: 4px 0 !important;
+        padding: 2px 6px;
+      }
+      #skills { padding: 0 !important; }
+      .edit { word-wrap: break-word; overflow-wrap: anywhere; }
+      #picker_label { width: 100%; box-sizing: border-box; text-align: center; padding: 10px !important; font-size: 15px; }
+    }
   </style>
 </head>
 
